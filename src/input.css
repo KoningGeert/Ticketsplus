@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './components.css';
+
+:root{
+    --blauw: #0097A2;
+    --oranje:  #EC6F02;
+    --grijs: #E5E4E2;
+    --achtergrond: #FFFAE9;
+    --zwart: #0B1215;
+    --groen: #5AA423;
+}
+
+.headline{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card{
+    border-radius: 1px;
+    border-color: #E5E4E2;
+}
+
+.button{
+    background-color: var(--blauw);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.button:hover{
+    background-color: var(--oranje);
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../dist/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./scripts/main.js" defer></script>
+  </head>
+  <body class="bg-achtergrond">
+    <div id="card-template" class="hidden">
+      <div class="w-80 border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white">
+        <div class="w-md h-md">
+          <img class="aspect-square object-cover rounded-t-lg" src="" alt="Card Image">
+        </div>
+        <div class="flex flex-col gap-4 m-4">
+          <div class="flex flex-col">
+            <div class="flex justify-between">
+              <div class="flex gap-1 align-middle">
+                <i class="fas fa-star text-groen h-8"></i>
+                <div class="rating font-bold">
+                </div>
+                <div>|</div>
+                <div class="reviews">
+                </div>
+              </div>
+              <div class="icon">I</div>
+            </div>
+            <div class="headline"></div>
+            <div class="flex gap-1">
+              <div class="location font-light"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <button class="button">Bekijk</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex grid-cols-2 gap-6 m-10" id="cards-container"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

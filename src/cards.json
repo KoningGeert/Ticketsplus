@@ -1,0 +1,30 @@
+[
+    {
+      "image": "https://www.burgerszoo.nl/media/yblpnbky/selectie-zoe-en-silos-safaripark-081.jpg?anchor=center&mode=crop&width=608&height=456&rnd=132985440198130000",
+      "rating": "4.7",
+      "reviews": "14,157",
+      "headline": "Artis Royal Zoo",
+      "location": "Amsterdam, Nederland"
+    },
+    {
+      "image": "https://mijngelderland.blob.core.windows.net/media/9054/burgers-zoo-rechtenvrij.jpg",
+      "rating": "4.5",
+      "reviews": "8,234",
+      "headline": "Burgers' Zoo",
+      "location": "Arnhem, Nederland"
+    },
+    {
+      "image": "https://d33b12c77av9bg.cloudfront.net/cache/sm_43/beekse_bergen_safaripark_zomercampagne_gamedrive_giraffen-2.jpg",
+      "rating": "3.2",
+      "reviews": "18,524",
+      "headline": "Beekse Bergen",
+      "location": "Hilvarenbeek, Nederland"
+    },
+    {
+      "image": "https://d33b12c77av9bg.cloudfront.net/cache/sm_43/beekse_bergen_safaripark_zomercampagne_gamedrive_giraffen-2.jpg",
+      "rating": "3.2",
+      "reviews": "18,524",
+      "headline": "Efteling",
+      "location": "Kaatsheuvel, Nederland"
+    }
+  ]
