@@ -5,31 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./scripts/main.js" defer></script>
   </head>
   <body class="bg-achtergrond">
-    <div id="card-template" class="hidden">
-      <div class="w-80 border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white">
-        <div class="w-md h-md">
+
+    <!-- Card template -->
+    <div id="card-template" class="hidden relative">
+      <div class="w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
+        <div class="w-md h-md relative">
           <img class="aspect-square object-cover rounded-t-lg" src="" alt="Card Image">
-        </div>
+          
+       <!-- Beschrijving -->
+       <div class="info-overlay absolute bg-groen opacity-80 text-white py-2 px-4 rounded-t-lg bottom-0 hidden">
+        <p class="description text-sm leading-relaxed"></p>
+      </div>
+    </div>
+
+       <!-- Kortingsweergave -->
+    <div class="absolute text-white top-0 right-0 mr-4 mt-4">
+      <p class="discount text-lg font-bold leading-relaxed text-white bg-oranje px-4 py-2 rounded-full"></p>
+    </div>  
+    
         <div class="flex flex-col gap-4 m-4">
           <div class="flex flex-col">
-            <div class="flex justify-between">
-              <div class="flex gap-1 align-middle">
-                <i class="fas fa-star text-groen h-8"></i>
-                <div class="rating font-bold">
-                </div>
+            <div class="flex justify-between items-center">
+              <div class="flex gap-1 items-center">
+                <i class="fas fa-star text-groen"></i>
+                <div class="rating font-bold"></div>
                 <div>|</div>
-                <div class="reviews">
-                </div>
+                <div class="reviews"></div>
               </div>
-              <div class="icon">I</div>
+              <!-- Info icon triggers overlay -->
+              <i class="fa fa-info-circle text-blauw cursor-pointer show-overlay" aria-hidden="true"></i>
             </div>
-            <div class="headline"></div>
+            <div class="headline font-semibold text-lg"></div>
             <div class="flex gap-1">
-              <div class="location font-light"></div>
+              <div class="location font-light text-sm"></div>
             </div>
           </div>
           <div class="pb-4">
@@ -38,9 +50,59 @@
         </div>
       </div>
     </div>
-    <div class="flex grid-cols-2 gap-6 m-10" id="cards-container"></div>
+    
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Mobile filter button -->
+    <div class="md:hidden p-4">
+      <button id="open-filters" class="bg-blue-500 text-white px-4 py-2 rounded">Filters</button>
+    </div>
+
+    <!-- Mobile filters overlay -->
+    <div id="mobile-filters" class="fixed inset-0 bg-white z-50 p-6 hidden overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Filters</h2>
+        <button id="close-filters" class="text-2xl">&times;</button>
+      </div>
+
+      <!-- Zelfde inhoud als de filters -->
+      <input id="search-input-mobile" type="text" placeholder="Zoek een uitje..." class="w-full p-2 border rounded shadow-sm mb-4" />
+      <div id="category-filter-mobile" class="flex flex-col gap-2 mb-4">
+        <label><input type="checkbox" name="category-mobile" value="Pretpark" class="mr-2">Pretpark</label>
+        <label><input type="checkbox" name="category-mobile" value="Dierentuin" class="mr-2">Dierentuin</label>
+        <label><input type="checkbox" name="category-mobile" value="Museum" class="mr-2">Museum</label>
+        <label><input type="checkbox" name="category-mobile" value="Indoor" class="mr-2">Indoor</label>
+        <label><input type="checkbox" name="category-mobile" value="Outdoor" class="mr-2">Outdoor</label>
+      </div>       
+      <label for="distance-slider-mobile" class="block mb-2">Maximale afstand (km): <span id="distance-value-mobile">20</span></label>
+      <input type="range" id="distance-slider-mobile" min="5" max="100" value="20" class="w-full mb-6" />
+    </div>
+
+    <!-- Container layout -->
+    <div class="container mx-auto flex flex-col md:flex-row relative">
+
+      <!-- Desktop filters -->
+      <div class="sticky top-8 hidden md:flex w-full md:w-1/3 border border-grijs rounded-md py-6 px-12 mt-8 h-fit flex-col gap-6">
+        <input id="search-input" type="text" placeholder="Zoek een uitje..." class="w-full p-2 border rounded shadow-sm" />
+        <div id="category-filter" class="flex flex-col gap-2">
+          <label><input type="checkbox" name="category" value="Pretpark"> Pretpark</label>
+          <label><input type="checkbox" name="category" value="Dierentuin"> Dierentuin</label>
+          <label><input type="checkbox" name="category" value="Museum"> Museum</label>
+          <label><input type="checkbox" name="category" value="Indoor"> Indoor</label>
+          <label><input type="checkbox" name="category" value="Outdoor"> Outdoor</label>
+        </div>               
+        <label for="distance-slider" class="block mb-2">Maximale afstand (km): <span id="distance-value">20</span></label>
+        <input type="range" id="distance-slider" min="5" max="100" value="20" class="w-full" />
+      </div>
+
+      <!-- Resultaten + actieve filters -->
+      <div class="w-full md:w-2/3 p-4">
+        <!-- Actieve filters -->
+        <div id="active-filters" class="flex flex-wrap gap-2 mb-4"></div>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="cards-container"></div>      
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>

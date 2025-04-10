@@ -1,30 +1,38 @@
 [
-    {
-      "image": "https://www.burgerszoo.nl/media/yblpnbky/selectie-zoe-en-silos-safaripark-081.jpg?anchor=center&mode=crop&width=608&height=456&rnd=132985440198130000",
-      "rating": "4.7",
-      "reviews": "14,157",
-      "headline": "Artis Royal Zoo",
-      "location": "Amsterdam, Nederland"
-    },
-    {
-      "image": "https://mijngelderland.blob.core.windows.net/media/9054/burgers-zoo-rechtenvrij.jpg",
-      "rating": "4.5",
-      "reviews": "8,234",
-      "headline": "Burgers' Zoo",
-      "location": "Arnhem, Nederland"
-    },
-    {
-      "image": "https://d33b12c77av9bg.cloudfront.net/cache/sm_43/beekse_bergen_safaripark_zomercampagne_gamedrive_giraffen-2.jpg",
-      "rating": "3.2",
-      "reviews": "18,524",
-      "headline": "Beekse Bergen",
-      "location": "Hilvarenbeek, Nederland"
-    },
-    {
-      "image": "https://d33b12c77av9bg.cloudfront.net/cache/sm_43/beekse_bergen_safaripark_zomercampagne_gamedrive_giraffen-2.jpg",
-      "rating": "3.2",
-      "reviews": "18,524",
-      "headline": "Efteling",
-      "location": "Kaatsheuvel, Nederland"
-    }
-  ]
+  {
+    "image": "https://d33b12c77av9bg.cloudfront.net/originals/safaripark-giraffen-gamedrive-savanne-beekse-bergen.jpg",
+    "rating": "4.7",
+    "reviews": "14,157",
+    "headline": "Artis Royal Zoo",
+    "location": "Amsterdam, Nederland",
+    "category": "Dierentuin",
+    "lat": 52.3667,
+    "lng": 4.8945,
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+    "discount": "2 Euro"
+  },
+  {
+    "image": "https://d33b12c77av9bg.cloudfront.net/originals/safari_resort_beekse_bergen_savanne_leeuw_blauwe_lucht.jpg",
+    "rating": "4.7",
+    "reviews": "14,157",
+    "headline": "Beekse Bergen",
+    "location": "Hilvarenbeek, Nederland",
+    "category": "Dierentuin",
+    "lat": 52.3667,
+    "lng": 4.8945,
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+    "discount": "4 Euro"
+  },
+  {
+    "image": "https://assets.plaece.nl/thumb/SGElpgcfYfdRML7lVp8fFCOZ0Otvr1yNobLd1bcICr8/resizing_type:fit/width:1280/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12aXNpdGJyYWJhbnQvaW1hZ2UvYmFyb24tMTg5OC1hZmRhbGluZy0xXzMzODU1MjE2MjAuanBn.jpg",
+    "rating": "4.7",
+    "reviews": "14,157",
+    "headline": "Efteling",
+    "location": "Kaatsheuvel, Nederland",
+    "category": "Pretpark",
+    "lat": 52.3667,
+    "lng": 4.8945,
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+    "discount": "3 Euro"
+}
+]
