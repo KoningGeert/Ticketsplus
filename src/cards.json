@@ -37,5 +37,70 @@
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
     "discount": "3 Euro",
     "priority": true
-}
+},
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
+    "rating": "4.8",
+    "reviews": "10,234",
+    "headline": "Rijksmuseum",
+    "location": "Amsterdam, Nederland",
+    "category": "Museum",
+    "lat": 52.3599,
+    "lng": 4.8852,
+    "description": "Het Rijksmuseum is een Nederlands nationaal museum gewijd aan kunst en geschiedenis in Amsterdam.",
+    "discount": "5 Euro",
+    "priority": true
+  },
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
+    "rating": "4.6",
+    "reviews": "8,765",
+    "headline": "Indoor Skydive Roosendaal",
+    "location": "Roosendaal, Nederland",
+    "category": "Indoor",
+    "lat": 51.5300,
+    "lng": 4.4653,
+    "description": "Ervaar de sensatie van skydiven zonder uit een vliegtuig te springen.",
+    "discount": "10 Euro",
+    "priority": false
+  },
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
+    "rating": "4.9",
+    "reviews": "12,345",
+    "headline": "Nationaal Park De Hoge Veluwe",
+    "location": "Otterlo, Nederland",
+    "category": "Outdoor",
+    "lat": 52.1000,
+    "lng": 5.8333,
+    "description": "Een prachtig nationaal park met diverse landschappen en wilde dieren.",
+    "discount": "3 Euro",
+    "priority": true
+  },
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
+    "rating": "4.7",
+    "reviews": "9,876",
+    "headline": "Thermen Bussloo",
+    "location": "Voorst, Nederland",
+    "category": "Wellness",
+    "lat": 52.2000,
+    "lng": 6.1000,
+    "description": "Een luxe wellnessresort met diverse sauna's en baden.",
+    "discount": "15 Euro",
+    "priority": false
+  },
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
+    "rating": "4.8",
+    "reviews": "11,234",
+    "headline": "Heineken Experience",
+    "location": "Amsterdam, Nederland",
+    "category": "Experience",
+    "lat": 52.3570,
+    "lng": 4.8910,
+    "description": "Een interactieve rondleiding door de oude Heineken-brouwerij.",
+    "discount": "5 Euro",
+    "priority": true
+  }
 ]

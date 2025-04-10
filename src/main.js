@@ -53,6 +53,12 @@ $(document).ready(function () {
   });
 });
 
+  // Overlay tonen/verbergen
+  $(document).on('click', '.show-overlay', function () {
+    const $overlay = $(this).closest('.card').find('.info-overlay');
+    $('.info-overlay').not($overlay).addClass('hidden'); // Sluit alle andere overlays
+    $overlay.toggleClass('hidden');
+  });
 
   // Overlay tonen/verbergen
   $(document).on('click', '.show-overlay', function () {
@@ -61,62 +67,88 @@ $(document).ready(function () {
     $overlay.toggleClass('hidden');
   });
 
-  // Zoekfilter
-  $('#search-input').on('input', applyFilters);
+  // Globale referentie naar alle aangemaakte kaarten
+let allCardsData = [];
 
-  // Categorie checkbox filter (meerdere tegelijk)
-  $('input[name="category"]').on('change', applyFilters);
+function applyFilters() {
+  const searchTerm = $('#search-input').val().toLowerCase();
+  const selectedCategories = $('input[name="category"]:checked')
+    .map(function () {
+      return $(this).val().toLowerCase();
+    })
+    .get();
 
-  // Afstand filter
-  $('#distance-slider').on('input', function () {
-    $('#distance-value').text($(this).val());
-    applyFilters();
-  });
+  // Toon pillen van actieve filters
+  const $activeFilters = $('#active-filters');
+  $activeFilters.empty();
 
-  // Filters toepassen
-  function applyFilters() {
-    const searchTerm = $('#search-input').val().toLowerCase();
-    const selectedCategories = $('input[name="category"]:checked').map(function () {
-      return this.value.toLowerCase();
-    }).get();
-    const maxDistance = parseInt($('#distance-slider').val());
-
-    $('.card').each(function () {
-      const $card = $(this);
-      const headline = $card.find('.headline').text().toLowerCase();
-      const category = $card.data('category');
-      const lat = parseFloat($card.data('lat'));
-      const lng = parseFloat($card.data('lng'));
-
-      const matchesSearch = headline.includes(searchTerm);
-      const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
-      const matchesDistance = !userLat || getDistance(userLat, userLng, lat, lng) <= maxDistance;
-
-      $card.toggle(matchesSearch && matchesCategory && matchesDistance);
-    });
+  if (searchTerm) {
+    $activeFilters.append(`
+      <span class="filter-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+        Zoek: "${searchTerm}"
+        <button class="remove-filter" data-type="search">✕</button>
+      </span>
+    `);
   }
 
-  // Afstand berekenen (Haversine)
-  function getDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLon / 2) ** 2;
-    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  selectedCategories.forEach(function (cat) {
+    $activeFilters.append(`
+      <span class="filter-pill bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+        ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+        <button class="remove-filter" data-type="category" data-value="${cat}">✕</button>
+      </span>
+    `);
+  });
+
+  // Filter de kaarten
+  $('.card').each(function () {
+    const $card = $(this);
+    const title = $card.find('.headline').text().toLowerCase();
+    const location = $card.find('.location').text().toLowerCase();
+    const description = $card.find('.description').text().toLowerCase();
+    const category = $card.attr('data-category');
+
+    const matchesSearch =
+      title.includes(searchTerm) ||
+      location.includes(searchTerm) ||
+      description.includes(searchTerm);
+
+    const matchesCategory =
+      selectedCategories.length === 0 || selectedCategories.includes(category);
+
+    if (matchesSearch && matchesCategory) {
+      $card.show();
+    } else {
+      $card.hide();
+    }
+  });
+
+  if (matchesSearch == 0){
+    no-results-message
+  }
+}
+
+// Verwijder filter via pill
+$(document).on('click', '.remove-filter', function () {
+  const type = $(this).data('type');
+  const value = $(this).data('value');
+
+  if (type === 'search') {
+    $('#search-input').val('');
   }
 
-  // Mobile filter toggle
-  $('#open-filters').on('click', function () {
-    $('#mobile-filters').removeClass('hidden');
-  });
-  $('#close-filters').on('click', function () {
-    $('#mobile-filters').addClass('hidden');
-  });
+  if (type === 'category') {
+    $(`input[name="category"][value="${value.charAt(0).toUpperCase() + value.slice(1)}"]`).prop('checked', false);
+  }
 
-  // Mobile distance update
-  $('#distance-slider-mobile').on('input', function () {
-    $('#distance-value-mobile').text($(this).val());
-  });
+  applyFilters();
+});
+
+$('#searchBtn').on('click', function () {
+  applyFilters();
+});
+
+
+// // Event listeners op filters
+// $('#search-input').on('input', applyFilters);
+// $('input[name="category"]').on('change', applyFilters);
