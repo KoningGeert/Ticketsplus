@@ -12,7 +12,7 @@
 
     <!-- Card template -->
     <div id="card-template" class="hidden relative">
-      <div class="w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
+      <div class="w-80 md:w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
         <div class="w-md h-md relative">
           <img class="aspect-square object-cover rounded-t-lg" src="" alt="Card Image">
           
@@ -73,9 +73,15 @@
         <label><input type="checkbox" name="category-mobile" value="Indoor" class="mr-2">Indoor</label>
         <label><input type="checkbox" name="category-mobile" value="Outdoor" class="mr-2">Outdoor</label>
       </div>       
-      <label for="distance-slider-mobile" class="block mb-2">Maximale afstand (km): <span id="distance-value-mobile">20</span></label>
-      <input type="range" id="distance-slider-mobile" min="5" max="100" value="20" class="w-full mb-6" />
-    </div>
+      <div>
+        <label for="distance-slider">Maximale afstand (km): <span id="distance-value">20</span></label>
+        <input type="range" id="distance-slider" min="5" max="100" value="20" class="w-full" />
+      </div>
+      <div>
+        <label for="location">kies uw locatie</label>
+        <input id="location" type="text" placeholder="Zoetermeer" class="w-full p-2 border rounded shadow-sm" />               
+      </div>
+     </div>
 
     <!-- Container layout -->
     <div class="container mx-auto flex flex-col md:flex-row relative">
@@ -89,9 +95,15 @@
           <label><input type="checkbox" name="category" value="Museum"> Museum</label>
           <label><input type="checkbox" name="category" value="Indoor"> Indoor</label>
           <label><input type="checkbox" name="category" value="Outdoor"> Outdoor</label>
-        </div>               
-        <label for="distance-slider" class="block mb-2">Maximale afstand (km): <span id="distance-value">20</span></label>
-        <input type="range" id="distance-slider" min="5" max="100" value="20" class="w-full" />
+        </div>
+        <div>
+          <label for="distance-slider">Maximale afstand (km): <span id="distance-value">20</span></label>
+          <input type="range" id="distance-slider" min="5" max="100" value="20" class="w-full" />
+        </div>
+        <div>
+          <label for="location">kies uw locatie</label>
+          <input id="location" type="text" placeholder="Zoetermeer" class="w-full p-2 border rounded shadow-sm" />               
+        </div>
       </div>
 
       <!-- Resultaten + actieve filters -->
@@ -100,9 +112,30 @@
         <div id="active-filters" class="flex flex-wrap gap-2 mb-4"></div>
 
         <!-- Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="cards-container"></div>      
+        <div class=" grid-cols-1 sm:grid-cols-2 gap-6 hidden sm:grid" id="cards-container"></div>
+        
       </div>
     </div>
-    <script src="main.js"></script>
+    
+    <!-- Desktop Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id=""></div>
+    
+    <!-- Mobile Containers -->
+    <div class="container mx-auto sm:hidden p-4">
+      <div class="headline">Uitgelicht</div>
+      <div class="flex overflow-x-auto space-x-6 scrollbar-hide" id="featured-container"></div>
+    </div>
+    
+    
+    <div class="container mx-auto sm:hidden p-4">
+      <div class="headline">Best beoordeeld</div>
+      <div class="flex overflow-x-auto space-x-6 scrollbar-hide" id="bestRated-container"></div>
+    </div>
+    
+
+<script src="main.js"></script>
+
+
+
   </body>
 </html>

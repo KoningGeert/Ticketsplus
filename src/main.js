@@ -10,8 +10,9 @@ $(document).ready(function () {
 
   // Kaarten vullen
   $.getJSON('cards.json', function (data) {
-    data.forEach(function (item) {
-      let $card = $('#card-template').clone().removeAttr('id').removeClass('hidden');
+    // Maak eerst alle kaarten aan en voeg toe aan cards-container
+    const allCards = data.map(function (item) {
+      const $card = $('#card-template').clone().removeAttr('id').removeClass('hidden');
 
       $card.find('img').attr('src', item.image);
       $card.find('.rating').text(item.rating);
@@ -23,13 +24,35 @@ $(document).ready(function () {
       $card.attr('data-lat', item.lat);
       $card.attr('data-lng', item.lng);
       $card.find('.discount').text(item.discount);
+      $card.attr('data-priority', item.priority);
       $card.addClass('card');
 
+      // Voeg toe aan cards-container
       $('#cards-container').append($card);
+
+      // Als priority true is, voeg ook toe aan featured-container
+      if (item.priority === true) {
+        $('#featured-container').append($card.clone());
+      }
+
+      return {
+        element: $card,
+        rating: item.rating,
+        priority: item.priority
+      };
     });
+
+    // Voeg kaarten toe aan bestRated-container gesorteerd op rating
+    allCards
+      .sort((a, b) => b.rating - a.rating) // Sorteer hoog naar laag
+      .forEach(card => {
+        $('#bestRated-container').append(card.element.clone());
+      });
 
     applyFilters(); // Initieel alle kaarten tonen
   });
+});
+
 
   // Overlay tonen/verbergen
   $(document).on('click', '.show-overlay', function () {
@@ -97,4 +120,3 @@ $(document).ready(function () {
   $('#distance-slider-mobile').on('input', function () {
     $('#distance-value-mobile').text($(this).val());
   });
-});
