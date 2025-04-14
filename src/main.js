@@ -3,7 +3,6 @@ $(document).ready(function () {
   let userLat = null;
   let userLng = null;
 
-  // Initialiseer de applicatie
   init();
 
   function init() {
@@ -16,7 +15,7 @@ $(document).ready(function () {
     $.getJSON('cards.json', function (data) {
       activities = data.map(item => item.headline);
       createCards(data);
-      applyFilters(); // Initieel alle kaarten tonen
+      applyFilters();
     });
   }
 
@@ -103,8 +102,9 @@ $(document).ready(function () {
       $card.attr('data-category', item.category.toLowerCase());
       $card.attr('data-lat', item.lat);
       $card.attr('data-lng', item.lng);
-      $card.find('.discount').text(item.discount);
+      $card.attr('data-keywords', item.keywords ? item.keywords.join(',') : '');
       $card.attr('data-priority', item.priority);
+      $card.find('.discount').text(item.discount);
       $card.addClass('card');
 
       $('#cards-container').append($card);
@@ -166,9 +166,16 @@ $(document).ready(function () {
       const title = $card.find('.headline').text().toLowerCase();
       const location = $card.find('.location').text().toLowerCase();
       const description = $card.find('.description').text().toLowerCase();
-      const category = $card.attr('data-category');
+      const keywords = ($card.data('keywords') || '').toLowerCase().split(',').map(k => k.trim());
+      const category = $card.attr('data-category').toLowerCase();
 
-      const matchesSearch = title.includes(searchTerm) || location.includes(searchTerm) || description.includes(searchTerm);
+      const matchesSearch =
+        !searchTerm ||
+        title.includes(searchTerm) ||
+        location.includes(searchTerm) ||
+        description.includes(searchTerm) ||
+        keywords.some(keyword => keyword.includes(searchTerm));
+
       const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
 
       if (matchesSearch && matchesCategory) {
@@ -179,10 +186,6 @@ $(document).ready(function () {
       }
     });
 
-    if (hasVisibleCards) {
-      $('#no-results-message').addClass('hidden');
-    } else {
-      $('#no-results-message').removeClass('hidden');
-    }
+    $('#no-results-message').toggleClass('hidden', hasVisibleCards);
   }
 });

@@ -10,7 +10,9 @@
     "lng": 4.8945,
     "description": "Voorbeeldtekst",
     "discount": "2 Euro",
-    "priority": true
+    "priority": true,
+    "keywords": ["dieren", "zoo", "binnenstad", "giraffen"]
+
   },
   {
     "image": "https://d33b12c77av9bg.cloudfront.net/originals/safari_resort_beekse_bergen_savanne_leeuw_blauwe_lucht.jpg",
@@ -23,7 +25,8 @@
     "lng": 4.8945,
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
     "discount": "4 Euro",
-    "priority": false
+    "priority": false,
+    "keywords": ["dieren", "olifanten", "safari", "leeuwen"]
   },
   {
     "image": "https://assets.plaece.nl/thumb/SGElpgcfYfdRML7lVp8fFCOZ0Otvr1yNobLd1bcICr8/resizing_type:fit/width:1280/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12aXNpdGJyYWJhbnQvaW1hZ2UvYmFyb24tMTg5OC1hZmRhbGluZy0xXzMzODU1MjE2MjAuanBn.jpg",
@@ -36,7 +39,8 @@
     "lng": 4.8945,
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
     "discount": "3 Euro",
-    "priority": true
+    "priority": true,
+    "keywords": ["attracties", "pretpark", "kinderattracties", "achtbaan"]
 },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -49,7 +53,8 @@
     "lng": 4.8852,
     "description": "Het Rijksmuseum is een Nederlands nationaal museum gewijd aan kunst en geschiedenis in Amsterdam.",
     "discount": "5 Euro",
-    "priority": true
+    "priority": true,
+    "keywords": ["kunst", "geschiedenis", "museum", "cultuur"]
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -62,7 +67,8 @@
     "lng": 4.4653,
     "description": "Ervaar de sensatie van skydiven zonder uit een vliegtuig te springen.",
     "discount": "10 Euro",
-    "priority": false
+    "priority": false,
+    "keywords": ["indoor", "skydiven", "sensatie", "avontuur"]
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -75,7 +81,8 @@
     "lng": 5.8333,
     "description": "Een prachtig nationaal park met diverse landschappen en wilde dieren.",
     "discount": "3 Euro",
-    "priority": true
+    "priority": true,
+    "keywords": ["natuur", "wandelen", "fietsen", "wildlife"]
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -88,7 +95,8 @@
     "lng": 6.1000,
     "description": "Een luxe wellnessresort met diverse sauna's en baden.",
     "discount": "15 Euro",
-    "priority": false
+    "priority": false,
+    "keywords": ["wellness", "sauna", "ontspanning", "relaxen"]
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -101,6 +109,7 @@
     "lng": 4.8910,
     "description": "Een interactieve rondleiding door de oude Heineken-brouwerij.",
     "discount": "5 Euro",
-    "priority": true
+    "priority": true,
+    "keywords": ["bier", "ervaring", "rondleiding", "cultuur"]
   }
 ]
