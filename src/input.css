@@ -18,6 +18,11 @@
     font-weight: bold;
 }
 
+.subheadline{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .card{
     border-radius: 1px;
     border-color: #E5E4E2;
@@ -48,3 +53,5 @@
     scrollbar-width: none;  /* Firefox */
   }
   
+
+

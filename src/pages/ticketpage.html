@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/dist/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/main.js" defer></script>
+    <script></script>
+    <title>Ticketpage</title>
+
+</head>
+<body class="bg-background">
+    <div class="container mx-auto">
+        <div class="flex gap-6">
+            <div class="w-2/3 bg-blue-500">
+                <div>
+                    <div class="carousel relative overflow-hidden h-64">
+                        <div class="carousel-inner flex transition-transform duration-500 ease-in-out">
+                            <!-- Dynamische afbeeldingen -->
+                            <div class="carousel-item flex-none w-full">
+                                <img src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg" alt="Image 1" class="w-full h-full object-contain">
+                            </div>
+                            <div class="carousel-item flex-none w-full">
+                                <img src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg" alt="Image 2" class="w-full h-full object-contain">
+                            </div>
+                            <!-- Voeg meer afbeeldingen toe zoals nodig -->
+                        </div>
+                        <!-- Navigatieknoppen -->
+                        <button class="prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2">‹</button>
+                        <button class="next absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2">›</button>
+                        <!-- Indicatoren -->
+                        <div class="indicators absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                            <!-- Dynamische indicatoren -->
+                            <div class="indicator w-2 h-2 bg-gray-400 rounded-full"></div>
+                            <div class="indicator w-2 h-2 bg-gray-400 rounded-full"></div>
+                            <!-- Voeg meer indicatoren toe zoals nodig -->
+                        </div>
+                        <!-- Huidige afbeelding indicator -->
+                        <div class="absolute bottom-0 right-0 p-2 bg-gray-800 text-white">
+                            <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+                        </div>
+                    </div>
+                        
+                    
+                </div>
+            </div>
+
+            <div class="w-1/3 bg-white p-8 border-grijs shadow-lg sticky rounded-lg gap-8 flex flex-col">
+                <div class="flex justify-between">
+                    <div class="headline">Wildlands</div>
+                    <div class="flex gap-1 items-center">
+                        <i class="fas fa-star text-groen"></i>
+                        <div class="rating font-bold">4,7</div>
+                        <div>|</div>
+                        <div class="reviews">12,547</div>
+                      </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="subheadline">Bestelvoorwaarden</div>
+                    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                            <div class="subheadline">Volwassene</div>
+                            <div class="flex gap-1">
+                                <div class="oldPrice text-gray-500 line-through">€13,50</div>
+                                <div class="price">€12,50</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw minus">-</button>
+                        </div>                      
+                    </div>
+                    <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                            <div class="subheadline">Kinderen</div>
+                            <div class="flex gap-1">
+                                <div class="oldPrice text-gray-500 line-through">€12,50</div>
+                                <div class="price">€10,00</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw minus">-</button>
+                        </div>                      
+                    </div>
+                    <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                            <div class="subheadline">Parkeerkaart</div>
+                            <div class="flex gap-1">
+                                <div class="oldPrice text-gray-500 line-through">€7,95</div>
+                                <div class="price">€7,50</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw minus">-</button>
+                        </div>                      
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between headline">
+                        <div>Totaalprijs</div>
+                        <div id="totalPrice">€0,00</div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>Uw voordeel</div>
+                        <div id="voordeel" class="text-oranje">€5,00</div>
+                    </div>
+                </div>
+                
+                <button class="button !bg-oranje !hover:bg-blauw">Nu bestellen</button>
+            </div>
+        </div>
+    </div>
+    <script src="/src/Scripts/ticketPricing.js"></script>
+    <script src="/src/Scripts/carousel.js"></script>
+</body>
+</html>
