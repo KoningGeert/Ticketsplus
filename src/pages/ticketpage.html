@@ -12,40 +12,122 @@
 
 </head>
 <body class="bg-background">
-    <div class="container mx-auto">
+    <div class="container mx-auto my-8">
         <div class="flex gap-6">
-            <div class="w-2/3 bg-blue-500">
+            <div class="sm:w-2/3 w-fit bg-white border-grijs shadow-lg rounded-lg">
                 <div>
-                    <div class="carousel relative overflow-hidden h-64">
-                        <div class="carousel-inner flex transition-transform duration-500 ease-in-out">
-                            <!-- Dynamische afbeeldingen -->
-                            <div class="carousel-item flex-none w-full">
-                                <img src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg" alt="Image 1" class="w-full h-full object-contain">
-                            </div>
-                            <div class="carousel-item flex-none w-full">
-                                <img src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg" alt="Image 2" class="w-full h-full object-contain">
-                            </div>
-                            <!-- Voeg meer afbeeldingen toe zoals nodig -->
+                    <div class="carousel relative overflow-hidden h-full rounded-t-xl">
+                        <div class="carousel-inner flex transition-transform duration-700 ease-in-out">
+                          <!-- Afbeeldingen -->
+                          <div class="carousel-item flex-none w-full">
+                            <img src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg" alt="Image 1" class="w-full h-full object-cover rounded-t-xl">
+                          </div>
+                          <div class="carousel-item flex-none w-full">
+                            <img src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg" alt="Image 2" class="w-full h-full object-cover rounded-t-xl">
+                          </div>
                         </div>
+                      
                         <!-- Navigatieknoppen -->
-                        <button class="prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2">‹</button>
-                        <button class="next absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2">›</button>
-                        <!-- Indicatoren -->
-                        <div class="indicators absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                            <!-- Dynamische indicatoren -->
-                            <div class="indicator w-2 h-2 bg-gray-400 rounded-full"></div>
-                            <div class="indicator w-2 h-2 bg-gray-400 rounded-full"></div>
-                            <!-- Voeg meer indicatoren toe zoals nodig -->
+                        <button class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition">
+                          ‹
+                        </button>
+                        <button class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition">
+                          ›
+                        </button>
+                      
+                        <!-- Indicatoren onderin -->
+                        <div class="indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                          <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
+                          <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
                         </div>
-                        <!-- Huidige afbeelding indicator -->
-                        <div class="absolute bottom-0 right-0 p-2 bg-gray-800 text-white">
-                            <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+                      
+                        <!-- Slide-teller rechts onder -->
+                        <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">
+                          <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+                        </div>
+                      </div>
+                      
+                    <div class="flex flex-col gap-8 p-8">
+                        <div class="flex flex-col gap-4">
+                            <div class="headline">Informatie</div>
+                            <p>Ga op ontdekkingstocht in de wereld van de dieren. Neem de tijd en spot kleurrijke vogels en bijzondere reptielen. Kijk omhoog en zie vari’s en maki’s in de boomtoppen en laat je leiden door de geluiden van het grootste overdekte regenwoud van de wereld. Of klauter via touwbruggen omhoog en sta oog in oog met de withandgibbons.</p>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <div class="headline">Locatie & Openingstijden</div>
+                            <div>
+                                <img class="w-full h-full object-contain" src="https://v.wpimg.pl/ZTZkNzI0dTU7CThJZkt4IHhRbBMgEnZ2L0l0WGYBaGxqE2EcIFw_Jj8bIVQuQi8kOxw-VDlcdTUqAmEMeB8-PSkbIhswHz85OA4qVSxSaGJjXyhPZAk4Mm9GekJ-U3c1Y1p2V34JOTFsD3lIfQY7Y3gW" alt="">
+                            </div>
+                            <div>
+                                <div>Stationsstraat</div>
+                                <div>5341 AB, Emmen</div>
+                                <div>0611122233</div>
+                                <div>Website</div>
+                                <div>Openingstijden</div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <div class="headline">Reviews</div>
+                            <div class="flex flex-col gap-1">
+                                <div>24 reviews</div>
+                                <div class="flex justify-between">
+                                    <div>Gemiddelde score op Tripadvisor</div>
+                                    <div class="flex gap-2 items-center">
+                                        <div class="rating font-bold">4,7</div>
+                                        <div class="flex gap-1 items-center">
+                                            <i class="fas fa-star text-groen"></i>
+                                            <i class="fas fa-star text-groen"></i>
+                                            <i class="fas fa-star text-groen"></i>
+                                            <i class="fas fa-star text-groen"></i>
+                                            <i class="fas fa-star text-grijs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="overflow-x-auto">
+                                <div class="flex gap-4 snap-x snap-mandatory overflow-x-auto px-4 py-2 scrollbar-hide">
+                                  
+                                  <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
+                                    <div class="text-orange-400 mb-1">★★★★★</div>
+                                    <h3 class="font-bold text-lg mb-2">Geweldige dag</h3>
+                                    <p class="text-sm text-gray-700 line-clamp-6">
+                                      Het was super leuk met mijn vrienden. De surfers waren heel aardig en hielpen je met alles zoals foto’s. Het was ook heel creatief.
+                                    </p>
+                                    <p class="text-blue-500 text-sm mt-4 italic">16 Januari 2025</p>
+                                  </div>
+                              
+                                  <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
+                                    <div class="text-orange-400 mb-1">★★★★★</div>
+                                    <h3 class="font-bold text-lg mb-2">Hele fijne sfeer</h3>
+                                    <p class="text-sm text-gray-700 line-clamp-6">
+                                      Alles was goed geregeld, en het voelde echt als een ontspannen dagje weg. Heel chill en gezellig met z’n allen.
+                                    </p>
+                                    <p class="text-blue-500 text-sm mt-4 italic">20 Januari 2025</p>
+                                  </div>
+                              
+                                  <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
+                                    <div class="text-orange-400 mb-1">★★★★★</div>
+                                    <h3 class="font-bold text-lg mb-2">Super tof</h3>
+                                    <p class="text-sm text-gray-700 line-clamp-6">
+                                      Echt een topervaring! We konden lekker creatief zijn en de begeleiding was top. Ik kom zeker nog een keer terug.
+                                    </p>
+                                    <p class="text-blue-500 text-sm mt-4 italic">25 Januari 2025</p>
+                                  </div>
+                              
+                                  <!-- Voeg gerust meer reviews toe met dezelfde structuur -->
+                              
+                                </div>
+                              </div>
+      
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="w-1/3 bg-white p-8 border-grijs shadow-lg sticky rounded-lg gap-8 flex flex-col">
+            <div class="w-1/3 h-fit bg-white p-8 border-grijs shadow-lg sticky top-8 rounded-lg gap-8 hidden sm:flex flex-col">
                 <div class="flex justify-between">
                     <div class="headline">Wildlands</div>
                     <div class="flex gap-1 items-center">
@@ -71,9 +153,9 @@
                             </div>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <button class="aspect-square p-2 bg-blauw plus">+</button>
-                            <div class="quantity">0</div>
                             <button class="aspect-square p-2 bg-blauw minus">-</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
                         </div>                      
                     </div>
                     <div class="flex justify-between items-center product">
@@ -85,9 +167,9 @@
                             </div>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <button class="aspect-square p-2 bg-blauw plus">+</button>
-                            <div class="quantity">0</div>
                             <button class="aspect-square p-2 bg-blauw minus">-</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
                         </div>                      
                     </div>
                     <div class="flex justify-between items-center product">
@@ -99,9 +181,9 @@
                             </div>
                         </div>
                         <div class="flex gap-4 items-center">
-                            <button class="aspect-square p-2 bg-blauw plus">+</button>
-                            <div class="quantity">0</div>
                             <button class="aspect-square p-2 bg-blauw minus">-</button>
+                            <div class="quantity">0</div>
+                            <button class="aspect-square p-2 bg-blauw plus">+</button>
                         </div>                      
                     </div>
                 </div>
