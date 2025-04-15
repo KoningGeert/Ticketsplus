@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+</head>
+<body>
+    <div id="orderCard"></div>
+    <div id="orderCard"></div>
+
+<script>
+  // 1. Ophalen uit localStorage
+  const bestellingString = localStorage.getItem("bestelling");
+
+  // 2. Check of er data is
+  if (bestellingString) {
+    const bestelling = JSON.parse(bestellingString);
+    const items = bestelling.items;
+    const totaalprijs = bestelling.totaalprijs;
+    const bezoekdatum = bestelling.date;
+    const tijdslot = bestelling.time;
+
+    // 3. Bereken eventueel oude totaalprijs en voordeel
+    const oldTotal = items.reduce((sum, item) => sum + item.oldPrice * item.quantity, 0);
+    const voordeel = oldTotal - parseFloat(totaalprijs.replace("€", "").replace(",", "."));
+
+    // 4. Bouw HTML voor kaartje
+    let html = `
+      <div class="card">
+        <img src="wildlands.jpg" alt="Wildlands" />
+        <h2>Wildlands</h2>
+        <p>Bezoekdatum: ${bezoekdatum}</p>
+        <p>Tijdslot: ${tijdslot}</p>
+        <ul>`;
+
+    items.forEach(item => {
+      html += `<li>${item.quantity} ${item.type}</li>`;
+    });
+
+    html += `</ul>
+      <div class="prijs">
+        <p><s>€${oldTotal.toFixed(2).replace('.', ',')}</s> <strong>${totaalprijs}</strong></p>
+        <p style="color: teal;">€${voordeel.toFixed(2).replace('.', ',')} voordeel</p>
+      </div>
+      <button onclick="verwijderBestelling()">Verwijderen</button>
+      <button onclick="wijzigBestelling()">Wijzigen</button>
+    </div>`;
+
+    // 5. Plaats het kaartje in je pagina
+    document.getElementById("orderCard").innerHTML = html;
+  } else {
+    document.getElementById("orderCard").innerHTML = "<p>Geen bestelling gevonden.</p>";
+  }
+
+  // 6. Voorbeeldfuncties voor knoppen
+  function verwijderBestelling() {
+    localStorage.removeItem("bestelling");
+    location.reload();
+  }
+
+  function wijzigBestelling() {
+    window.location.href = "index.html"; // of de juiste pagina om te bewerken
+  }
+</script>
+
+</body>
+</html>
