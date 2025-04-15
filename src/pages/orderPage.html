@@ -1,68 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Page</title>
-</head>
+<!doctype html>
+<html>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="/dist/output.css" rel="stylesheet" />
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+         />
+      <!-- Flatpickr CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="/src/main.js" defer></script>
+      <title>Order Page</title>
+   </head>
 <body>
-    <div id="orderCard"></div>
-    <div id="orderCard"></div>
 
-<script>
-  // 1. Ophalen uit localStorage
-  const bestellingString = localStorage.getItem("bestelling");
+<div class="container mx-auto">
+    <div class="flex flex-col md:flex-row gap-4 mt-8">
+        <div class="w-2/3"></div>
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row gap-4 mt-8">
+                <div class="w-2/3"></div>
+                <div class="w-1/3">
+                    <div class="w-full shadow-lg rounded-lg bg-white border border-grijs">
+                        <div class="w-fit h-64 rounded-t-lg">
+                            <img  class="w-full h-full object-cover" src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/5236107-3x2?t=w600" alt="">
+                        </div>
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold">Bestelling</h2>
+                            <p class="text-sm text-gray-600 bestelling-datum">Bezoekdatum: </p>
+                            <p class="text-sm text-gray-600 bestelling-tijd">Tijdslot: </p>
+                            <ul class="list-disc pl-5 bestelling-lijst">
+                                <!-- Tickets worden hier gegenereerd -->
+                            </ul>
+                            <div class="mt-4">
+                                <p class="text-lg font-bold bestelling-prijs">Totaalprijs: </p>
+                                <p class="text-sm text-teal-500 bestelling-voordeel">Voordeel: </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
 
-  // 2. Check of er data is
-  if (bestellingString) {
-    const bestelling = JSON.parse(bestellingString);
-    const items = bestelling.items;
-    const totaalprijs = bestelling.totaalprijs;
-    const bezoekdatum = bestelling.date;
-    const tijdslot = bestelling.time;
+<p class="text-sm bestelling-datum"></p>
+<p class="text-sm bestelling-tijd"></p>
+<ul class="bestelling-lijst list-disc pl-5"></ul>
+<p class="bestelling-prijs text-lg font-bold"></p>
+<p class="bestelling-voordeel text-sm text-teal-500"></p>
 
-    // 3. Bereken eventueel oude totaalprijs en voordeel
-    const oldTotal = items.reduce((sum, item) => sum + item.oldPrice * item.quantity, 0);
-    const voordeel = oldTotal - parseFloat(totaalprijs.replace("€", "").replace(",", "."));
-
-    // 4. Bouw HTML voor kaartje
-    let html = `
-      <div class="card">
-        <img src="wildlands.jpg" alt="Wildlands" />
-        <h2>Wildlands</h2>
-        <p>Bezoekdatum: ${bezoekdatum}</p>
-        <p>Tijdslot: ${tijdslot}</p>
-        <ul>`;
-
-    items.forEach(item => {
-      html += `<li>${item.quantity} ${item.type}</li>`;
-    });
-
-    html += `</ul>
-      <div class="prijs">
-        <p><s>€${oldTotal.toFixed(2).replace('.', ',')}</s> <strong>${totaalprijs}</strong></p>
-        <p style="color: teal;">€${voordeel.toFixed(2).replace('.', ',')} voordeel</p>
-      </div>
-      <button onclick="verwijderBestelling()">Verwijderen</button>
-      <button onclick="wijzigBestelling()">Wijzigen</button>
-    </div>`;
-
-    // 5. Plaats het kaartje in je pagina
-    document.getElementById("orderCard").innerHTML = html;
-  } else {
-    document.getElementById("orderCard").innerHTML = "<p>Geen bestelling gevonden.</p>";
-  }
-
-  // 6. Voorbeeldfuncties voor knoppen
-  function verwijderBestelling() {
-    localStorage.removeItem("bestelling");
-    location.reload();
-  }
-
-  function wijzigBestelling() {
-    window.location.href = "index.html"; // of de juiste pagina om te bewerken
-  }
-</script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/src/Scripts/order.js"></script>
+<script src="/src/Scripts/ticketPricing.js"></script>
 </body>
 </html>
