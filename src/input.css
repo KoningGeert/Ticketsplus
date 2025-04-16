@@ -66,13 +66,15 @@
     font-weight: 600;
   }
 
-  .timeslot-btn {
-    @apply flex justify-between w-full px-4 py-2 bg-white rounded cursor-pointer hover:bg-gray-100 transition;
-  }
-
   .timeslot-btn.selected {
-    @apply bg-teal-600 text-white font-semibold;
+    background-color: var(--blauw);
+    color: white;
+    font-weight: 600;
   }
-
-
+  
+  .timeslot-btn:hover {
+    background-color: var(--grijs);
+    color: white;
+  }
+  
 

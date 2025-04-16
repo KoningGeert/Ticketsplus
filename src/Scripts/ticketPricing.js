@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     let selectedDate = null;
     let selectedTime = null;
 
@@ -52,7 +53,6 @@ $(document).ready(function () {
                 <li>
                     <button class="timeslot-btn w-full px-4 py-2 border rounded flex justify-between items-center disabled:bg-gray-100 disabled:text-gray-400" data-time="${time}">
                         <span>${time}</span>
-                        <span class="text-teal-600 text-xs">${Math.floor(Math.random() * 20 + 1)} beschikbaar</span>
                     </button>
                 </li>`;
         });
@@ -62,15 +62,19 @@ $(document).ready(function () {
     }
 
     $(document).on("click", ".timeslot-btn", function () {
-        $(".timeslot-btn").removeClass("bg-black text-white");
-        $(this).addClass("bg-black text-white");
-
+        // Verwijder .selected van alle tijdslot-knoppen
+        $(".timeslot-btn").removeClass("selected");
+    
+        // Voeg .selected toe aan de aangeklikte knop
+        $(this).addClass("selected");
+    
         selectedTime = $(this).data("time");
         $(".time-display").text(selectedTime);
         orderData.time = selectedTime;
-
+    
         $("#confirm-btn").removeClass("opacity-50 pointer-events-none");
     });
+    
 
     $("#confirm-btn").on("click", function () {
         if (selectedDate && selectedTime) {
@@ -81,8 +85,13 @@ $(document).ready(function () {
 
     $(".open-modal").on("click", function () {
         $("#datetime-modal").removeClass("hidden").addClass("flex");
+    
+        // Forceer de agenda open
+        setTimeout(() => {
+            fp.open();
+        }, 100);
     });
-
+    
     // ========== TICKETS / PRIJZEN ==========
     function updateTotal() {
         let total = 0;
