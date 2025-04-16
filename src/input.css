@@ -77,4 +77,13 @@
     color: white;
   }
   
+  .confirm-btn {
+    background-color: var(--blauw);
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
 

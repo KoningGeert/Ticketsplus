@@ -36,6 +36,7 @@ $(document).ready(function () {
     $("#today-btn").on("click", function () {
         const today = flatpickr.formatDate(new Date(), "d-m-Y");
         fp.setDate(today, true);
+        $(this).addClass("bg-blauw text-white");
     });
 
     $("#tomorrow-btn").on("click", function () {
@@ -43,6 +44,7 @@ $(document).ready(function () {
         tomorrow.setDate(tomorrow.getDate() + 1);
         const formatted = flatpickr.formatDate(tomorrow, "d-m-Y");
         fp.setDate(formatted, true);
+        $(this).addClass("bg-blauw text-white");
     });
 
     // ========== TIJDSLOTEN ==========
@@ -92,6 +94,10 @@ $(document).ready(function () {
         }, 100);
     });
     
+    $(".close-modal").on("click", function () {
+        $("#datetime-modal").addClass("hidden").removeClass("flex");
+    });
+
     // ========== TICKETS / PRIJZEN ==========
     function updateTotal() {
         let total = 0;

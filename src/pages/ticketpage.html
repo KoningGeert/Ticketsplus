@@ -15,14 +15,14 @@
       <title>Ticketpage</title>
    </head>
    <header class="bg-wit shadow-md">
-    <div class="container mx-auto flex justify-between items-center p-4">
-      <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
-      <nav class="flex gap-4">
-        <a href="./pages/faqPage.html" class="text-blauw hover:text-oranje">FAQ</a>
-        <a href="./pages/contactPage.html" class="text-blauw hover:text-oranje">Contact</a>
-      </nav>
-    </div>
-  </header>
+      <div class="container mx-auto flex justify-between items-center p-4">
+         <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+         <nav class="flex gap-4">
+            <a href="./pages/faqPage.html" class="text-blauw hover:text-oranje">FAQ</a>
+            <a href="./pages/contactPage.html" class="text-blauw hover:text-oranje">Contact</a>
+         </nav>
+      </div>
+   </header>
    <body class="bg-background">
       <div class="container mx-auto px-4 py-8">
          <div class="flex flex-col sm:flex-row gap-6">
@@ -69,6 +69,129 @@
                </div>
                <!-- Inhoud -->
                <div class="flex flex-col gap-8 p-4 sm:p-8">
+
+                <div class="flex gap-8 sm:hidden flex-col">
+                  <div class="flex justify-between">
+                     <div class="headline">Wildlands</div>
+                     <div class="flex gap-1 items-center">
+                        <i class="fas fa-star text-groen"></i>
+                        <div class="rating font-bold">4,7</div>
+                        <div>|</div>
+                        <div class="reviews">12,547</div>
+                     </div>
+                  </div>
+                  <div class="flex flex-col">
+                     <div class="subheadline">Bestelvoorwaarden</div>
+                     <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+                  </div>
+                  <div class="flex flex-col gap-6">
+                     <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                           <div class="subheadline">Volwassene</div>
+                           <div class="flex gap-1">
+                              <div class="oldPrice text-gray-500 line-through">€13,50</div>
+                              <div class="price">€12,50</div>
+                           </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                           <button class="aspect-square p-2 bg-blauw minus">-</button>
+                           <div class="quantity">0</div>
+                           <button class="aspect-square p-2 bg-blauw plus">+</button>
+                        </div>
+                     </div>
+                     <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                           <div class="subheadline">Kinderen</div>
+                           <div class="flex gap-1">
+                              <div class="oldPrice text-gray-500 line-through">€12,50</div>
+                              <div class="price">€10,00</div>
+                           </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                           <button class="aspect-square p-2 bg-blauw minus">-</button>
+                           <div class="quantity">0</div>
+                           <button class="aspect-square p-2 bg-blauw plus">+</button>
+                        </div>
+                     </div>
+                     <div class="flex justify-between items-center product">
+                        <div class="flex flex-col">
+                           <div class="subheadline">Parkeerkaart</div>
+                           <div class="flex gap-1">
+                              <div class="oldPrice text-gray-500 line-through">€7,95</div>
+                              <div class="price">€7,50</div>
+                           </div>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                           <button class="aspect-square p-2 bg-blauw minus">-</button>
+                           <div class="quantity">0</div>
+                           <button class="aspect-square p-2 bg-blauw plus">+</button>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Trigger Knoppen -->
+                  <div class="flex gap-6 w-full">
+                     <button id="open-date-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
+                        <div class="flex flex-col gap-1 text-start">
+                           <div class="font-bold">Bezoekdatum</div>
+                           <div class="font-light text-sm date-display">Kies een bezoekdatum</div>
+                        </div>
+                     </button>
+                     <button id="open-time-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
+                        <div class="flex flex-col gap-1 text-start">
+                           <div class="font-bold">Tijdslot</div>
+                           <div class="font-light text-sm time-display">Kies een tijdslot</div>
+                        </div>
+                     </button>
+                  </div>
+                  <!-- Overlay Modal -->
+                  <div id="datetime-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+                     <div class="bg-white rounded-xl max-w-4xl w-full mx-6 p-6 md:p-10 relative">
+                        <!-- Sluitknop -->
+                        <button class="absolute top-4 right-4 text-gray-500 hover:text-black close-modal">
+                        &times;
+                        </button>
+                        <!-- Modal Body -->
+                        <div class="flex flex-col md:flex-row gap-10 w-full">
+                           <!-- Datum kiezen -->
+                           <div class="flex-1">
+                              <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
+                              <!-- Vandaag / Morgen -->
+                              <div class="flex gap-3 mb-4">
+                                 <button id="today-btn" class="px-4 py-2 rounded hover:bg-blauw hover:text-white border border-grijs">Vandaag</button>
+                                 <button id="tomorrow-btn" class="px-4 py-2 rounded hover:bg-blauw hover:text-white border border-grijs">Morgen</button>
+                              </div>
+                              <!-- Flatpickr -->
+                              <div id="datepicker-container" class="border rounded p-2">
+                                 <input id="datepicker" class="w-full px-4 py-3 border rounded text-base" placeholder="Kies een datum" />
+                              </div>
+                           </div>
+                           <!-- Tijdslot kiezen -->
+                           <div class="flex-1">
+                              <h2 class="font-bold text-xl mb-4">Kies een tijdslot</h2>
+                              <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
+                                 <!-- Dynamisch gevuld via JS -->
+                              </ul>
+                              <!-- Doorgaan knop -->
+                              <button id="confirm-btn" class="mt-6 bg-oranje text-white px-4 py-2 rounded w-full opacity-50 pointer-events-none transition">
+                              Doorgaan
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div>
+                     <div class="flex justify-between headline">
+                        <div>Totaalprijs</div>
+                        <div id="totalPrice">€0,00</div>
+                     </div>
+                     <div class="flex justify-between">
+                        <div>Uw voordeel</div>
+                        <div id="voordeel" class="text-oranje">€5,00</div>
+                     </div>
+                  </div>
+                  <button id="nuBestellen" class="btnOrange">Nu bestellen</button>
+               </div>
+
                   <div class="flex flex-col gap-4">
                      <div class="headline text-xl font-bold">Informatie</div>
                      <p>
@@ -145,6 +268,8 @@
                   </div>
                </div>
             </div>
+
+            <!-- Rechter gedeelte -->
             <div class="w-1/3 h-fit bg-white p-8 border-grijs shadow-lg sticky top-8 rounded-lg gap-8 hidden sm:flex flex-col">
                <div class="flex justify-between">
                   <div class="headline">Wildlands</div>
@@ -204,66 +329,56 @@
                   </div>
                </div>
                <!-- Trigger Knoppen -->
-<div class="flex gap-6 w-full">
-  <button id="open-date-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-    <div class="flex flex-col gap-1 text-start">
-      <div class="font-bold">Bezoekdatum</div>
-      <div class="font-light text-sm date-display">Kies een bezoekdatum</div>
-    </div>
-  </button>
-
-  <button id="open-time-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-    <div class="flex flex-col gap-1 text-start">
-      <div class="font-bold">Tijdslot</div>
-      <div class="font-light text-sm time-display">Kies een tijdslot</div>
-    </div>
-  </button>
-</div>
-
-<!-- Overlay Modal -->
-<div id="datetime-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
-  <div class="bg-white rounded-xl max-w-4xl w-full mx-6 p-6 md:p-10 relative">
-
-    <!-- Sluitknop -->
-    <button class="absolute top-4 right-4 text-gray-500 hover:text-black close-modal">
-      &times;
-    </button>
-
-    <!-- Modal Body -->
-    <div class="flex flex-col md:flex-row gap-10 w-full">
-
-      <!-- Datum kiezen -->
-      <div class="flex-1">
-        <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
-
-        <!-- Vandaag / Morgen -->
-        <div class="flex gap-3 mb-4">
-          <button id="today-btn" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Vandaag</button>
-          <button id="tomorrow-btn" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Morgen</button>
-        </div>
-
-        <!-- Flatpickr -->
-        <div id="datepicker-container" class="border rounded p-2">
-          <input id="datepicker" class="w-full px-4 py-3 border rounded text-base" placeholder="Kies een datum" />
-        </div>
-      </div>
-
-      <!-- Tijdslot kiezen -->
-      <div class="flex-1">
-        <h2 class="font-bold text-xl mb-4">Kies een tijdslot</h2>
-        <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
-          <!-- Dynamisch gevuld via JS -->
-        </ul>
-
-        <!-- Doorgaan knop -->
-        <button id="confirm-btn" class="mt-6 bg-black text-white px-4 py-2 rounded w-full opacity-50 pointer-events-none transition">
-          Doorgaan
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
+               <div class="flex gap-6 w-full">
+                  <button id="open-date-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
+                     <div class="flex flex-col gap-1 text-start">
+                        <div class="font-bold">Bezoekdatum</div>
+                        <div class="font-light text-sm date-display">Kies een bezoekdatum</div>
+                     </div>
+                  </button>
+                  <button id="open-time-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
+                     <div class="flex flex-col gap-1 text-start">
+                        <div class="font-bold">Tijdslot</div>
+                        <div class="font-light text-sm time-display">Kies een tijdslot</div>
+                     </div>
+                  </button>
+               </div>
+               <!-- Overlay Modal -->
+               <div id="datetime-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+                  <div class="bg-white rounded-xl max-w-4xl w-full mx-6 p-6 md:p-10 relative">
+                     <!-- Sluitknop -->
+                     <button class="absolute top-4 right-4 text-gray-500 hover:text-black close-modal">
+                     &times;
+                     </button>
+                     <!-- Modal Body -->
+                     <div class="flex flex-col md:flex-row gap-10 w-full">
+                        <!-- Datum kiezen -->
+                        <div class="flex-1">
+                           <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
+                           <!-- Vandaag / Morgen -->
+                           <div class="flex gap-3 mb-4">
+                              <button id="today-btn" class="px-4 py-2 rounded hover:bg-blauw hover:text-white border border-grijs">Vandaag</button>
+                              <button id="tomorrow-btn" class="px-4 py-2 rounded hover:bg-blauw hover:text-white border border-grijs">Morgen</button>
+                           </div>
+                           <!-- Flatpickr -->
+                           <div id="datepicker-container" class="border rounded p-2">
+                              <input id="datepicker" class="w-full px-4 py-3 border rounded text-base" placeholder="Kies een datum" />
+                           </div>
+                        </div>
+                        <!-- Tijdslot kiezen -->
+                        <div class="flex-1">
+                           <h2 class="font-bold text-xl mb-4">Kies een tijdslot</h2>
+                           <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
+                              <!-- Dynamisch gevuld via JS -->
+                           </ul>
+                           <!-- Doorgaan knop -->
+                           <button id="confirm-btn" class="mt-6 bg-oranje text-white px-4 py-2 rounded w-full opacity-50 pointer-events-none transition">
+                           Doorgaan
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
                <div>
                   <div class="flex justify-between headline">
                      <div>Totaalprijs</div>
@@ -278,7 +393,6 @@
             </div>
          </div>
       </div>
-    
       <!-- jQuery (als je het nog niet hebt) -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <!-- Flatpickr JS -->
