@@ -39,25 +39,26 @@
           <p class="discount text-lg font-bold leading-relaxed text-white bg-oranje px-4 py-2 rounded-full"></p>
         </div>  
         
-        <div class="flex flex-col gap-4 m-4">
-          <div class="flex flex-col">
-            <div class="flex justify-between items-center">
-              <div class="flex gap-1 items-center">
-                <i class="fas fa-star text-groen"></i>
-                <div class="rating font-bold"></div>
-                <div>|</div>
-                <div class="reviews"></div>
-              </div>
-              <!-- Info icon triggers overlay -->
-              <i class="fa fa-info-circle text-blauw cursor-pointer show-overlay" aria-hidden="true"></i>
+        <div class="flex flex-col m-4 gap-4">
+          <div class="flex justify-between items-center">
+            <div class="flex gap-1 items-center">
+              <i class="fas fa-star text-groen"></i>
+              <div class="rating font-bold"></div>
+              <div>|</div>
+              <div class="reviews"></div>
             </div>
-            <div class="headline font-semibold text-lg"></div>
-            <div class="flex gap-1">
-              <div class="location font-light text-sm"></div>
-            </div>
+            <!-- Info icon triggers overlay -->
+            <i class="fa fa-info-circle text-blauw cursor-pointer show-overlay" aria-hidden="true"></i>
           </div>
-          <div class="pb-4">
-            <a href="./pages/ticketpage.html"><button class="button">Bekijk</button></a>
+          <div class="">
+            <div class="headline font-bold text-xl"></div>
+            <div class="location font-light text-sm"></div>
+          </div>
+          <div>
+
+            <div class="pb-4">
+              <a href="./pages/ticketpage.html"><button class="button py-2 w-full font-bold text-white bg-oranje hover:bg-blauw rounded-md">Bekijk</button></a>
+            </div>
           </div>
         </div>
       </div>
@@ -67,12 +68,12 @@
     <div class="container mx-auto flex flex-col md:flex-row relative">
    
       <!-- Filters -->
-      <div class="sticky top-8 hidden md:flex w-full md:w-1/3 border border-gray-300 rounded-lg px-6 py-8 mt-8 h-fit flex-col gap-6 bg-white shadow-md">
+      <div class="sticky top-8 hidden md:flex w-full md:w-1/3 border border-gray-200 rounded-xl px-6 py-8 mt-8 h-fit flex-col gap-6 bg-white shadow-sm">
         <div>
-          <label for="search-input" class="font-bold text-lg">Zoek:</label>
-          <input type="text" id="search-input" class="w-full" placeholder="Typ om te zoeken..." />
+          <label for="search-input" class="font-semibold text-base text-gray-800 mb-2 block">Zoek:</label>
+          <input type="text" id="search-input" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" placeholder="Typ om te zoeken..." />
           <ul id="suggestions" class="hidden bg-white border border-gray-300 rounded-lg mt-2"></ul>
-        </div>
+        </div>      
         
         <div id="category-filter" class="flex flex-col gap-2">
           <label for="category" class="font-bold text-lg">Categorie</label>
@@ -92,9 +93,9 @@
             
         <div>
           <label for="location" class="font-bold text-lg">Kies uw locatie</label>
-          <input id="location" type="text" placeholder="Zoetermeer" class="w-full p-2 border rounded shadow-sm" />               
+          <input id="location" type="text" placeholder="Zoetermeer" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" />               
         </div>
-        <button class="button !bg-oranje !hover:bg-blauw" id="searchBtn">Zoeken</button>
+        <button class="button py-2 w-full font-bold text-white bg-oranje hover:bg-blauw rounded-md" id="searchBtn">Zoeken</button>
       </div>
 
       <!-- Resultaten + actieve filters -->
@@ -131,6 +132,16 @@
       <div class="headline">Best beoordeeld</div>
       <div class="flex overflow-x-auto space-x-6 scrollbar-hide" id="bestRated-container"></div>
     </div>
+
+    <footer class="relative">
+      <div class="fixed bottom-0 container mx-auto flex lg:hidden items-center p-4 bg-blauw text-white">
+        <nav class="flex justify-evenly items-center gap-4 text-2xl w-full">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-headset"></i>
+        </nav>
+      </div>
+    </footer>
 
     <script src="main.js"></script>
     <script src="/src/Scripts/cardPopup.js"></script>

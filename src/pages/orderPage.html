@@ -1,54 +1,155 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link href="/dist/output.css" rel="stylesheet" />
-      <link
-         rel="stylesheet"
-         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-         />
-      <!-- Flatpickr CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="/src/main.js" defer></script>
-      <title>Order Page</title>
-   </head>
-<body>
 
-<div class="container mx-auto">
-    <div class="flex flex-col md:flex-row gap-4 mt-8">
-        <div class="w-2/3"></div>
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row gap-4 mt-8">
-                <div class="w-2/3"></div>
-                <div class="w-1/3">
-                    <div class="w-full shadow-lg rounded-lg bg-white border border-grijs">
-                        <div class="w-fit h-64 rounded-t-lg">
-                            <img  class="w-full h-full object-cover" src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/5236107-3x2?t=w600" alt="">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/main.js" defer></script>
+    <title>Order Page</title>
+</head>
+
+<body class="bg-achtergrond">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-center gap-4 py-8">
+            <div>
+                <div class="flex flex-col gap-2 items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-blauw flex items-center justify-center">
+                        <i class="fa-solid fa-user text-white text-2xl"></i>
+                    </div>
+                    <div class="font-extralight text-sm">Gegevens</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col gap-2 items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-grijs flex items-center justify-center">
+                        <i class="fa-solid fa-credit-card text-white text-2xl"></i>
+                    </div>
+                    <div class="font-extralight text-sm">Betalen</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col gap-2 items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-grijs flex items-center justify-center">
+                        <i class="fa-solid fa-ticket text-white text-2xl"></i>
+                    </div>
+                    <div class="font-extralight text-sm">Bevestiging</div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col-reverse md:justify-between md:flex-row gap-8">
+            <div class="w-full lg:w-1/2">
+                <div class="rounded w-full flex gap-8 flex-col">
+                    <h2 class="text-2xl font-bold">Gegevens</h2>
+
+                    <form class="gap-4 flex flex-col" id="contactForm">
+                        <div class="">
+                            <label class="block text-gray-700">Voornaam</label>
+                            <input type="text"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw"
+                                placeholder="John" id="voornaam" required />
                         </div>
-                        <div class="p-4">
-                            <h2 class="text-lg font-semibold">Bestelling</h2>
-                            <p class="text-sm text-gray-600 bestelling-datum">Bezoekdatum: </p>
-                            <p class="text-sm text-gray-600 bestelling-tijd">Tijdslot: </p>
-                            <ul class="list-disc pl-5 bestelling-lijst">
-                                <!-- Tickets worden hier gegenereerd -->
-                            </ul>
-                            <div class="mt-4">
-                                <p class="text-lg font-bold bestelling-prijs">Totaalprijs: </p>
-                                <p class="text-sm text-teal-500 bestelling-voordeel">Voordeel: </p>
+
+                        <div class="">
+                            <label class="block text-gray-700">Achternaam</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" placeholder="Doe" id="achternaam"
+                                required />
+                        </div>
+
+                        <div class="">
+                            <label class="block text-gray-700">E-mail</label>
+                            <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" placeholder="JohnDoe@gmail.com"
+                                id="email" required />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <div class="">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox" id="privacy" required />
+                                    <span class="ml-2">Ik verklaar hierbij dat ik ouder ben dan 18 jaar of toestemming heb van mijn ouders/voogd om een bestelling te mogen plaatsen.</span>
+                                </label>
+                            </div>
+
+                            <div class="">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox" id="age" required />
+                                    <span class="ml-2">Ik ga akkoord met de algemene voorwaarden<a href=""
+                                            class="hover:underline text-blauw"> Lees hier de algemene voorwaarden.</a> </span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-oranje hover:bg-blauw font-bold text-white rounded-md py-4"><a
+                                href="./confirmationPage.html">Betalen</a></button>
+                    </form>
+                    <div class="text-start mb-8 lg:mb-0">
+                        <div class="flex gap-4 items-center text-gray-600">
+                            <i class="fa-solid fa-lock w-4"></i>
+                            <p class="">Veilig en snel betalen</p>
+                        </div>
+
+                        <div class="flex gap-4 items-center text-gray-600">
+                            <i class="fa-solid fa-ticket w-4"></i>
+                            <p class="">Ontvang uw tickets direct in uw mailbox</p>
+                        </div>
+
+                        <div class="flex gap-4 items-center text-gray-600">
+                            <i class="fa-solid fa-headset w-4"></i>
+                            <p class="">Uitstekende klantenservice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border border-1 border-grijs lg:hidden"></div>
+            <div class="w-full lg:w-1/3">
+                <h2 class="text-2xl font-bold placeholder pb-8">Bestelling</h2>
+                <div class="w-full shadow-lg rounded-lg bg-white border border-grijs">
+                    <div class="w-fit h-64 rounded-t-lg">
+                        <img class="w-full h-full object-cover rounded-t-lg"
+                            src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/5236107-3x2?t=w600"
+                            alt="" />
+                    </div>
+                    <div class="p-4 flex flex-col gap-2">
+                        <div>
+                            <h1 class="headline font-bold text-lg">Wildlands</h1>
+                            <p class="text-sm text-gray-600 bestelling-datum">Bezoekdatum:</p>
+                            <p class="text-sm text-gray-600 bestelling-tijd">Tijdslot:</p>
+                        </div>
+                        <ul class="list-disc pl-5 bestelling-lijst">
+                            <!-- Tickets worden hier gegenereerd -->
+                        </ul>
+                        <div class="border border-dashed border-1 border-grijs"></div>
+                        <div class="">
+                            <div class="text-lg font-bold flex justify-between">
+                                <p class="">Totaalprijs</p>
+                                <p class="bestelling-prijs"></p>
+                            </div>
+                            <div class="text-sm text-blauw font-light flex justify-between">
+                                <p class="">Voordeel:</p>
+                                <p class="bestelling-voordeel"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify content-between gap-4">
+                                <button
+                                    class="w-full bg-blauw hover:bg-oranje py-2 rounded-md font-bold text-white">Verwijderen</button>
+                                <button class="w-full bg-blauw hover:bg-oranje py-2 rounded-md font-bold text-white">Bewerken</button>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/src/Scripts/order.js"></script>
-<script src="/src/Scripts/ticketPricing.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/Scripts/order.js"></script>
+    <script src="/src/Scripts/ticketPricing.js"></script>
 </body>
+
 </html>
