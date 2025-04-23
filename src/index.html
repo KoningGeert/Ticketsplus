@@ -24,7 +24,7 @@
     </div>
     <!-- Card template -->
     <div id="card-template" class="hidden relative">
-      <div class="w-80 md:w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
+      <div class="w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
         <div class="w-md h-md relative">
           <img class="aspect-square object-cover rounded-t-lg" src="" alt="Card Image">
           
@@ -39,7 +39,7 @@
           <p class="discount text-lg font-bold leading-relaxed text-white bg-oranje px-4 py-2 rounded-full"></p>
         </div>  
         
-        <div class="flex flex-col m-4 gap-4">
+        <div class="flex flex-col m-4 gap-4 text-gray-800">
           <div class="flex justify-between items-center">
             <div class="flex gap-1 items-center">
               <i class="fas fa-star text-groen"></i>
@@ -51,78 +51,104 @@
             <i class="fa fa-info-circle text-blauw cursor-pointer show-overlay" aria-hidden="true"></i>
           </div>
           <div class="">
-            <div class="headline font-bold text-xl"></div>
-            <div class="location font-light text-sm"></div>
+            <div class="headline font-semibold text-xl text-gray-800"></div>
+            <div class="location font-light text-sm text-gray-800"></div>
           </div>
           <div>
 
             <div class="pb-4">
-              <a href="./pages/ticketpage.html"><button class="button py-2 w-full font-bold text-white bg-oranje hover:bg-blauw rounded-md">Bekijk</button></a>
+              <a href="./pages/ticketpage.html"><button class="button py-2 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-md">Bekijk</button></a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Container layout -->
-    <div class="container mx-auto flex flex-col md:flex-row relative">
-   
-      <!-- Filters -->
-      <div class="sticky top-8 hidden md:flex w-full md:w-1/3 border border-gray-200 rounded-xl px-6 py-8 mt-8 h-fit flex-col gap-6 bg-white shadow-sm">
-        <div>
-          <label for="search-input" class="font-semibold text-base text-gray-800 mb-2 block">Zoek:</label>
-          <input type="text" id="search-input" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" placeholder="Typ om te zoeken..." />
-          <ul id="suggestions" class="hidden bg-white border border-gray-300 rounded-lg mt-2"></ul>
-        </div>      
-        
-        <div id="category-filter" class="flex flex-col gap-2">
-          <label for="category" class="font-bold text-lg">Categorie</label>
-          <label><input type="checkbox" name="category" value="Pretpark"> Pretpark</label>
-          <label><input type="checkbox" name="category" value="Dierentuin"> Dierentuin</label>
-          <label><input type="checkbox" name="category" value="Museum"> Museum</label>
-          <label><input type="checkbox" name="category" value="Indoor"> Indoor</label>
-          <label><input type="checkbox" name="category" value="Outdoor"> Outdoor</label>
-          <label><input type="checkbox" name="category" value="Experience"> Experience</label>
-          <label><input type="checkbox" name="category" value="Wellness"> Wellness</label>
-        </div>
+<!-- Container layout -->
+<div class="container mx-auto flex flex-col md:flex-row gap-4 py-8">
 
-        <div>
-          <label for="distance-slider" class="font-bold text-lg">Maximale afstand: <span id="distance-value">0</span><span> (km)</span></label>
-          <input type="range" id="distance-slider" min="0" max="100" value="0" class="w-full" />
-        </div>
-            
-        <div>
-          <label for="location" class="font-bold text-lg">Kies uw locatie</label>
-          <input id="location" type="text" placeholder="Zoetermeer" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blauw" />               
-        </div>
-        <button class="button py-2 w-full font-bold text-white bg-oranje hover:bg-blauw rounded-md" id="searchBtn">Zoeken</button>
-      </div>
+  <!-- TOON FILTERS KNOP OP MOBIEL -->
+  <div class="md:hidden px-4">
+    <button id="toggle-filters" class="w-full bg-oranje hover:bg-blauw text-white font-bold rounded-md py-2">
+      Toon filters
+    </button>
+  </div>
 
-      <!-- Resultaten + actieve filters -->
-      <div class="w-full md:w-2/3 p-4">
-        <!-- Actieve filters -->
-        <div id="active-filters" class="flex flex-wrap gap-2 mb-4">
-          <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm flex items-center gap-2 cursor-pointer">
-            Verwijder alles
-          </span>
-        </div>
+  <!-- FILTERPANEEL -->
+  <div id="filter-panel" class="hidden md:flex flex-col gap-6 md:w-1/3 border border-gray-200 rounded-2xl px-6 py-6 h-fit bg-white shadow-md mx-4 md:mx-0 transition-all duration-300 md:sticky md:top-6">
 
-        <!-- Cards -->
-        <div>
-          <div id="active-filters" class="flex flex-wrap gap-2 mb-4">
-            <div class="grid-cols-1 sm:grid-cols-2 gap-6 hidden sm:grid" id="cards-container"></div>
-            <div id="no-results-message" class="hidden text-center text-red-500 mt-4">
-              Geen resultaten beschikbaar.
-            </div>
-          </div>
-        </div>
+    <div class="space-y-2">
+      <label for="search-input" class="font-semibold text-lg text-gray-800">Zoek</label>
+      <input
+        type="text"
+        id="search-input"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blauw focus:border-blauw transition"
+        placeholder="Typ om te zoeken..." />
+      <ul id="suggestions" class="hidden bg-white border border-gray-300 rounded-lg mt-2 shadow-sm z-10"></ul>
+    </div>
+  
+    <div id="category-filter" class="flex flex-col gap-2">
+      <label class="font-semibold text-lg text-gray-800">Categorie</label>
+      <div class="space-y-1 text-sm text-gray-700">
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Attractiepark"> Attractiepark</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Dierentuin"> Dierentuin</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Museum"> Museum</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Indoor"> Indoor</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Outdoor"> Outdoor</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Experience"> Experience</label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="category" value="Wellness"> Wellness</label>
       </div>
     </div>
+  
+    <div id="distance-buttons" class="flex gap-2 mb-4">
+      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="25">&lt; 25 km</button>
+      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="50">&lt; 50 km</button>
+      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="75">&lt; 75 km</button>
+      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="100">&lt; 100 km</button>
+    </div>
     
-    <!-- Desktop Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id=""></div>
-    
-    <!-- Mobile Containers -->
+  
+    <div class="space-y-2">
+      <label for="location" class="font-semibold text-lg text-gray-800">Kies je locatie</label>
+      <input
+        id="location"
+        type="text"
+        placeholder="Bijv. Zoetermeer"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blauw focus:border-blauw transition" />
+    </div>
+  
+    <button
+      class="mt-2 py-3 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-lg transition duration-200 ease-in-out shadow-sm"
+      id="searchBtn">
+      Zoeken
+    </button>
+  
+  </div>
+  
+  <!-- RESULTATEN EN FILTERPILLEN -->
+  <div class="w-full md:w-2/3 px-4 flex flex-col gap-y-6">
+
+<!-- ACTIEVE FILTERS -->
+<div id="active-filters" class="hidden flex flex-wrap gap-2">
+  <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer">
+    Verwijder alles
+  </span>
+</div>
+
+
+    <!-- RESULTATEN CARDS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="cards-container">
+      <!-- Cards worden hier geplaatst -->
+    </div>
+
+    <!-- GEEN RESULTATEN -->
+    <div id="no-results-message" class="hidden text-center text-red-500 mt-4">
+      Geen resultaten beschikbaar.
+    </div>
+  </div>
+</div>
+
+    <!-- Mobile Containers
     <div class="container mx-auto sm:hidden p-4">
       <div class="headline">Uitgelicht</div>
       <div class="flex overflow-x-auto space-x-6 scrollbar-hide" id="featured-container"></div>
@@ -141,7 +167,7 @@
           <i class="fa-solid fa-headset"></i>
         </nav>
       </div>
-    </footer>
+    </footer> -->
 
     <script src="main.js"></script>
     <script src="/src/Scripts/cardPopup.js"></script>

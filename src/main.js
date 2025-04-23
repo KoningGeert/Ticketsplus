@@ -13,9 +13,11 @@ $(document).ready(function () {
 
   function loadActivities() {
     $.getJSON('cards.json', function (data) {
+      console.log('Loaded data:', data); // Controleer de geladen data
       activities = data.map(item => item.headline);
       createCards(data);
-      applyFilters();
+    }).fail(function () {
+      console.error('Failed to load cards.json');
     });
   }
 
@@ -23,6 +25,7 @@ $(document).ready(function () {
     navigator.geolocation.getCurrentPosition(position => {
       userLat = position.coords.latitude;
       userLng = position.coords.longitude;
+      applyFilters(); // Zorg dat filters pas worden toegepast na het ophalen van locatie
     });
   }
 
@@ -92,7 +95,8 @@ $(document).ready(function () {
   function createCards(data) {
     const allCards = data.map(item => {
       const $card = $('#card-template').clone().removeAttr('id').removeClass('hidden');
-
+      console.log('Creating card for:', item); // Controleer de kaartgegevens
+  
       $card.find('img').attr('src', item.image);
       $card.find('.rating').text(item.rating);
       $card.find('.reviews').text(`${item.reviews} reviews`);
@@ -105,79 +109,39 @@ $(document).ready(function () {
       $card.attr('data-keywords', item.keywords ? item.keywords.join(',') : '');
       $card.attr('data-priority', item.priority);
       $card.find('.discount').text(item.discount);
+  
       $card.addClass('card');
-
       $('#cards-container').append($card);
-
-      if (item.priority === true) {
-        $('#featured-container').append($card.clone());
-      }
-
+  
       return {
         element: $card,
         rating: item.rating,
         priority: item.priority
       };
     });
-
-    allCards.sort((a, b) => b.rating - a.rating).forEach(card => {
-      $('#bestRated-container').append(card.element.clone());
-    });
+  
+    applyFilters(); // Zorg dat filters worden toegepast
   }
+  
 
   function applyFilters() {
     const searchTerm = $('#search-input').val().toLowerCase();
     const selectedCategories = $('input[name="category"]:checked').map(function () {
       return $(this).val().toLowerCase();
     }).get();
-
-    const $activeFilters = $('#active-filters');
-    $activeFilters.empty();
-
-    if (searchTerm) {
-      $activeFilters.append(`
-        <span class="filter-pill bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
-          Zoek: "${searchTerm}"
-          <button class="remove-filter" data-type="search">✕</button>
-        </span>
-      `);
-    }
-
-    selectedCategories.forEach(cat => {
-      $activeFilters.append(`
-        <span class="filter-pill bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
-          ${cat.charAt(0).toUpperCase() + cat.slice(1)}
-          <button class="remove-filter" data-type="category" data-value="${cat}">✕</button>
-        </span>
-      `);
-    });
-
-    if (searchTerm || selectedCategories.length > 0) {
-      $activeFilters.append(`
-        <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm flex items-center gap-2 cursor-pointer">
-          Verwijder alles
-        </span>
-      `);
-    }
-
+  
+    const maxDistance = parseInt($('#distance-slider').val());
+    console.log('Filters:', { searchTerm, selectedCategories, maxDistance });
+  
     let hasVisibleCards = false;
     $('.card').each(function () {
       const $card = $(this);
       const title = $card.find('.headline').text().toLowerCase();
-      const location = $card.find('.location').text().toLowerCase();
-      const description = $card.find('.description').text().toLowerCase();
-      const keywords = ($card.data('keywords') || '').toLowerCase().split(',').map(k => k.trim());
       const category = $card.attr('data-category').toLowerCase();
-
-      const matchesSearch =
-        !searchTerm ||
-        title.includes(searchTerm) ||
-        location.includes(searchTerm) ||
-        description.includes(searchTerm) ||
-        keywords.some(keyword => keyword.includes(searchTerm));
-
+  
+      const matchesSearch = !searchTerm || title.includes(searchTerm);
       const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
-
+  
       if (matchesSearch && matchesCategory) {
         $card.show();
         hasVisibleCards = true;
@@ -185,7 +149,8 @@ $(document).ready(function () {
         $card.hide();
       }
     });
-
+  
     $('#no-results-message').toggleClass('hidden', hasVisibleCards);
+    console.log('Has visible cards:', hasVisibleCards);
   }
 });
