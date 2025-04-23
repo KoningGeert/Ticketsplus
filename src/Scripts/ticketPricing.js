@@ -7,7 +7,7 @@ $(document).ready(function () {
       time: null,
       tickets: [],
       totalPrice: 0,
-      totalDiscount: 0
+      totalDiscount: 0,
     };
   
     const timeOptions = [
@@ -16,6 +16,14 @@ $(document).ready(function () {
       "11:15", "11:30", "11:45", "12:00", "12:15"
     ];
   
+    function syncDateAndTime() {
+      $(".date-display-mobile, .date-display-desktop").text(selectedDate || "Kies een bezoekdatum");
+      $(".time-display-mobile, .time-display-desktop").text(selectedTime || "Kies een tijdslot");
+  
+      orderData.date = selectedDate;
+      orderData.time = selectedTime;
+    }
+  
     const fp = flatpickr("#datepicker", {
       dateFormat: "d-m-Y",
       minDate: "today",
@@ -23,8 +31,7 @@ $(document).ready(function () {
       defaultDate: null,
       onChange: function (selectedDates, dateStr) {
         selectedDate = dateStr;
-        $(".date-display").text(dateStr);
-        orderData.date = dateStr;
+        syncDateAndTime();
         renderTimeslots();
       }
     });
@@ -36,6 +43,7 @@ $(document).ready(function () {
       fp.setDate(today, true);
       $("#today-btn, #tomorrow-btn").removeClass("bg-blauw text-white");
       $(this).addClass("bg-blauw text-white");
+      renderTimeslots();
     });
   
     $("#tomorrow-btn").on("click", function () {
@@ -45,7 +53,12 @@ $(document).ready(function () {
       fp.setDate(formatted, true);
       $("#today-btn, #tomorrow-btn").removeClass("bg-blauw text-white");
       $(this).addClass("bg-blauw text-white");
+      renderTimeslots();
     });
+  
+    function syncQuantities(type, newValue) {
+      $(`.product[data-ticket-type="${type}"] .quantity`).text(newValue);
+    }
   
     function renderTimeslots() {
       let html = "";
@@ -70,8 +83,7 @@ $(document).ready(function () {
       $(this).addClass("bg-blauw text-white font-semibold");
   
       selectedTime = $(this).data("time");
-      $(".time-display").text(selectedTime);
-      orderData.time = selectedTime;
+      syncDateAndTime();
   
       $("#confirm-btn").removeClass("opacity-50 pointer-events-none");
     });
@@ -83,7 +95,7 @@ $(document).ready(function () {
       }
     });
   
-    $(".open-modal").on("click", function () {
+    $(".open-modal, #open-date-modal-mobile, #open-date-modal-desktop").on("click", function () {
       $("#datetime-modal").removeClass("hidden").addClass("flex");
       setTimeout(() => {
         fp.open();
@@ -122,20 +134,25 @@ $(document).ready(function () {
       console.log("Orderdata bijgewerkt:", orderData);
     }
   
-    $('.plus').click(function () {
-      let quantityElement = $(this).siblings('.quantity');
-      let quantity = parseInt(quantityElement.text());
-      quantityElement.text(quantity + 1);
+    // ✅ Plus en min knoppen werkend maken
+    $(document).on('click', '.plus', function () {
+      const product = $(this).closest('.product');
+      const quantityEl = product.find('.quantity');
+      const type = product.data('ticket-type');
+      let quantity = parseInt(quantityEl.text());
+      quantity++;
+      syncQuantities(type, quantity);
       updateTotal();
     });
   
-    $('.minus').click(function () {
-      let quantityElement = $(this).siblings('.quantity');
-      let quantity = parseInt(quantityElement.text());
-      if (quantity > 0) {
-        quantityElement.text(quantity - 1);
-        updateTotal();
-      }
+    $(document).on('click', '.minus', function () {
+      const product = $(this).closest('.product');
+      const quantityEl = product.find('.quantity');
+      const type = product.data('ticket-type');
+      let quantity = parseInt(quantityEl.text());
+      if (quantity > 0) quantity--;
+      syncQuantities(type, quantity);
+      updateTotal();
     });
   
     $(".btnOrange").click(function () {
@@ -163,9 +180,7 @@ $(document).ready(function () {
         totaalprijs: "€" + orderData.totalPrice.toFixed(2).replace(".", ","),
       };
   
-      localStorage.setItem("bestelling", JSON.stringify(bestelling
-        ));     
-    }
-    );
-  }
-);  
+      localStorage.setItem("bestelling", JSON.stringify(bestelling));
+    });
+  });
+  
