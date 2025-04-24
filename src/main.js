@@ -77,6 +77,7 @@ $(document).ready(function () {
   
     // Deselecteer alle categorieën
     $('input[name="category"]').prop('checked', false);
+    $('input[name="discount"]').prop('checked', false);
   
     // Verberg de actieve filters
     $('#active-filters').addClass('hidden');
@@ -100,6 +101,10 @@ $(document).ready(function () {
       $(`input[name="category"][value="${value.charAt(0).toUpperCase() + value.slice(1)}"]`).prop('checked', false);
     }
 
+    if (type === 'discount') {
+      $(`input[name="discount"][value="${value}"]`).prop('checked', false);
+    }
+
     applyFilters();
   }
 
@@ -119,6 +124,7 @@ $(document).ready(function () {
       $card.attr('data-lng', item.lng);
       $card.attr('data-keywords', item.keywords ? item.keywords.join(',') : '');
       $card.attr('data-priority', item.priority);
+      $card.attr('data-discount', item.discount);
       $card.find('.discount').text(item.discount);
   
       $card.addClass('card');
@@ -140,19 +146,28 @@ $(document).ready(function () {
     const selectedCategories = $('input[name="category"]:checked').map(function () {
       return $(this).val().toLowerCase();
     }).get();
+    const selectedDiscounts = $('input[name="discount"]:checked').map(function () {
+      return $(this).val();
+    }).get();
   
-    console.log('Filters:', { searchTerm, selectedCategories });
+    console.log('Filters:', { searchTerm, selectedCategories, selectedDiscounts });
   
     let hasVisibleCards = false;
     $('.card').each(function () {
       const $card = $(this);
       const title = $card.find('.headline').text().toLowerCase();
       const category = $card.attr('data-category').toLowerCase();
+      const discount = parseFloat($card.attr('data-discount').replace('€', '').replace(',', '.'));
   
       const matchesSearch = !searchTerm || title.includes(searchTerm);
       const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+      const matchesDiscount = selectedDiscounts.length === 0 || selectedDiscounts.some(d => {
+        if (d === '€') return discount >= 0 && discount < 2.5;
+        if (d === '€€') return discount >= 2.5 && discount < 5;
+        if (d === '€€€') return discount >= 5;
+      });
   
-      if (matchesSearch && matchesCategory) {
+      if (matchesSearch && matchesCategory && matchesDiscount) {
         $card.show();
         hasVisibleCards = true;
       } else {
@@ -163,7 +178,26 @@ $(document).ready(function () {
     $('#no-results-message').toggleClass('hidden', hasVisibleCards);
   
     // Update de filterpillen
-    updateFilterPills(searchTerm, selectedCategories);
+    updateFilterPills(searchTerm, selectedCategories, selectedDiscounts);
+  }
+
+  function updateFilterPills(searchTerm, selectedCategories, selectedDiscounts) {
+    const $activeFilters = $('#active-filters');
+    $activeFilters.empty();
+  
+    if (searchTerm) {
+      $activeFilters.append(`<span class="filter-pill bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="search" data-value="${searchTerm}">${searchTerm} <i class="fas fa-times remove-filter"></i></span>`);
+    }
+  
+    selectedCategories.forEach(category => {
+      $activeFilters.append(`<span class="filter-pill bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="category" data-value="${category}">${category} <i class="fas fa-times remove-filter"></i></span>`);
+    });
+
+    selectedDiscounts.forEach(discount => {
+      $activeFilters.append(`<span class="filter-pill bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="discount" data-value="${discount}">${discount} <i class="fas fa-times remove-filter"></i></span>`);
+    });
+  
+    $activeFilters.toggleClass('hidden', $activeFilters.children().length === 0);
   }
   
   function updateFilterPills(searchTerm, selectedCategories) {
@@ -215,4 +249,10 @@ $(document).ready(function () {
       applyFilters(); // Pas de filters opnieuw toe
     });
   }
+  $('#toggle-filters').click(function() {
+            $('#filter-panel').toggle();
+            var buttonText = $('#filter-panel').is(':visible') ? 'Verberg filters' : 'Toon filters';
+            $('#toggle-filters').text(buttonText);
+        });
+    
 });
