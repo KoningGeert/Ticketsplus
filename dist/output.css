@@ -1461,12 +1461,6 @@ video {
 
 @source "../node_modules/flowbite";
 
-#map {
-  height: 400px;
-  /* Pas de hoogte aan zoals gewenst */
-  width: 100%;
-}
-
 .hover\:bg-blauw:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(0 151 162 / var(--tw-bg-opacity, 1));
