@@ -12,15 +12,17 @@
       <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="/src/main.js" defer></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
       <title>Ticketpage</title>
    </head>
-   <body class="bg-achtergrond">
+   <body class="bg-achtergrond text-gray-800">
      <header class="bg-wit shadow-md">
         <div class="container mx-auto flex justify-between items-center p-4">
            <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
            <nav class="flex gap-4">
-              <a href="./pages/faqPage.html" class="text-blauw hover:text-oranje">FAQ</a>
-              <a href="./pages/contactPage.html" class="text-blauw hover:text-oranje">Contact</a>
+              <a href="./ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
            </nav>
         </div>
      </header>
@@ -172,7 +174,7 @@
                           <!-- Dynamisch gevuld via JS -->
                         </ul>
                         <!-- Doorgaan knop -->
-                        <button id="confirm-btn" class="mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
+                        <button id="" class="confirm-btn mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
                           Doorgaan
                         </button>
                       </div>
@@ -212,11 +214,28 @@
                   </div>
                   <div class="flex flex-col gap-4">
                      <div class="headline text-xl font-bold">Locatie & Openingstijden</div>
-                     <img
-                        class="w-full h-auto object-contain rounded"
-                        src="https://v.wpimg.pl/ZTZkNzI0dTU7CThJZkt4IHhRbBMgEnZ2L0l0WGYBaGxqE2EcIFw_Jj8bIVQuQi8kOxw-VDlcdTUqAmEMeB8-PSkbIhswHz85OA4qVSxSaGJjXyhPZAk4Mm9GekJ-U3c1Y1p2V34JOTFsD3lIfQY7Y3gW"
-                        alt=""
-                        />
+
+                         <div id="map"></div>
+                     <script>
+                      $(document).ready(function() {
+    var map = L.map('map').setView([52.7784, 6.9068], 15); // Coördinaten van Emmen
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([52.7784, 6.9068]).addTo(map)
+        .bindPopup('Emmen')
+        .openPopup();
+});
+                     </script>
+                     <style>
+                      #map {
+    height: 400px; /* Pas de hoogte aan zoals gewenst */
+    width: 100%;
+} 
+                     </style>
+                    
                      <div>
                         <div>Stationsstraat</div>
                         <div>5341 AB, Emmen</div>
@@ -275,9 +294,7 @@
                   </div>
                </div>
             </div>
-          <!-- Error box -->
-          <div id="error-box" class="text-red-500 font-semibold mt-2 hidden"></div>
-
+    
             <!-- Rechter gedeelte -->
             <div id="ticket-selection-desktop" class="w-1/3 hidden lg:flex h-fit bg-white p-8 border-grijs shadow-lg sticky top-8 rounded-lg flex-col gap-8">
               <div class="flex justify-between">
@@ -382,7 +399,7 @@
                         <!-- Dynamisch gevuld via JS -->
                       </ul>
                       <!-- Doorgaan knop -->
-                      <button id="confirm-btn" class="mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
+                      <button id="" class="confirm-btn mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
                         Doorgaan
                       </button>
                     </div>
@@ -415,5 +432,10 @@
       <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
       <script src="/src/Scripts/ticketPricing.js"></script>
       <script src="/src/Scripts/carousel.js"></script>
+
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+          <script src="map.js"></script>
+      
    </body>
 </html>
