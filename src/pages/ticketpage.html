@@ -8,24 +8,26 @@
          rel="stylesheet"
          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
          />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="/src/main.js" defer></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
       <title>Ticketpage</title>
    </head>
    <body class="bg-achtergrond text-gray-800">
-     <header class="bg-wit shadow-md">
-        <div class="container mx-auto flex justify-between items-center p-4">
-           <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
-           <nav class="flex gap-4">
-              <a href="./ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
-           </nav>
-        </div>
-     </header>
+    <header class="bg-wit shadow-md">
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+        <nav class="flex gap-4">
+          <a href="/src/pages/ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
+        </nav>
+      </div>
+    </header>
       <div class="container mx-auto px-4 py-8">
          <div class="flex flex-col lg:flex-row gap-6">
             <!-- Linker gedeelte -->
@@ -159,12 +161,12 @@
                         <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
                         <!-- Vandaag / Morgen -->
                         <div class="flex gap-3 mb-4">
-                          <button id="today-btn" class="px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
-                          <button id="tomorrow-btn" class="px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
+                          <button class="date-btn today-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
+                          <button class="date-btn tomorrow-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
                         </div>
                         <!-- Flatpickr -->
-                        <div id="datepicker-container" class="border rounded p-2">
-                          <input id="datepicker" class="w-full px-4 py-3 border rounded text-base" placeholder="Kies een datum" />
+                        <div id="" class="datepicker-container relative border rounded p-2">
+                          <input id="" class="datepicker w-full px-4 py-3 border rounded text-base cursor-pointer bg-white" placeholder="Kies een datum" readonly />
                         </div>
                       </div>
                       <!-- Tijdslot kiezen -->
@@ -215,8 +217,8 @@
                   <div class="flex flex-col gap-4">
                      <div class="headline text-xl font-bold">Locatie & Openingstijden</div>
 
-                         <div id="map"></div>
-                     <script>
+                     <div id="map" class="h-[400px] w-full z-10 relative"></div>
+                     <!-- <script>
                       $(document).ready(function() {
     var map = L.map('map').setView([52.7784, 6.9068], 15); // Coördinaten van Emmen
 
@@ -228,13 +230,13 @@
         .bindPopup('Emmen')
         .openPopup();
 });
-                     </script>
-                     <style>
+                     </script> -->
+                     <!-- <style>
                       #map {
     height: 400px; /* Pas de hoogte aan zoals gewenst */
     width: 100%;
 } 
-                     </style>
+                     </style> -->
                     
                      <div>
                         <div>Stationsstraat</div>
@@ -384,12 +386,12 @@
                       <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
                       <!-- Vandaag / Morgen -->
                       <div class="flex gap-3 mb-4">
-                        <button id="today-btn" class="px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
-                        <button id="tomorrow-btn" class="px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
+                        <button class="date-btn today-btn  px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
+                        <button class="date-btn tomorrow-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
                       </div>
                       <!-- Flatpickr -->
-                      <div id="datepicker-container" class="border rounded p-2">
-                        <input id="datepicker" class="w-full px-4 py-3 border rounded text-base" placeholder="Kies een datum" />
+                      <div id="" class="datepicker-container relative border rounded p-2">
+                        <input id="" class="datepicker w-full px-4 py-3 border rounded text-base cursor-pointer bg-white" placeholder="Kies een datum" readonly />
                       </div>
                     </div>
                     <!-- Tijdslot kiezen -->
@@ -432,10 +434,10 @@
       <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
       <script src="/src/Scripts/ticketPricing.js"></script>
       <script src="/src/Scripts/carousel.js"></script>
-
+      <script src="/src/Scripts/map.js"></script>
           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
           <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-          <script src="map.js"></script>
+          <script src="/src/main.js"></script>
       
    </body>
 </html>

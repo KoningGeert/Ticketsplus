@@ -1,6 +1,8 @@
 $(document).ready(function () {
+  // Globale variabelen
   let selectedDate = null;
   let selectedTime = null;
+  let fp = null; // Flatpickr instance
 
   let orderData = {
     date: null,
@@ -16,125 +18,229 @@ $(document).ready(function () {
     "11:15", "11:30", "11:45", "12:00", "12:15"
   ];
 
-  const fp = flatpickr("#datepicker", {
-    dateFormat: "d-m-Y",
-    minDate: "today",
-    disableMobile: true,
-    defaultDate: null,
-    onChange: function (selectedDates, dateStr) {
-      selectedDate = dateStr;
-      syncDateAndTime();
-      renderTimeslots();
+  // Flatpickr initialiseren
+  function initFlatpickr() {
+    const datepickerEl = document.getElementById("datepicker");
+    if (datepickerEl) {
+      fp = flatpickr(datepickerEl, {
+        dateFormat: "d-m-Y",
+        minDate: "today",
+        disableMobile: true,
+        defaultDate: null,
+        static: true,
+        appendTo: document.querySelector('#datepicker-container'),
+        onChange: function (selectedDates, dateStr) {
+          selectedDate = dateStr;
+          syncDateAndTime();
+          renderTimeslots();
+          updateDayButtons();
+        }
+      });
     }
-  });
-
+  }
+  // Flatpickr configuratie aanpassen
+fp = flatpickr(".datepicker", {
+  // ... bestaande opties ...
+  static: true,
+  appendTo: document.querySelector('.datepicker-container'),
+  // ... andere opties ...
+});
+// Toevoegen na Flatpickr initialisatie
+$(".datepicker").on("click", function(e) {
+  e.preventDefault();
+  if (fp) {
+    fp.open();
+  }
+});
+  // Datum weergave synchroniseren
   function syncDateAndTime() {
-    $(".date-display-mobile, .date-display-desktop").text(selectedDate || "Kies een bezoekdatum");
+    const formattedDate = selectedDate ? formatDisplayDate(selectedDate) : "Kies een bezoekdatum";
+    $(".date-display-mobile, .date-display-desktop").text(formattedDate);
     $(".time-display-mobile, .time-display-desktop").text(selectedTime || "Kies een tijdslot");
 
     orderData.date = selectedDate;
     orderData.time = selectedTime;
 
-    // Extra visuele feedback als datum/tijd nog niet gekozen is
-    if (!selectedDate) $(".date-display-desktop, .date-display-mobile").addClass("text-red-500");
-    else $(".date-display-desktop, .date-display-mobile").removeClass("text-red-500");
-
-    if (!selectedTime) $(".time-display-desktop, .time-display-mobile").addClass("text-red-500");
-    else $(".time-display-desktop, .time-display-mobile").removeClass("text-red-500");
+    // Visuele feedback
+    $(".date-display-desktop, .date-display-mobile").toggleClass("text-red-500", !selectedDate);
+    $(".time-display-desktop, .time-display-mobile").toggleClass("text-red-500", !selectedTime);
   }
 
+  // Datum opmaken voor weergave (bijv. "24 april")
+  function formatDisplayDate(dateStr) {
+    const months = ["januari", "februari", "maart", "april", "mei", "juni",
+                   "juli", "augustus", "september", "oktober", "november", "december"];
+    const [day, month, year] = dateStr.split('-');
+    return `${parseInt(day)} ${months[parseInt(month) - 1]}`;
+  }
+
+  // Tijdslots renderen
   function renderTimeslots() {
-    let html = "";
-    timeOptions.forEach((time) => {
-      html += `
-        <li>
-          <button 
-            class="timeslot-btn w-full px-4 py-2 border rounded flex justify-between items-center 
-                   transition disabled:bg-gray-100 disabled:text-gray-400 hover:bg-grijs hover:text-white" 
-            data-time="${time}"
-            aria-pressed="false">
-            <span>${time}</span>
-          </button>
-        </li>`;
-    });
+    let html = timeOptions.map(time => `
+      <li>
+        <button class="timeslot-btn w-full px-4 py-2 border rounded flex justify-between items-center 
+               transition disabled:bg-gray-100 disabled:text-gray-400 hover:bg-grijs hover:text-white" 
+          data-time="${time}"
+          aria-pressed="false">
+          <span>${time}</span>
+        </button>
+      </li>`).join('');
 
     $(".timeslot-list").html(html);
-    $(".timeslot-btn").prop("disabled", !selectedDate);
+    $(".timeslot-btn").prop("disabled", !selectedDate)
+      .attr("title", !selectedDate ? "Selecteer eerst een datum" : null);
 
-    // Tooltip tonen als disabled
+    // Herstel geselecteerd tijdslot indien aanwezig
+    if (selectedTime) {
+      $(`.timeslot-btn[data-time="${selectedTime}"]`)
+        .addClass("bg-blauw text-white font-semibold")
+        .attr("aria-pressed", "true");
+    }
+  }
+
+  // Vandaag/Morgen knoppen bijwerken
+  function updateDayButtons() {
     if (!selectedDate) {
-      $(".timeslot-btn").attr("title", "Selecteer eerst een datum");
+      $('.today-btn, .tomorrow-btn').removeClass('bg-blauw text-white');
+      return;
+    }
+
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    
+    const selected = new Date(selectedDate.split('-').reverse().join('-'));
+
+    if (selected.toDateString() === today.toDateString()) {
+      $('.today-btn').addClass('bg-blauw text-white');
+      $('.tomorrow-btn').removeClass('bg-blauw text-white');
+    } else if (selected.toDateString() === tomorrow.toDateString()) {
+      $('.tomorrow-btn').addClass('bg-blauw text-white');
+      $('.today-btn').removeClass('bg-blauw text-white');
     } else {
-      $(".timeslot-btn").removeAttr("title");
+      $('.today-btn, .tomorrow-btn').removeClass('bg-blauw text-white');
     }
   }
 
-  $(document).on("click", ".timeslot-btn", function () {
-    $(".timeslot-btn").removeClass("bg-blauw text-white font-semibold").attr("aria-pressed", "false");
-    $(this).addClass("bg-blauw text-white font-semibold").attr("aria-pressed", "true");
-
-    selectedTime = $(this).data("time");
-    syncDateAndTime();
-
-    $("#confirm-btn").removeClass("opacity-50 pointer-events-none");
-  });
-
-  $("#confirm-btn").on("click", function () {
-    if (selectedDate && selectedTime) {
-      $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
-      console.log("Datum & Tijd gekozen:", orderData);
-    } else {
-      alert("Kies eerst een datum en tijdslot.");
-    }
-  }
-  );
-  
-  $(".open-modal, #open-date-modal-mobile, #open-date-modal-desktop").on("click", function () {
-    let modalId = "#datetime-modal"; // default fallback
-  
-    if ($(this).is("#open-date-modal-mobile")) {
-      modalId = "#datetime-modal-mobile";
-    } else if ($(this).is("#open-date-modal-desktop")) {
-      modalId = "#datetime-modal-desktop";
-    }
-  
-    const modal = $(modalId);
-    modal.removeClass("hidden").addClass("flex");
-  
-    setTimeout(() => {
-      const datepickerInput = document.getElementById("datepicker");
-      if (datepickerInput && datepickerInput.offsetParent !== null) {
-        fp.open();
-      }
-    }, 300);
-  });
-  
-  $(".close-modal").on("click", function () {
-    $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
-  });
-  
-
-  // Vandaag/Morgen
+  // Datum instellen via knoppen
   function setDateViaButton(offsetDays) {
+    if (!fp) {
+      console.error("Flatpickr is niet geïnitialiseerd");
+      return;
+    }
+    
     const date = new Date();
     date.setDate(date.getDate() + offsetDays);
-    fp.setDate(date, true); // true = trigger onChange
-    $("#today-btn, #tomorrow-btn").removeClass("bg-blauw text-white");
-    if (offsetDays === 0) $("#today-btn").addClass("bg-blauw text-white");
-    else $("#tomorrow-btn").addClass("bg-blauw text-white");
+    fp.setDate(date, true);
   }
 
-  $("#today-btn").on("click", function () {
-    setDateViaButton(0);
-  });
+  // Event handlers
+  function setupEventHandlers() {
+    // Vandaag/Morgen knoppen
+    $(document).on("click", ".today-btn", function() {
+      setDateViaButton(0);
+    });
+    
+    $(document).on("click", ".tomorrow-btn", function() {
+      setDateViaButton(1);
+    });
 
-  $("#tomorrow-btn").on("click", function () {
-    setDateViaButton(1);
-  });
+    // Tijdslot selectie
+    $(document).on("click", ".timeslot-btn", function () {
+      $(".timeslot-btn").removeClass("bg-blauw text-white font-semibold")
+        .attr("aria-pressed", "false");
+      $(this).addClass("bg-blauw text-white font-semibold")
+        .attr("aria-pressed", "true");
 
+      selectedTime = $(this).data("time");
+      syncDateAndTime();
+      $(".confirm-btn").removeClass("opacity-50 pointer-events-none");
+    });
+
+    // Bevestigingsknop
+    $(".confirm-btn").on("click", function () {
+      if (selectedDate && selectedTime) {
+        $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
+      } else {
+        alert("Kies eerst een datum en tijdslot.");
+      }
+    });
+
+    $(".open-modal, #open-date-modal-mobile, #open-date-modal-desktop").on("click", function() {
+      let modalId = "#datetime-modal";
+      if ($(this).is("#open-date-modal-mobile")) modalId = "#datetime-modal-mobile";
+      else if ($(this).is("#open-date-modal-desktop")) modalId = "#datetime-modal-desktop";
+    
+      $(modalId).removeClass("hidden").addClass("flex");
+    
+      // Kalender direct openen
+      setTimeout(() => {
+        if (fp) {
+          fp.open();
+          // Forceer herpositionering voor betere weergave
+          setTimeout(() => fp._positionCalendar(), 10);
+        }
+      }, 50); // Korte vertraging voor betrouwbaarheid
+    });
+
+    // Modal sluiten
+    $(".close-modal").on("click", function () {
+      $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
+    });
+
+    // Ticket hoeveelheden
+    $(".plus").on("click", function() {
+      const $product = $(this).closest('.product');
+      const type = $product.data('ticket-type');
+      const quantity = parseInt($product.find('.quantity').text()) + 1;
+      syncQuantities(type, quantity);
+    });
+
+    $(".minus").on("click", function() {
+      const $product = $(this).closest('.product');
+      const type = $product.data('ticket-type');
+      const quantity = Math.max(0, parseInt($product.find('.quantity').text()) - 1);
+      syncQuantities(type, quantity);
+    });
+
+    // Bestelknop
+    $(".btnOrange").click(function () {
+      const totaalAantal = orderData.tickets.reduce((sum, item) => sum + item.quantity, 0);
+      const errorBox = $("#error-box");
+
+      if (totaalAantal === 0) {
+        errorBox.text("Selecteer minstens één ticket om door te gaan.").show();
+        return;
+      }
+      if (!orderData.date) {
+        errorBox.text("Selecteer een bezoekdatum.").show();
+        return;
+      }
+      if (!orderData.time) {
+        errorBox.text("Selecteer een tijdslot.").show();
+        return;
+      }
+
+      const bestelling = {
+        items: orderData.tickets,
+        date: orderData.date,
+        time: orderData.time,
+        totaalprijs: "€" + orderData.totalPrice.toFixed(2).replace(".", ","),
+      };
+
+      localStorage.setItem("bestelling", JSON.stringify(bestelling));
+      console.log("Bestelling opgeslagen:", bestelling);
+    });
+
+    // Error box verbergen
+    $("input, button").on("click", function () {
+      $("#error-box").hide();
+    });
+  }
+
+  // Helper functies
   function syncQuantities(type, newValue) {
-    document.querySelectorAll(`.product[data-ticket-type="${type}"] .quantity`)
-      .forEach(q => q.textContent = newValue);
+    $(`.product[data-ticket-type="${type}"] .quantity`).text(newValue);
     updateTotal();
   }
 
@@ -144,10 +250,11 @@ $(document).ready(function () {
     let tickets = [];
 
     $('.product:visible').each(function () {
-      const ticketType = $(this).data('ticket-type');
-      const price = parseFloat($(this).find('.price').text().replace('€', '').replace(',', '.'));
-      const oldPrice = parseFloat($(this).find('.oldPrice').text().replace('€', '').replace(',', '.')) || price;
-      const quantity = parseInt($(this).find('.quantity').text());
+      const $this = $(this);
+      const ticketType = $this.data('ticket-type');
+      const price = parseFloat($this.find('.price').text().replace('€', '').replace(',', '.'));
+      const oldPrice = parseFloat($this.find('.oldPrice').text().replace('€', '').replace(',', '.')) || price;
+      const quantity = parseInt($this.find('.quantity').text());
 
       if (quantity > 0) {
         tickets.push({ type: ticketType, price, oldPrice, quantity });
@@ -160,84 +267,49 @@ $(document).ready(function () {
     orderData.totalPrice = total;
     orderData.totalDiscount = totalOldPrice - total;
 
-    $('#totalPrice, #totalPriceDesktop').text('€' + total.toFixed(2).replace('.', ','));
-    $('#voordeel, #voordeelDesktop').text('€' + (totalOldPrice - total).toFixed(2).replace('.', ','));
+    $('[id^="totalPrice"]').text('€' + total.toFixed(2).replace('.', ','));
+    $('[id^="voordeel"]').text('€' + (totalOldPrice - total).toFixed(2).replace('.', ','));
   }
 
-  document.querySelectorAll('.plus').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const product = btn.closest('.product');
-      const quantityEl = product.querySelector('.quantity');
-      const type = product.dataset.ticketType;
-      let quantity = parseInt(quantityEl.textContent);
-      quantity++;
-      syncQuantities(type, quantity);
-    });
-  });
+  // Herstel opgeslagen bestelling
+  function restoreOrder() {
+    const saved = localStorage.getItem("bestelling");
+    if (saved) {
+      try {
+        const bestelling = JSON.parse(saved);
+        orderData = {
+          ...orderData,
+          ...bestelling,
+          totalPrice: parseFloat(bestelling.totaalprijs.replace("€", "").replace(",", ".")),
+        };
+        selectedDate = bestelling.date;
+        selectedTime = bestelling.time;
+        
+        if (fp && selectedDate) {
+          fp.setDate(selectedDate, false);
+        }
+        
+        syncDateAndTime();
+        renderTimeslots();
+        updateTotal();
+        updateDayButtons();
 
-  document.querySelectorAll('.minus').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const product = btn.closest('.product');
-      const quantityEl = product.querySelector('.quantity');
-      const type = product.dataset.ticketType;
-      let quantity = parseInt(quantityEl.textContent);
-      if (quantity > 0) quantity--;
-      syncQuantities(type, quantity);
-    });
-  });
-
-  $(".btnOrange").click(function () {
-    const totaalAantal = orderData.tickets.reduce((sum, item) => sum + item.quantity, 0);
-
-    if (totaalAantal === 0) {
-      $("#error-box").text("Selecteer minstens één ticket om door te gaan.").show();
-      return;
+        bestelling.items.forEach(item => {
+          syncQuantities(item.type, item.quantity);
+        });
+      } catch (e) {
+        console.error("Fout bij het laden van opgeslagen bestelling:", e);
+      }
     }
-
-    if (!orderData.date) {
-      $("#error-box").text("Selecteer een bezoekdatum.").show();
-      return;
-    }
-
-    if (!orderData.time) {
-      $("#error-box").text("Selecteer een tijdslot.").show();
-      return;
-    }
-
-    const bestelling = {
-      items: orderData.tickets,
-      date: orderData.date,
-      time: orderData.time,
-      totaalprijs: "€" + orderData.totalPrice.toFixed(2).replace(".", ","),
-    };
-
-    localStorage.setItem("bestelling", JSON.stringify(bestelling));
-    console.log("Bestelling opgeslagen:", bestelling);
-  });
-
-  // 🧠 Bestelling herstellen als gebruiker terugkomt
-  const saved = localStorage.getItem("bestelling");
-  if (saved) {
-    const bestelling = JSON.parse(saved);
-    orderData = {
-      ...orderData,
-      ...bestelling,
-      totalPrice: parseFloat(bestelling.totaalprijs.replace("€", "").replace(",", ".")),
-    };
-    selectedDate = bestelling.date;
-    selectedTime = bestelling.time;
-    fp.setDate(selectedDate, false);
-    syncDateAndTime();
-    renderTimeslots();
-    updateTotal();
-
-    bestelling.items.forEach(item => {
-      syncQuantities(item.type, item.quantity);
-    });
   }
 
-  // 👀 Extra: error-box verbergen bij actie
-  $("input, button").on("click", function () {
-    $("#error-box").hide();
-  });
+  
+
+  // Initialisatie
+  initFlatpickr();
+  setupEventHandlers();
+  restoreOrder();
+  syncDateAndTime();
+  renderTimeslots();
+  updateDayButtons();
 });
