@@ -14,8 +14,11 @@ $(document).ready(function () {
   function loadActivities() {
     $.getJSON('cards.json', function (data) {
       console.log('Loaded data:', data); // Controleer de geladen data
-      activities = data.map(item => item.headline);
-      createCards(data);
+      activities = data.map(item => ({
+        headline: item.headline,
+        keywords: item.keywords || [] // leeg array als keywords niet bestaan
+      }));
+            createCards(data);
     }).fail(function () {
       console.error('Failed to load cards.json');
     });
@@ -42,12 +45,17 @@ $(document).ready(function () {
     const searchTerm = $(this).val().toLowerCase();
     const $suggestions = $('#suggestions');
     $suggestions.empty();
-
+  
     if (searchTerm) {
-      const filteredActivities = activities.filter(activity => activity.toLowerCase().includes(searchTerm));
+      const filteredActivities = activities.filter(activity => {
+        const headlineMatch = activity.headline.toLowerCase().includes(searchTerm);
+        const keywordsMatch = activity.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm));
+        return headlineMatch || keywordsMatch;
+      });
+  
       if (filteredActivities.length > 0) {
         filteredActivities.forEach(activity => {
-          $suggestions.append(`<li class="p-2 cursor-pointer hover:bg-gray-200">${activity}</li>`);
+          $suggestions.append(`<li class="p-2 cursor-pointer hover:bg-gray-200">${activity.headline}</li>`);
         });
         $suggestions.removeClass('hidden');
       } else {
@@ -57,6 +65,7 @@ $(document).ready(function () {
       $suggestions.addClass('hidden');
     }
   }
+  
 
   function handleSuggestionClick() {
     const selectedActivity = $(this).text();
@@ -156,10 +165,11 @@ $(document).ready(function () {
     $('.card').each(function () {
       const $card = $(this);
       const title = $card.find('.headline').text().toLowerCase();
+      const keywords = ($card.attr('data-keywords') || '').toLowerCase();
       const category = $card.attr('data-category').toLowerCase();
       const discount = parseFloat($card.attr('data-discount').replace('€', '').replace(',', '.'));
   
-      const matchesSearch = !searchTerm || title.includes(searchTerm);
+      const matchesSearch = !searchTerm || title.includes(searchTerm) || keywords.includes(searchTerm);
       const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
       const matchesDiscount = selectedDiscounts.length === 0 || selectedDiscounts.some(d => {
         if (d === '€') return discount >= 0 && discount < 2.5;

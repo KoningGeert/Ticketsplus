@@ -1,315 +1,243 @@
-$(document).ready(function () {
-  // Globale variabelen
-  let selectedDate = null;
-  let selectedTime = null;
-  let fp = null; // Flatpickr instance
+$(function() {
+    // DOM element cache
+    const $body = $('body');
+    const $datetimeModal = $('#datetime-modal');
+    const $modalContent = $('.modal-content');
+    const $dateDisplay = $('.date-display');
+    const $timeDisplay = $('.time-display');
+    const $totalPrice = $('#totalPrice');
+    const $voordeel = $('#voordeel');
+    const $timeslotList = $('.timeslot-list');
+    const $confirmBtn = $('.confirm-btn');
+    const $dateInput = $("#date-input");
+    const $todayBtn = $('.today-btn'); // Toegevoegd
+    const $tomorrowBtn = $('.tomorrow-btn'); // Toegevoegd
+  
+    // Initialisatie
+    init();
+  
+    function init() {
+        setupEventHandlers();
+        loadSavedOrder();
+        initFlatpickr();
+        generateTimeSlots();
+        updateTotals();
+    }
+  
+    function setupEventHandlers() {
+      // Plus/min buttons
+      $('.plus').on('click', handlePlusClick);
+      $('.minus').on('click', handleMinusClick);
+      
+      // Modal handlers
+      $('#open-date-modal, #open-time-modal').on('click', handleModalOpen);
+      $(document).on('click', handleModalClose);
+      $modalContent.on('click', stopPropagation);
+      
+      // Timeslot selection
+      $timeslotList.on('click', 'li', handleTimeslotSelect);
+      
+      // Vandaag/Morgen buttons
+      $todayBtn.on('click', handleTodayClick);
+      $tomorrowBtn.on('click', handleTomorrowClick);
+      
+      // Doorgaan knop
+      $confirmBtn.on('click', handleConfirmClick);
+    }
+    
+  function loadSavedOrder() {
+      const bestellingStr = localStorage.getItem("bestelling");
+      if (!bestellingStr) {
+          saveOrderToStorage();
+          return;
+      }
 
-  let orderData = {
-    date: null,
-    time: null,
-    tickets: [],
-    totalPrice: 0,
-    totalDiscount: 0,
-  };
+      const bestelling = JSON.parse(bestellingStr);
+      
+      // Restore date
+      if (bestelling.date) {
+          $dateDisplay.text(bestelling.date);
+          if ($dateInput[0]._flatpickr) {
+              $dateInput[0]._flatpickr.setDate(bestelling.date, true, "d-m-Y");
+          }
+      }
+      
+      // Restore time
+      if (bestelling.time) {
+          $timeDisplay.text(bestelling.time);
+          $timeslotList.find('li').each(function() {
+              if ($(this).text() === bestelling.time) {
+                  $(this).addClass('bg-blauw text-white');
+                  $confirmBtn.removeClass('opacity-50 pointer-events-none');
+              }
+          });
+      }
+      
+      // Restore ticket quantities
+      if (bestelling.items?.length) {
+          bestelling.items.forEach(item => {
+              $(`.product[data-ticket-type="${item.type}"] .quantity`).text(item.quantity);
+          });
+      }
+  }
 
-  const timeOptions = [
-    "09:00", "09:15", "09:30", "09:45",
-    "10:15", "10:30", "10:45", "11:00",
-    "11:15", "11:30", "11:45", "12:00", "12:15"
-  ];
+  function saveOrderToStorage() {
+      const bestelling = {
+          date: $dateDisplay.text(),
+          time: $timeDisplay.text(),
+          items: [],
+          totaalprijs: $totalPrice.text(),
+          voordeel: $voordeel.text()
+      };
 
-  // Flatpickr initialiseren
-  function initFlatpickr() {
-    const datepickerEl = document.getElementById("datepicker");
-    if (datepickerEl) {
-      fp = flatpickr(datepickerEl, {
-        dateFormat: "d-m-Y",
-        minDate: "today",
-        disableMobile: true,
-        defaultDate: null,
-        static: true,
-        appendTo: document.querySelector('#datepicker-container'),
-        onChange: function (selectedDates, dateStr) {
-          selectedDate = dateStr;
-          syncDateAndTime();
-          renderTimeslots();
-          updateDayButtons();
-        }
+      $('.product').each(function() {
+          const $product = $(this);
+          const quantity = parseInt($product.find('.quantity').text(), 10);
+          
+          if (quantity > 0) {
+              bestelling.items.push({
+                  type: $product.data('ticket-type'),
+                  quantity: quantity,
+                  price: $product.find('.price').text()
+              });
+          }
       });
-    }
-  }
-  // Flatpickr configuratie aanpassen
-fp = flatpickr(".datepicker", {
-  // ... bestaande opties ...
-  static: true,
-  appendTo: document.querySelector('.datepicker-container'),
-  // ... andere opties ...
-});
-// Toevoegen na Flatpickr initialisatie
-$(".datepicker").on("click", function(e) {
-  e.preventDefault();
-  if (fp) {
-    fp.open();
-  }
-});
-  // Datum weergave synchroniseren
-  function syncDateAndTime() {
-    const formattedDate = selectedDate ? formatDisplayDate(selectedDate) : "Kies een bezoekdatum";
-    $(".date-display-mobile, .date-display-desktop").text(formattedDate);
-    $(".time-display-mobile, .time-display-desktop").text(selectedTime || "Kies een tijdslot");
 
-    orderData.date = selectedDate;
-    orderData.time = selectedTime;
-
-    // Visuele feedback
-    $(".date-display-desktop, .date-display-mobile").toggleClass("text-red-500", !selectedDate);
-    $(".time-display-desktop, .time-display-mobile").toggleClass("text-red-500", !selectedTime);
+      localStorage.setItem('bestelling', JSON.stringify(bestelling));
+      console.log('Bestelling opgeslagen:', bestelling);
   }
 
-  // Datum opmaken voor weergave (bijv. "24 april")
-  function formatDisplayDate(dateStr) {
-    const months = ["januari", "februari", "maart", "april", "mei", "juni",
-                   "juli", "augustus", "september", "oktober", "november", "december"];
-    const [day, month, year] = dateStr.split('-');
-    return `${parseInt(day)} ${months[parseInt(month) - 1]}`;
-  }
+  function updateTotals() {
+      let totaal = 0;
+      let voordeel = 0;
 
-  // Tijdslots renderen
-  function renderTimeslots() {
-    let html = timeOptions.map(time => `
-      <li>
-        <button class="timeslot-btn w-full px-4 py-2 border rounded flex justify-between items-center 
-               transition disabled:bg-gray-100 disabled:text-gray-400 hover:bg-grijs hover:text-white" 
-          data-time="${time}"
-          aria-pressed="false">
-          <span>${time}</span>
-        </button>
-      </li>`).join('');
+      $('.product').each(function () {
+          const $product = $(this);
+          const quantity = parseInt($product.find('.quantity').text(), 10);
+          const price = parsePrice($product.find('.price').text());
+          const oldPrice = parsePrice($product.find('.oldPrice').text());
 
-    $(".timeslot-list").html(html);
-    $(".timeslot-btn").prop("disabled", !selectedDate)
-      .attr("title", !selectedDate ? "Selecteer eerst een datum" : null);
+          totaal += price * quantity;
+          voordeel += (oldPrice - price) * quantity;
+      });
 
-    // Herstel geselecteerd tijdslot indien aanwezig
-    if (selectedTime) {
-      $(`.timeslot-btn[data-time="${selectedTime}"]`)
-        .addClass("bg-blauw text-white font-semibold")
-        .attr("aria-pressed", "true");
-    }
-  }
-
-  // Vandaag/Morgen knoppen bijwerken
-  function updateDayButtons() {
-    if (!selectedDate) {
-      $('.today-btn, .tomorrow-btn').removeClass('bg-blauw text-white');
-      return;
-    }
-
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-    
-    const selected = new Date(selectedDate.split('-').reverse().join('-'));
-
-    if (selected.toDateString() === today.toDateString()) {
-      $('.today-btn').addClass('bg-blauw text-white');
-      $('.tomorrow-btn').removeClass('bg-blauw text-white');
-    } else if (selected.toDateString() === tomorrow.toDateString()) {
-      $('.tomorrow-btn').addClass('bg-blauw text-white');
-      $('.today-btn').removeClass('bg-blauw text-white');
-    } else {
-      $('.today-btn, .tomorrow-btn').removeClass('bg-blauw text-white');
-    }
-  }
-
-  // Datum instellen via knoppen
-  function setDateViaButton(offsetDays) {
-    if (!fp) {
-      console.error("Flatpickr is niet geïnitialiseerd");
-      return;
-    }
-    
-    const date = new Date();
-    date.setDate(date.getDate() + offsetDays);
-    fp.setDate(date, true);
+      $totalPrice.text(`€${totaal.toFixed(2).replace('.', ',')}`);
+      $voordeel.text(`€${voordeel.toFixed(2).replace('.', ',')}`);
+      saveOrderToStorage();
   }
 
   // Event handlers
-  function setupEventHandlers() {
-    // Vandaag/Morgen knoppen
-    $(document).on("click", ".today-btn", function() {
-      setDateViaButton(0);
-    });
+  function handlePlusClick() {
+      const $qty = $(this).siblings('.quantity');
+      $qty.text(parseInt($qty.text(), 10) + 1);
+      updateTotals();
+  }
+
+  function handleMinusClick() {
+      const $qty = $(this).siblings('.quantity');
+      const currentQty = parseInt($qty.text(), 10);
+      if (currentQty > 0) {
+          $qty.text(currentQty - 1);
+          updateTotals();
+      }
+  }
+
+  function handleModalOpen(e) {
+      e.stopPropagation();
+      $body.addClass('overflow-hidden fixed w-full');
+      $datetimeModal.removeClass('hidden').addClass('flex');
+      
+      if ($(this).is('#open-date-modal')) {
+          setTimeout(() => {
+              $dateInput[0]._flatpickr?.open();
+          }, 10);
+      }
+  }
+
+  function handleModalClose(e) {
+      if ($(e.target).is('#datetime-modal, .close-modal') && 
+          !$(e.target).closest('.modal-content').length) {
+          $body.removeClass('overflow-hidden fixed w-full');
+          $datetimeModal.addClass('hidden').removeClass('flex');
+          saveOrderToStorage();
+      }
+  }
+
+  function handleTimeslotSelect() {
+      $timeslotList.find('li').removeClass('bg-blauw text-white');
+      $(this).addClass('bg-blauw text-white');
+      $timeDisplay.text($(this).text());
+      $confirmBtn.removeClass('opacity-50 pointer-events-none');
+      saveOrderToStorage();
+  }
+
+  function stopPropagation(e) {
+      e.stopPropagation();
+  }
+
+  function handleTodayClick() {
+    const today = new Date();
+    const formattedDate = formatDate(today);
+    $dateDisplay.text(formattedDate);
+    $dateInput[0]._flatpickr.setDate(today);
+    saveOrderToStorage();
+}
+
+function handleTomorrowClick() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const formattedDate = formatDate(tomorrow);
+    $dateDisplay.text(formattedDate);
+    $dateInput[0]._flatpickr.setDate(tomorrow);
+    saveOrderToStorage();
+}
+
+function handleConfirmClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $body.removeClass('overflow-hidden fixed w-full');
+    $datetimeModal.addClass('hidden').removeClass('flex');
+    saveOrderToStorage();
     
-    $(document).on("click", ".tomorrow-btn", function() {
-      setDateViaButton(1);
-    });
+    // Scroll naar ticket sectie voor betere UX
+    $('html, body').animate({
+        scrollTop: $("#ticket-selection").offset().top
+    }, 500);
+}
 
-    // Tijdslot selectie
-    $(document).on("click", ".timeslot-btn", function () {
-      $(".timeslot-btn").removeClass("bg-blauw text-white font-semibold")
-        .attr("aria-pressed", "false");
-      $(this).addClass("bg-blauw text-white font-semibold")
-        .attr("aria-pressed", "true");
+// Helper functie voor datumformattering
+function formatDate(date) {
+    return date.toLocaleDateString('nl-NL', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).replace(/\//g, '-');
+}
 
-      selectedTime = $(this).data("time");
-      syncDateAndTime();
-      $(".confirm-btn").removeClass("opacity-50 pointer-events-none");
-    });
 
-    // Bevestigingsknop
-    $(".confirm-btn").on("click", function () {
-      if (selectedDate && selectedTime) {
-        $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
-      } else {
-        alert("Kies eerst een datum en tijdslot.");
-      }
-    });
-
-    $(".open-modal, #open-date-modal-mobile, #open-date-modal-desktop").on("click", function() {
-      let modalId = "#datetime-modal";
-      if ($(this).is("#open-date-modal-mobile")) modalId = "#datetime-modal-mobile";
-      else if ($(this).is("#open-date-modal-desktop")) modalId = "#datetime-modal-desktop";
-    
-      $(modalId).removeClass("hidden").addClass("flex");
-    
-      // Kalender direct openen
-      setTimeout(() => {
-        if (fp) {
-          fp.open();
-          // Forceer herpositionering voor betere weergave
-          setTimeout(() => fp._positionCalendar(), 10);
-        }
-      }, 50); // Korte vertraging voor betrouwbaarheid
-    });
-
-    // Modal sluiten
-    $(".close-modal").on("click", function () {
-      $(this).closest(".datetime-modal").addClass("hidden").removeClass("flex");
-    });
-
-    // Ticket hoeveelheden
-    $(".plus").on("click", function() {
-      const $product = $(this).closest('.product');
-      const type = $product.data('ticket-type');
-      const quantity = parseInt($product.find('.quantity').text()) + 1;
-      syncQuantities(type, quantity);
-    });
-
-    $(".minus").on("click", function() {
-      const $product = $(this).closest('.product');
-      const type = $product.data('ticket-type');
-      const quantity = Math.max(0, parseInt($product.find('.quantity').text()) - 1);
-      syncQuantities(type, quantity);
-    });
-
-    // Bestelknop
-    $(".btnOrange").click(function () {
-      const totaalAantal = orderData.tickets.reduce((sum, item) => sum + item.quantity, 0);
-      const errorBox = $("#error-box");
-
-      if (totaalAantal === 0) {
-        errorBox.text("Selecteer minstens één ticket om door te gaan.").show();
-        return;
-      }
-      if (!orderData.date) {
-        errorBox.text("Selecteer een bezoekdatum.").show();
-        return;
-      }
-      if (!orderData.time) {
-        errorBox.text("Selecteer een tijdslot.").show();
-        return;
-      }
-
-      const bestelling = {
-        items: orderData.tickets,
-        date: orderData.date,
-        time: orderData.time,
-        totaalprijs: "€" + orderData.totalPrice.toFixed(2).replace(".", ","),
-      };
-
-      localStorage.setItem("bestelling", JSON.stringify(bestelling));
-      console.log("Bestelling opgeslagen:", bestelling);
-    });
-
-    // Error box verbergen
-    $("input, button").on("click", function () {
-      $("#error-box").hide();
-    });
+  // Helpers
+  function parsePrice(text) {
+      return parseFloat(text.replace('€', '').replace(',', '.')) || 0;
   }
 
-  // Helper functies
-  function syncQuantities(type, newValue) {
-    $(`.product[data-ticket-type="${type}"] .quantity`).text(newValue);
-    updateTotal();
+  function initFlatpickr() {
+      flatpickr($dateInput, {
+          dateFormat: "d-m-Y",
+          minDate: "today",
+          onChange: function(selectedDates, dateStr) {
+              $dateDisplay.text(dateStr);
+              saveOrderToStorage();
+          }
+      });
   }
 
-  function updateTotal() {
-    let total = 0;
-    let totalOldPrice = 0;
-    let tickets = [];
-
-    $('.product:visible').each(function () {
-      const $this = $(this);
-      const ticketType = $this.data('ticket-type');
-      const price = parseFloat($this.find('.price').text().replace('€', '').replace(',', '.'));
-      const oldPrice = parseFloat($this.find('.oldPrice').text().replace('€', '').replace(',', '.')) || price;
-      const quantity = parseInt($this.find('.quantity').text());
-
-      if (quantity > 0) {
-        tickets.push({ type: ticketType, price, oldPrice, quantity });
-        total += price * quantity;
-        totalOldPrice += oldPrice * quantity;
-      }
-    });
-
-    orderData.tickets = tickets;
-    orderData.totalPrice = total;
-    orderData.totalDiscount = totalOldPrice - total;
-
-    $('[id^="totalPrice"]').text('€' + total.toFixed(2).replace('.', ','));
-    $('[id^="voordeel"]').text('€' + (totalOldPrice - total).toFixed(2).replace('.', ','));
+  function generateTimeSlots() {
+      const slots = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+      slots.forEach(slot => {
+          $timeslotList.append($('<li>', {
+              class: 'cursor-pointer rounded border px-2 py-2',
+              text: slot
+          }));
+      });
   }
-
-  // Herstel opgeslagen bestelling
-  function restoreOrder() {
-    const saved = localStorage.getItem("bestelling");
-    if (saved) {
-      try {
-        const bestelling = JSON.parse(saved);
-        orderData = {
-          ...orderData,
-          ...bestelling,
-          totalPrice: parseFloat(bestelling.totaalprijs.replace("€", "").replace(",", ".")),
-        };
-        selectedDate = bestelling.date;
-        selectedTime = bestelling.time;
-        
-        if (fp && selectedDate) {
-          fp.setDate(selectedDate, false);
-        }
-        
-        syncDateAndTime();
-        renderTimeslots();
-        updateTotal();
-        updateDayButtons();
-
-        bestelling.items.forEach(item => {
-          syncQuantities(item.type, item.quantity);
-        });
-      } catch (e) {
-        console.error("Fout bij het laden van opgeslagen bestelling:", e);
-      }
-    }
-  }
-
-  
-
-  // Initialisatie
-  initFlatpickr();
-  setupEventHandlers();
-  restoreOrder();
-  syncDateAndTime();
-  renderTimeslots();
-  updateDayButtons();
 });

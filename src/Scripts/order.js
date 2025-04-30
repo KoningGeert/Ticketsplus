@@ -23,5 +23,19 @@ $(document).ready(function () {
     }
   
     console.log("Bestelling in localStorage:", bestellingStr);
+    $(".bewerk-knop").on("click", function() {
+      // Sla de huidige scrollpositie op voor een betere UX
+      localStorage.setItem("scrollPosition", window.pageYOffset);
+      
+      // Navigeer terug naar de ticketpagina
+      window.location.href = "/src/pages/ticketpage.html"; // Pas dit pad aan naar jouw structuur
   });
+
+  // Optioneel: Scroll naar vorige positie bij terugkeren
+  const savedPosition = localStorage.getItem("scrollPosition");
+  if (savedPosition) {
+      window.scrollTo(0, parseInt(savedPosition));
+      localStorage.removeItem("scrollPosition");
+  }
+});
   

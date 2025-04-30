@@ -1,443 +1,291 @@
 <!doctype html>
-<html>
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link href="/dist/output.css" rel="stylesheet" />
-      <link
-         rel="stylesheet"
-         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-         />
-    
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="/src/main.js" defer></script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticketpage - Landal Wildlands</title>
 
+    <!-- Stylesheets -->
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/main.js" defer></script>
+    <script src="/src/Scripts/carousel.js"></script>
+    <script src="/src/Scripts/ticketPricing.js"></script>
+    <script src="/src/Scripts/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-      <title>Ticketpage</title>
-   </head>
-   <body class="bg-achtergrond text-gray-800">
+  </head>
+
+  <body class="bg-achtergrond text-gray-800">
+    <!-- Header -->
     <header class="bg-wit shadow-md">
-      <div class="container mx-auto flex justify-between items-center p-4">
-        <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+      <div class="container mx-auto flex items-center justify-between p-4">
+        <a href="/src/index.html" class="text-blauw text-2xl font-bold">Landal</a>
         <nav class="flex gap-4">
           <a href="/src/pages/ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
         </nav>
       </div>
     </header>
-      <div class="container mx-auto px-4 py-8">
-         <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Linker gedeelte -->
-            <div class="w-full sm:w-2/3 bg-white border-grijs shadow-lg rounded-lg overflow-hidden">
-               <!-- Carousel -->
-               <div class="carousel relative overflow-hidden h-64 sm:h-96">
-                  <div class="carousel-inner flex transition-transform duration-700 ease-in-out">
-                     <div class="carousel-item flex-none w-full">
-                        <img
-                           src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg"
-                           alt="Image 1"
-                           class="w-full h-full object-cover"
-                           />
-                     </div>
-                     <div class="carousel-item flex-none w-full">
-                        <img
-                           src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg"
-                           alt="Image 2"
-                           class="w-full h-full object-cover"
-                           />
-                     </div>
-                  </div>
-                  <!-- Navigatieknoppen -->
-                  <button
-                     class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
-                     >
-                  ‹
-                  </button>
-                  <button
-                     class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
-                     >
-                  ›
-                  </button>
-                  <!-- Indicatoren -->
-                  <div class="indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                     <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
-                     <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
-                  </div>
-                  <!-- Teller -->
-                  <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">
-                     <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
-                  </div>
-               </div>
 
-               <!-- Ticketselectie voor mobiel -->
-               <div id="ticket-selection-mobile" class="h-fit lg:hidden p-8 top-8 flex-col flex gap-8">
-                <div class="flex justify-between">
-                  <div class="headline font-bold text-xl">Wildlands</div>
-                  <div class="flex gap-1 items-center">
-                    <i class="fas fa-star text-groen"></i>
-                    <div class="rating font-bold">4,7</div>
-                    <div>|</div>
-                    <div class="reviews">12,547</div>
-                  </div>
-                </div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 relative">
+        <!-- Carousel Section -->
+        <section class="w-full flex flex-col gap-8">
+          <div class="carousel relative overflow-hidden h-64 sm:h-96 rounded-md">
+            <div class="carousel-inner flex transition-transform duration-700 ease-in-out">
+               <div class="carousel-item flex-none w-full">
+                  <img
+                     src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg"
+                     alt="Image 1"
+                     class="w-full h-full object-cover"
+                     />
+               </div>
+               <div class="carousel-item flex-none w-full">
+                  <img
+                     src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg"
+                     alt="Image 2"
+                     class="w-full h-full object-cover"
+                     />
+               </div>
+            </div>
+            <!-- Navigatieknoppen -->
+            <button
+               class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
+               >
+            ‹
+            </button>
+            <button
+               class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
+               >
+            ›
+            </button>
+            <!-- Indicatoren -->
+            <div class="indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+               <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
+               <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
+            </div>
+            <!-- Teller -->
+            <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">
+               <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+            </div>
+        </section>
+
+        <div class="flex flex-col gap-8 lg:grid lg:grid-cols-3 lg:gap-4 w-full lg:mt-6">
+
+          <!-- Ticket Section -->
+          <aside id="ticket-selection" class="lg:sticky relative top-8 right-0 my-8 flex h-fit flex-col gap-8 rounded-lg bg-white p-8 shadow-lg col-span-1 lg:order-2">
+            <div class="flex justify-between">
+              <div class="headline text-xl font-bold">Wildlands</div>
+              <div class="flex items-center gap-1">
+                <i class="fas fa-star text-groen"></i>
+                <div class="rating font-bold">4,7</div>
+                <div>|</div>
+                <div class="reviews">12,547</div>
+              </div>
+            </div>
+            <div class="flex flex-col lg:hidden">
+              <div class="subheadline text-lg font-bold">Bestelvoorwaarden</div>
+              <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</div>
+            </div>
+            <div class="flex flex-col gap-6">
+              <div class="product flex items-center justify-between" data-ticket-type="Volwassene">
                 <div class="flex flex-col">
-                  <div class="subheadline font-bold text-lg">Bestelvoorwaarden</div>
-                  <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</div>
-                </div>
-                <div class="flex flex-col gap-6">
-                  <div class="flex justify-between items-center product" data-ticket-type="Volwassene">
-                    <div class="flex flex-col">
-                      <div class="subheadline font-bold">Volwassene</div>
-                      <div class="flex gap-1">
-                        <div class="oldPrice text-gray-500 line-through">€13,50</div>
-                        <div class="price">€12,50</div>
-                      </div>
-                    </div>
-                    <div class="flex gap-4 items-center">
-                      <button class="aspect-square p-2 bg-blauw minus">-</button>
-                      <div class="quantity">0</div>
-                      <button class="aspect-square p-2 bg-blauw plus">+</button>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center product" data-ticket-type="Kinderen">
-                    <div class="flex flex-col">
-                      <div class="subheadline font-bold">Kinderen</div>
-                      <div class="flex gap-1">
-                        <div class="oldPrice text-gray-500 line-through">€12,50</div>
-                        <div class="price">€10,00</div>
-                      </div>
-                    </div>
-                    <div class="flex gap-4 items-center">
-                      <button class="aspect-square p-2 bg-blauw minus">-</button>
-                      <div class="quantity">0</div>
-                      <button class="aspect-square p-2 bg-blauw plus">+</button>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center product" data-ticket-type="Parkeerkaart">
-                    <div class="flex flex-col">
-                      <div class="subheadline font-bold">Parkeerkaart</div>
-                      <div class="flex gap-1">
-                        <div class="oldPrice text-gray-500 line-through">€7,95</div>
-                        <div class="price">€7,50</div>
-                      </div>
-                    </div>
-                    <div class="flex gap-4 items-center">
-                      <button class="aspect-square p-2 bg-blauw minus">-</button>
-                      <div class="quantity">0</div>
-                      <button class="aspect-square p-2 bg-blauw plus">+</button>
-                    </div>
+                  <div class="subheadline font-bold">Volwassene</div>
+                  <div class="flex gap-1">
+                    <div class="oldPrice text-gray-500 line-through">€13,50</div>
+                    <div class="price">€12,50</div>
                   </div>
                 </div>
-              
-                <!-- Trigger Knoppen -->
-                <div class="flex gap-6 w-full">
-                  <button id="open-date-modal-mobile" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-                    <div class="flex flex-col gap-1 text-start">
-                      <div class="font-bold">Bezoekdatum</div>
-                      <div class="font-light text-sm date-display">Kies een bezoekdatum</div>
-                    </div>
-                  </button>
-                  <button id="open-time-modal"  class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-                    <div class="flex flex-col gap-1 text-start">
-                      <div class="font-bold">Tijdslot</div>
-                      <div class="font-light text-sm time-display">Kies een tijdslot</div>
-                    </div>
-                  </button>
+                <div class="flex items-center gap-4">
+                  <button class="bg-blauw minus aspect-square p-2">-</button>
+                  <div class="quantity">0</div>
+                  <button class="bg-blauw plus aspect-square p-2">+</button>
                 </div>
-                <!-- Overlay Modal -->
-                <div id="datetime-modal-mobile" data-target="mobile" class="datetime-modal fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
-                  <div class="bg-white rounded-xl max-w-4xl w-full mx-6 p-6 md:p-10 relative">
-                    <!-- Sluitknop -->
-                    <button class="absolute top-4 right-4 text-gray-500 hover:text-black close-modal">
-                      &times;
-                    </button>
-                    <!-- Modal Body -->
-                    <div class="flex flex-col md:flex-row gap-10 w-full">
-                      <!-- Datum kiezen -->
-                      <div class="flex-1">
-                        <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
-                        <!-- Vandaag / Morgen -->
-                        <div class="flex gap-3 mb-4">
-                          <button class="date-btn today-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
-                          <button class="date-btn tomorrow-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
-                        </div>
-                        <!-- Flatpickr -->
-                        <div id="" class="datepicker-container relative border rounded p-2">
-                          <input id="" class="datepicker w-full px-4 py-3 border rounded text-base cursor-pointer bg-white" placeholder="Kies een datum" readonly />
-                        </div>
-                      </div>
-                      <!-- Tijdslot kiezen -->
-                      <div class="flex-1">
-                        <h2 class="font-bold text-xl mb-4">Kies een tijdslot</h2>
-                        <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
-                          <!-- Dynamisch gevuld via JS -->
-                        </ul>
-                        <!-- Doorgaan knop -->
-                        <button id="" class="confirm-btn mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
-                          Doorgaan
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div class="flex justify-between headline font-bold text-lg">
-                    <div class="font-bold text-lg">Totaalprijs</div>
-                    <div id="totalPrice">€0,00</div>
-                  </div>
-                  <div class="flex justify-between font-light text-sm text-blauw">
-                    <div class="">Uw voordeel</div>
-                    <div id="voordeel" class="">€0,00</div>
-                  </div>
-                </div>
-                <a href="/src/pages/orderPage.html" class="btnOrange w-full bg-oranje font-bold text-white hover:bg-blue rounded-md py-2 block text-center">
-                  Nu bestellen
-                </a>
-  
               </div>
-               <!-- Inhoud -->
-               <div class="flex flex-col gap-8 p-4 sm:p-8">
-
-
-                  <div class="flex flex-col gap-4">
-                     <div class="headline text-xl font-bold">Informatie</div>
-                     <p>
-                        Ga op ontdekkingstocht in de wereld van de dieren. Neem de tijd
-                        en spot kleurrijke vogels en bijzondere reptielen. Kijk omhoog en
-                        zie vari’s en maki’s in de boomtoppen en laat je leiden door de
-                        geluiden van het grootste overdekte regenwoud van de wereld. Of
-                        klauter via touwbruggen omhoog en sta oog in oog met de
-                        withandgibbons.
-                     </p>
+              <div class="product flex items-center justify-between" data-ticket-type="Kinderen">
+                <div class="flex flex-col">
+                  <div class="subheadline font-bold">Kinderen</div>
+                  <div class="flex gap-1">
+                    <div class="oldPrice text-gray-500 line-through">€12,50</div>
+                    <div class="price">€10,00</div>
                   </div>
-                  <div class="flex flex-col gap-4">
-                     <div class="headline text-xl font-bold">Locatie & Openingstijden</div>
-
-                     <div id="map" class="h-[400px] w-full z-10 relative"></div>
-                     <!-- <script>
-                      $(document).ready(function() {
-    var map = L.map('map').setView([52.7784, 6.9068], 15); // Coördinaten van Emmen
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    L.marker([52.7784, 6.9068]).addTo(map)
-        .bindPopup('Emmen')
-        .openPopup();
-});
-                     </script> -->
-                     <!-- <style>
-                      #map {
-    height: 400px; /* Pas de hoogte aan zoals gewenst */
-    width: 100%;
-} 
-                     </style> -->
-                    
-                     <div>
-                        <div>Stationsstraat</div>
-                        <div>5341 AB, Emmen</div>
-                        <div>0611122233</div>
-                        <div>Website</div>
-                        <div>Openingstijden</div>
-                     </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button class="bg-blauw minus aspect-square p-2">-</button>
+                  <div class="quantity">0</div>
+                  <button class="bg-blauw plus aspect-square p-2">+</button>
+                </div>
+              </div>
+              <div class="product flex items-center justify-between" data-ticket-type="Parkeerkaart">
+                <div class="flex flex-col">
+                  <div class="subheadline font-bold">Parkeerkaart</div>
+                  <div class="flex gap-1">
+                    <div class="oldPrice text-gray-500 line-through">€7,95</div>
+                    <div class="price">€7,50</div>
                   </div>
-                  <div class="flex flex-col gap-4">
-                     <div class="headline text-xl font-bold">Reviews</div>
-                     <div class="flex flex-col gap-1">
-                        <div>24 reviews</div>
-                        <div class="flex justify-between">
-                           <div>Gemiddelde score op Tripadvisor</div>
-                           <div class="flex gap-2 items-center">
-                              <div class="rating font-bold">4,7</div>
-                              <div class="flex gap-1 items-center">
-                                 <i class="fas fa-star text-groen"></i>
-                                 <i class="fas fa-star text-groen"></i>
-                                 <i class="fas fa-star text-groen"></i>
-                                 <i class="fas fa-star text-groen"></i>
-                                 <i class="fas fa-star text-grijs"></i>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- Carousel met reviews -->
-                     <div class="overflow-x-auto">
-                        <div class="flex gap-4 snap-x snap-mandatory overflow-x-auto px-1 py-2 scrollbar-hide">
-                           <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
-                              <div class="text-orange-400 mb-1">★★★★★</div>
-                              <h3 class="font-bold text-lg mb-2">Geweldige dag</h3>
-                              <p class="text-sm text-gray-700 line-clamp-6">
-                                 Het was super leuk met mijn vrienden. De surfers waren heel aardig en hielpen je met alles zoals foto’s. Het was ook heel creatief.
-                              </p>
-                              <p class="text-blue-500 text-sm mt-4 italic">16 Januari 2025</p>
-                           </div>
-                           <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
-                              <div class="text-orange-400 mb-1">★★★★★</div>
-                              <h3 class="font-bold text-lg mb-2">Hele fijne sfeer</h3>
-                              <p class="text-sm text-gray-700 line-clamp-6">
-                                 Alles was goed geregeld, en het voelde echt als een ontspannen dagje weg. Heel chill en gezellig met z’n allen.
-                              </p>
-                              <p class="text-blue-500 text-sm mt-4 italic">20 Januari 2025</p>
-                           </div>
-                           <div class="snap-start shrink-0 bg-white rounded-xl shadow p-4 w-72 border border-gray-200">
-                              <div class="text-orange-400 mb-1">★★★★★</div>
-                              <h3 class="font-bold text-lg mb-2">Super tof</h3>
-                              <p class="text-sm text-gray-700 line-clamp-6">
-                                 Echt een topervaring! We konden lekker creatief zijn en de begeleiding was top. Ik kom zeker nog een keer terug.
-                              </p>
-                              <p class="text-blue-500 text-sm mt-4 italic">25 Januari 2025</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button class="bg-blauw minus aspect-square p-2">-</button>
+                  <div class="quantity">0</div>
+                  <button class="bg-blauw plus aspect-square p-2">+</button>
+                </div>
+              </div>
             </div>
-    
-            <!-- Rechter gedeelte -->
-            <div id="ticket-selection-desktop" class="w-1/3 hidden lg:flex h-fit bg-white p-8 border-grijs shadow-lg sticky top-8 rounded-lg flex-col gap-8">
-              <div class="flex justify-between">
-                <div class="headline font-bold text-xl">Wildlands</div>
-                <div class="flex gap-1 items-center">
-                  <i class="fas fa-star text-groen"></i>
-                  <div class="rating font-bold">4,7</div>
-                  <div>|</div>
-                  <div class="reviews">12,547</div>
-                </div>
-              </div>
-              <div class="flex flex-col">
-                <div class="subheadline font-bold text-lg">Bestelvoorwaarden</div>
-                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</div>
-              </div>
-              <div class="flex flex-col gap-6">
-                <div class="flex justify-between items-center product" data-ticket-type="Volwassene">
-                  <div class="flex flex-col">
-                    <div class="subheadline font-bold">Volwassene</div>
-                    <div class="flex gap-1">
-                      <div class="oldPrice text-gray-500 line-through">€13,50</div>
-                      <div class="price">€12,50</div>
-                    </div>
-                  </div>
-                  <div class="flex gap-4 items-center">
-                    <button class="aspect-square p-2 bg-blauw minus">-</button>
-                    <div class="quantity">0</div>
-                    <button class="aspect-square p-2 bg-blauw plus">+</button>
-                  </div>
-                </div>
-                <div class="flex justify-between items-center product" data-ticket-type="Kinderen">
-                  <div class="flex flex-col">
-                    <div class="subheadline font-bold">Kinderen</div>
-                    <div class="flex gap-1">
-                      <div class="oldPrice text-gray-500 line-through">€12,50</div>
-                      <div class="price">€10,00</div>
-                    </div>
-                  </div>
-                  <div class="flex gap-4 items-center">
-                    <button class="aspect-square p-2 bg-blauw minus">-</button>
-                    <div class="quantity">0</div>
-                    <button class="aspect-square p-2 bg-blauw plus">+</button>
-                  </div>
-                </div>
-                <div class="flex justify-between items-center product" data-ticket-type="Parkeerkaart">
-                  <div class="flex flex-col">
-                    <div class="subheadline font-bold">Parkeerkaart</div>
-                    <div class="flex gap-1">
-                      <div class="oldPrice text-gray-500 line-through">€7,95</div>
-                      <div class="price">€7,50</div>
-                    </div>
-                  </div>
-                  <div class="flex gap-4 items-center">
-                    <button class="aspect-square p-2 bg-blauw minus">-</button>
-                    <div class="quantity">0</div>
-                    <button class="aspect-square p-2 bg-blauw plus">+</button>
-                  </div>
-                </div>
-              </div>
-            
-              <!-- Trigger Knoppen -->
-              <div class="flex gap-6 w-full">
-                <button id="open-date-modal-desktop" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-                  <div class="flex flex-col gap-1 text-start">
-                    <div class="font-bold">Bezoekdatum</div>
-                    <div class="font-light text-sm date-display">Kies een bezoekdatum</div>
-                  </div>
-                </button>
-                <button id="open-time-modal" class="w-1/2 flex p-4 rounded-md border-grijs border open-modal">
-                  <div class="flex flex-col gap-1 text-start">
-                    <div class="font-bold">Tijdslot</div>
-                    <div class="font-light text-sm time-display">Kies een tijdslot</div>
-                  </div>
-                </button>
-              </div>
-              <!-- Overlay Modal -->
-              <div id="datetime-modal-desktop" data-target="desktop"  class="datetime-modal fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
-                <div class="bg-white rounded-xl max-w-4xl w-full mx-6 p-6 md:p-10 relative">
-                  <!-- Sluitknop -->
-                  <button class="absolute top-4 right-4 text-gray-500 hover:text-black close-modal">
-                    &times;
-                  </button>
-                  <!-- Modal Body -->
-                  <div class="flex flex-col md:flex-row gap-10 w-full">
-                    <!-- Datum kiezen -->
-                    <div class="flex-1">
-                      <h2 class="font-bold text-xl mb-4">Selecteer een datum</h2>
-                      <!-- Vandaag / Morgen -->
-                      <div class="flex gap-3 mb-4">
-                        <button class="date-btn today-btn  px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Vandaag</button>
-                        <button class="date-btn tomorrow-btn px-4 py-2 rounded border border-grijs hover:bg-blauw hover:text-white">Morgen</button>
-                      </div>
-                      <!-- Flatpickr -->
-                      <div id="" class="datepicker-container relative border rounded p-2">
-                        <input id="" class="datepicker w-full px-4 py-3 border rounded text-base cursor-pointer bg-white" placeholder="Kies een datum" readonly />
-                      </div>
-                    </div>
-                    <!-- Tijdslot kiezen -->
-                    <div class="flex-1">
-                      <h2 class="font-bold text-xl mb-4">Kies een tijdslot</h2>
-                      <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
-                        <!-- Dynamisch gevuld via JS -->
-                      </ul>
-                      <!-- Doorgaan knop -->
-                      <button id="" class="confirm-btn mt-6 px-4 py-2 rounded w-full opacity-50 pointer-events-none transition bg-blauw text-white font-semibold">
-                        Doorgaan
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <div class="flex justify-between headline font-bold text-lg">
-                  <div class="font-bold text-lg">Totaalprijs</div>
-                  <div id="totalPrice">€0,00</div>
-                </div>
-                <div class="flex justify-between font-light text-sm text-blauw">
-                  <div class="">Uw voordeel</div>
-                  <div id="voordeel" class="">€0,00</div>
-                </div>
-              </div>
-              <a href="/src/pages/orderPage.html" class="btnOrange w-full bg-oranje font-bold text-white hover:bg-blue rounded-md py-2 block text-center">
-                Nu bestellen
-              </a>
 
+            <!-- Trigger Knoppen -->
+            <div class="flex w-full gap-6">
+              <button id="open-date-modal" class="border-grijs open-modal flex w-1/2 rounded-md border p-4">
+                <div class="flex flex-col gap-1 text-start">
+                  <div class="font-bold">Bezoekdatum</div>
+                  <div class="date-display text-sm font-light">Kies een bezoekdatum</div>
+                </div>
+              </button>
+              <button id="open-time-modal" class="border-grijs open-modal flex w-1/2 rounded-md border p-4">
+                <div class="flex flex-col gap-1 text-start">
+                  <div class="font-bold">Tijdslot</div>
+                  <div class="time-display text-sm font-light">Kies een tijdslot</div>
+                </div>
+              </button>
             </div>
-            
-          </div>
+            <!-- Overlay Modal -->
+            <div id="datetime-modal" class=" fixed inset-0 z-[9999] overflow-y-hidden hidden items-center justify-center bg-black/50">
+              <div class="relative mx-6 w-full max-w-4xl rounded-xl bg-white p-6 md:p-10">
+                <!-- Sluitknop -->
+                <button class="close-modal absolute top-4 right-4 text-gray-500 hover:text-black">&times;</button>
+                <!-- Modal Body -->
+                <div class="flex w-full flex-col gap-10 md:flex-row">
+                  <!-- Datum kiezen -->
+                  <div class="flex-1">
+                    <h2 class="mb-4 text-xl font-bold">Selecteer een datum</h2>
+                    <!-- Vandaag / Morgen -->
+                    <div class="mb-4 flex gap-3">
+                      <button class="date-btn today-btn border-grijs hover:bg-blauw rounded border px-4 py-2 hover:text-white">Vandaag</button>
+                      <button class="date-btn tomorrow-btn border-grijs hover:bg-blauw rounded border px-4 py-2 hover:text-white">Morgen</button>
+                    </div>
+                    <!-- Flatpickr -->
+                    <div id="" class="datepicker-container relative rounded border p-2">
+<!-- In je modal -->
+<input type="text" id="date-input" class="flatpickr" placeholder="Selecteer een datum">
+                    </div>
+                  </div>
+                  <!-- Tijdslot kiezen -->
+                  <div class="flex-1">
+                    <h2 class="mb-4 text-xl font-bold">Kies een tijdslot</h2>
+                    <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
+                      <!-- Dynamisch gevuld via JS -->
+                    </ul>
+                    <!-- Doorgaan knop -->
+                    <button id="" class="confirm-btn bg-blauw pointer-events-none mt-6 w-full rounded px-4 py-2 font-semibold text-white opacity-50 transition">Doorgaan</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="headline flex justify-between text-lg font-bold">
+                <div class="text-lg font-bold">Totaalprijs</div>
+                <div id="totalPrice">€0,00</div>
+              </div>
+              <div class="text-blauw flex justify-between text-sm font-light">
+                <div class="">Uw voordeel</div>
+                <div id="voordeel" class="">€0,00</div>
+              </div>
+            </div>
+            <a href="/src/pages/orderPage.html" class="btnOrange bg-oranje hover:bg-blue block w-full rounded-md py-2 text-center font-bold text-white"> Nu bestellen </a>
+          </aside>
+
+          <!-- Information Section -->
+          <section class="flex flex-col gap-8  py-8 col-span-2 lg:order-1">
+
+            <!-- Bestelvoorwaarden -->
+            <div class="lg:flex flex-col hidden">
+              <div class="text-xl font-bold">Bestelvoorwaarden</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, nisl non bibendum tincidunt, sapien justo cursus libero, nec tincidunt nunc lorem non urna. Curabitur ac felis nec libero fermentum tincidunt. Integer sit amet arcu non nisi tincidunt vehicula. Fusce a urna at elit vehicula tincidunt. Praesent euismod, sapien non fermentum tincidunt, libero erat vehicula justo, nec tincidunt nunc lorem non urna. Nulla facilisi. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</div>
+            </div>
+
+            <!-- General Info -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Informatie</h2>
+              <p>Ga op ontdekkingstocht in de wereld van de dieren. Spot kleurrijke vogels en bijzondere reptielen in het grootste overdekte regenwoud van de wereld. Klauter via touwbruggen en sta oog in oog met withandgibbons.</p>
+            </div>
+
+            <!-- Location & Opening Times -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Locatie & Openingstijden</h2>
+              <div class="relative isolate"> <!-- 'isolate' creëert een nieuwe stacking context -->
+                <div id="map" class="relative z-0 h-[400px] w-full"></div>
+              </div>
+
+              <address class="not-italic">
+                <div>Stationsstraat</div>
+                <div>5341 AB, Emmen</div>
+                <div>Telefoon: <a href="tel:0611122233" class="text-blauw hover:underline">0611122233</a></div>
+                <div>Website: <a href="#" class="text-blauw hover:underline">Bezoek website</a></div>
+              </address>
+              <p>Openingstijden: Dagelijks van 10:00 tot 18:00 uur</p>
+            </div>
+
+            <!-- Reviews -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Reviews</h2>
+              <div class="flex flex-col gap-1">
+                <div>24 reviews</div>
+                <div class="flex items-center justify-between">
+                  <div>Gemiddelde score op Tripadvisor</div>
+                  <div class="flex items-center gap-2">
+                    <span class="rating font-bold">4,7</span>
+                    <div class="flex gap-1">
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-grijs"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reviews Carousel -->
+              <div class="overflow-x-auto">
+                <div class="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 py-2">
+                  <!-- Single Review -->
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Geweldige dag</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Het was super leuk met mijn vrienden. De surfers waren heel aardig en hielpen je met alles zoals foto's. Heel creatief!</p>
+                    <time datetime="2025-01-16" class="mt-4 text-sm text-blue-500 italic">16 januari 2025</time>
+                  </div>
+
+                  <!-- Repeat for other reviews -->
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Hele fijne sfeer</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Alles was goed geregeld en het voelde echt ontspannen. Heel chill en gezellig.</p>
+                    <time datetime="2025-01-20" class="mt-4 text-sm text-blue-500 italic">20 januari 2025</time>
+                  </div>
+
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Super tof</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Echt een topervaring! Lekker creatief bezig en de begeleiding was geweldig. Ik kom zeker nog eens terug.</p>
+                    <time datetime="2025-01-25" class="mt-4 text-sm text-blue-500 italic">25 januari 2025</time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
         </div>
-      </div>
-      <!-- jQuery (als je het nog niet hebt) -->
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <!-- Flatpickr JS -->
-      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-      <script src="/src/Scripts/ticketPricing.js"></script>
-      <script src="/src/Scripts/carousel.js"></script>
-      <script src="/src/Scripts/map.js"></script>
-          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-          <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-          <script src="/src/main.js"></script>
-      
-   </body>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/src/Scripts/map.js"></script>
+  </body>
 </html>
