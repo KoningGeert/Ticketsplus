@@ -33,7 +33,10 @@ $(document).ready(function () {
   }
 
   function setupEventListeners() {
-    $('#search-input').on('input', handleSearchInput);
+    $('#search-input').on('input', function() {
+      handleSearchInput();
+      applyFilters(); // Pas filters direct toe bij elke input change
+  });
     $(document).on('click', '#suggestions li', handleSuggestionClick);
     $('#distance-slider').on('input', handleDistanceSlider);
     $(document).on('click', '#clear-all-filters', clearAllFilters);
@@ -42,29 +45,33 @@ $(document).ready(function () {
   }
 
   function handleSearchInput() {
-    const searchTerm = $(this).val().toLowerCase();
+    const searchTerm = $('#search-input').val().toLowerCase();
     const $suggestions = $('#suggestions');
     $suggestions.empty();
-  
-    if (searchTerm) {
-      const filteredActivities = activities.filter(activity => {
-        const headlineMatch = activity.headline.toLowerCase().includes(searchTerm);
-        const keywordsMatch = activity.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm));
-        return headlineMatch || keywordsMatch;
-      });
-  
-      if (filteredActivities.length > 0) {
-        filteredActivities.forEach(activity => {
-          $suggestions.append(`<li class="p-2 cursor-pointer hover:bg-gray-200">${activity.headline}</li>`);
+
+    if (searchTerm.length > 0) { // Alleen suggesties tonen bij 1+ karakters
+        const filteredActivities = activities.filter(activity => {
+            const headlineMatch = activity.headline.toLowerCase().includes(searchTerm);
+            const keywordsMatch = activity.keywords.some(keyword => 
+                keyword.toLowerCase().includes(searchTerm)
+            );
+            return headlineMatch || keywordsMatch;
         });
-        $suggestions.removeClass('hidden');
-      } else {
-        $suggestions.addClass('hidden');
-      }
+
+        if (filteredActivities.length > 0) {
+            filteredActivities.forEach(activity => {
+                $suggestions.append(
+                    `<li class="p-2 cursor-pointer hover:bg-gray-200">${activity.headline}</li>`
+                );
+            });
+            $suggestions.removeClass('hidden');
+        } else {
+            $suggestions.addClass('hidden');
+        }
     } else {
-      $suggestions.addClass('hidden');
+        $suggestions.addClass('hidden');
     }
-  }
+}
   
 
   function handleSuggestionClick() {
@@ -190,52 +197,57 @@ $(document).ready(function () {
     // Update de filterpillen
     updateFilterPills(searchTerm, selectedCategories, selectedDiscounts);
   }
-
+  
   function updateFilterPills(searchTerm, selectedCategories, selectedDiscounts) {
     const $activeFilters = $('#active-filters');
-    $activeFilters.empty();
-  
-    if (searchTerm) {
-      $activeFilters.append(`<span class="filter-pill bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="search" data-value="${searchTerm}">${searchTerm} <i class="fas fa-times remove-filter"></i></span>`);
-    }
-  
-    selectedCategories.forEach(category => {
-      $activeFilters.append(`<span class="filter-pill bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="category" data-value="${category}">${category} <i class="fas fa-times remove-filter"></i></span>`);
-    });
-
-    selectedDiscounts.forEach(discount => {
-      $activeFilters.append(`<span class="filter-pill bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer" data-type="discount" data-value="${discount}">${discount} <i class="fas fa-times remove-filter"></i></span>`);
-    });
-  
-    $activeFilters.toggleClass('hidden', $activeFilters.children().length === 0);
-  }
-  
-  function updateFilterPills(searchTerm, selectedCategories) {
-    const $activeFilters = $('#active-filters');
     $activeFilters.empty(); // Verwijder bestaande filters
-  
+
     // Voeg de zoekterm toe als pil
     if (searchTerm) {
-      $activeFilters.append(createFilterPill('search', searchTerm));
+        $activeFilters.append(createFilterPill('search', searchTerm));
     }
-  
+
     // Voeg de geselecteerde categorieën toe als pillen
     selectedCategories.forEach(category => {
-      $activeFilters.append(createFilterPill('category', category));
+        $activeFilters.append(createFilterPill('category', category));
     });
-  
+
+    // Voeg de geselecteerde kortingen toe als pillen
+    selectedDiscounts.forEach(discount => {
+        $activeFilters.append(createFilterPill('discount', discount));
+    });
+
     // Toon de container als er actieve filters zijn
-    if (searchTerm || selectedCategories.length > 0) {
-      $activeFilters.removeClass('hidden');
-      $activeFilters.prepend(`
-        <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer">
-          Verwijder alles
-        </span>
-      `);
+    if (searchTerm || selectedCategories.length > 0 || selectedDiscounts.length > 0) {
+        $activeFilters.removeClass('hidden');
+        $activeFilters.prepend(`
+            <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer">
+                Verwijder alles
+            </span>
+        `);
     } else {
-      $activeFilters.addClass('hidden');
+        $activeFilters.addClass('hidden');
     }
-  }
+}
+
+function createFilterPill(type, value) {
+    // Speciale behandeling voor kortingswaarden
+    let displayValue = value;
+    if (type === 'discount') {
+        if (value === '€') displayValue = 'Korting: 0-2.5€';
+        if (value === '€€') displayValue = 'Korting: 2.5-5€';
+        if (value === '€€€') displayValue = 'Korting: 5+€';
+    } else {
+        displayValue = value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    return $(`
+        <span class="filter-pill bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer mr-2 mb-2">
+            ${displayValue}
+            <span class="remove-filter" data-type="${type}" data-value="${value}">✕</span>
+        </span>
+    `);
+}
   
   function createFilterPill(type, value) {
     const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);

@@ -18,6 +18,7 @@
     <script src="/src/Scripts/ticketPricing.js"></script>
     <script src="/src/Scripts/map.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/nl.js"></script>
 
   </head>
 
@@ -78,132 +79,154 @@
         <div class="flex flex-col gap-8 lg:grid lg:grid-cols-3 lg:gap-4 w-full lg:mt-6">
 
           <!-- Ticket Section -->
-          <aside id="ticket-selection" class="lg:sticky relative top-8 right-0 my-8 flex h-fit flex-col gap-8 rounded-lg bg-white p-8 shadow-lg col-span-1 lg:order-2">
-            <div class="flex justify-between">
-              <div class="headline text-xl font-bold">Wildlands</div>
-              <div class="flex items-center gap-1">
-                <i class="fas fa-star text-groen"></i>
-                <div class="rating font-bold">4,7</div>
-                <div>|</div>
-                <div class="reviews">12,547</div>
-              </div>
-            </div>
-            <div class="flex flex-col lg:hidden">
-              <div class="subheadline text-lg font-bold">Bestelvoorwaarden</div>
-              <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</div>
-            </div>
-            <div class="flex flex-col gap-6">
-              <div class="product flex items-center justify-between" data-ticket-type="Volwassene">
-                <div class="flex flex-col">
-                  <div class="subheadline font-bold">Volwassene</div>
-                  <div class="flex gap-1">
-                    <div class="oldPrice text-gray-500 line-through">€13,50</div>
-                    <div class="price">€12,50</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4">
-                  <button class="bg-blauw minus aspect-square p-2">-</button>
-                  <div class="quantity">0</div>
-                  <button class="bg-blauw plus aspect-square p-2">+</button>
-                </div>
-              </div>
-              <div class="product flex items-center justify-between" data-ticket-type="Kinderen">
-                <div class="flex flex-col">
-                  <div class="subheadline font-bold">Kinderen</div>
-                  <div class="flex gap-1">
-                    <div class="oldPrice text-gray-500 line-through">€12,50</div>
-                    <div class="price">€10,00</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4">
-                  <button class="bg-blauw minus aspect-square p-2">-</button>
-                  <div class="quantity">0</div>
-                  <button class="bg-blauw plus aspect-square p-2">+</button>
-                </div>
-              </div>
-              <div class="product flex items-center justify-between" data-ticket-type="Parkeerkaart">
-                <div class="flex flex-col">
-                  <div class="subheadline font-bold">Parkeerkaart</div>
-                  <div class="flex gap-1">
-                    <div class="oldPrice text-gray-500 line-through">€7,95</div>
-                    <div class="price">€7,50</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4">
-                  <button class="bg-blauw minus aspect-square p-2">-</button>
-                  <div class="quantity">0</div>
-                  <button class="bg-blauw plus aspect-square p-2">+</button>
-                </div>
-              </div>
-            </div>
+          <aside id="ticket-selection" class="lg:sticky relative top-8 right-0 my-8 flex h-fit flex-col gap-6 rounded-xl bg-white p-6 shadow-xl col-span-1 lg:order-2 border border-gray-100 mt-6">
+            <!-- Header met rating -->
+            <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+              <h2 class="text-2xl font-bold text-gray-900" id="activity-title">Tikibad</h2>
+              <div class="flex items-center gap-2 bg-groen/10 px-3 py-1 rounded-full">
+                <a href="#reviews-carousel">
 
-            <!-- Trigger Knoppen -->
-            <div class="flex w-full gap-6">
-              <button id="open-date-modal" class="border-grijs open-modal flex w-1/2 rounded-md border p-4">
-                <div class="flex flex-col gap-1 text-start">
-                  <div class="font-bold">Bezoekdatum</div>
-                  <div class="date-display text-sm font-light">Kies een bezoekdatum</div>
+                <i class="fas fa-star text-groen text-sm"></i>
+                <span class="rating font-bold text-gray-700">4,7</span>
+                <span class="text-gray-400">|</span>
+                <span class="reviews text-gray-600 text-sm">12.547 reviews</span>
+              </a>
+              </div>
+            </div>
+          
+            <!-- Ticket selectie -->
+            <div class="space-y-4">
+              <!-- Volwassene -->
+              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Volwassene">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Volwassene</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€13,50</span>
+                    <span class="price text-blauw font-bold">€12,50</span>
+                  </div>
                 </div>
+                <div class="flex items-center gap-3">
+                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-minus text-xs"></i>
+                  </button>
+                  <div class="quantity w-8 text-center font-medium">0</div>
+                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-plus text-xs"></i>
+                  </button>
+                </div>
+              </div>
+          
+              <!-- Kinderen -->
+              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Kinderen">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Kinderen</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€12,50</span>
+                    <span class="price text-blauw font-bold">€10,00</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-minus text-xs"></i>
+                  </button>
+                  <div class="quantity w-8 text-center font-medium">0</div>
+                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-plus text-xs"></i>
+                  </button>
+                </div>
+              </div>
+          
+              <!-- Parkeerkaart -->
+              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Parkeerkaart">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Parkeerkaart</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€7,95</span>
+                    <span class="price text-blauw font-bold">€7,50</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-minus text-xs"></i>
+                  </button>
+                  <div class="quantity w-8 text-center font-medium">0</div>
+                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
+                    <i class="fas fa-plus text-xs"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Datum & tijd selectie -->
+            <div class="space-y-4 pt-2">
+              <button id="open-date-modal" class="open-modal w-full flex items-center justify-between p-4 border border-grijs rounded-lg hover:border-blauw transition">
+                <div class="text-left">
+                  <div class="font-medium text-gray-700">Bezoekdatum</div>
+                  <div class="date-display text-sm text-gray-400">Kies een bezoekdatum</div>
+                </div>
+                <i class="fas fa-calendar text-blauw"></i>
               </button>
-              <button id="open-time-modal" class="border-grijs open-modal flex w-1/2 rounded-md border p-4">
-                <div class="flex flex-col gap-1 text-start">
-                  <div class="font-bold">Tijdslot</div>
-                  <div class="time-display text-sm font-light">Kies een tijdslot</div>
+          
+              <button id="open-time-modal" class="open-modal w-full flex items-center justify-between p-4 border border-grijs rounded-lg hover:border-blauw transition">
+                <div class="text-left">
+                  <div class="font-medium text-gray-700">Tijdslot</div>
+                  <div class="time-display text-sm text-gray-400">Kies een tijdslot</div>
                 </div>
+                <i class="fas fa-clock text-blauw"></i>
               </button>
             </div>
-            <!-- Overlay Modal -->
-            <div id="datetime-modal" class=" fixed inset-0 z-[9999] overflow-y-hidden hidden items-center justify-center bg-black/50">
+          
+            <!-- Totaalprijs -->
+            <div class="pt-4 border-t border-gray-100">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-medium text-gray-700">Totaalprijs</span>
+                <span id="totalPrice" class="font-bold text-gray-900">€0,00</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-blauw">Uw voordeel</span>
+                <span id="voordeel" class="text-sm text-blauw">€0,00</span>
+              </div>
+            </div>
+          
+            <!-- Bestelknop -->
+            <a href="/src/pages/orderPage.html" class="btnOrange mt-4 w-full bg-oranje hover:bg-oranje/90 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2">
+              Nu bestellen
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          
+            <!-- Modal (onveranderd gelaten voor jQuery compatibiliteit) -->
+            <div id="datetime-modal" class="fixed inset-0 z-[9999] overflow-y-hidden hidden items-center justify-center bg-black/50">
               <div class="relative mx-6 w-full max-w-4xl rounded-xl bg-white p-6 md:p-10">
-                <!-- Sluitknop -->
-                <button class="close-modal absolute top-4 right-4 text-gray-500 hover:text-black">&times;</button>
-                <!-- Modal Body -->
+                <button class="close-modal absolute top-4 right-4 text-gray-500 hover:text-black text-2xl">&times;</button>
                 <div class="flex w-full flex-col gap-10 md:flex-row">
-                  <!-- Datum kiezen -->
                   <div class="flex-1">
                     <h2 class="mb-4 text-xl font-bold">Selecteer een datum</h2>
-                    <!-- Vandaag / Morgen -->
                     <div class="mb-4 flex gap-3">
-                      <button class="date-btn today-btn border-grijs hover:bg-blauw rounded border px-4 py-2 hover:text-white">Vandaag</button>
-                      <button class="date-btn tomorrow-btn border-grijs hover:bg-blauw rounded border px-4 py-2 hover:text-white">Morgen</button>
+                      <button class="date-btn today-btn border-grijs hover:bg-blauw rounded-lg border px-4 py-2 hover:text-white transition">Vandaag</button>
+                      <button class="date-btn tomorrow-btn border-grijs hover:bg-blauw rounded-lg border px-4 py-2 hover:text-white transition">Morgen</button>
                     </div>
-                    <!-- Flatpickr -->
-                    <div id="" class="datepicker-container relative rounded border p-2">
-<!-- In je modal -->
-<input type="text" id="date-input" class="flatpickr" placeholder="Selecteer een datum">
+                    <div class="datepicker-container relative rounded-lg border p-2">
+                      <input type="text" id="date-input" class="flatpickr w-full p-2 border-none focus:ring-2 focus:ring-blauw rounded" placeholder="Selecteer een datum">
                     </div>
                   </div>
-                  <!-- Tijdslot kiezen -->
                   <div class="flex-1">
                     <h2 class="mb-4 text-xl font-bold">Kies een tijdslot</h2>
-                    <ul class="timeslot-list grid grid-cols-2 gap-2 text-left text-sm">
-                      <!-- Dynamisch gevuld via JS -->
+                    <ul class="timeslot-list grid grid-cols-2 gap-2">
                     </ul>
-                    <!-- Doorgaan knop -->
-                    <button id="" class="confirm-btn bg-blauw pointer-events-none mt-6 w-full rounded px-4 py-2 font-semibold text-white opacity-50 transition">Doorgaan</button>
+                    <button class="confirm-btn bg-blauw hover:bg-blauw/90 mt-6 w-full rounded-lg px-4 py-3 font-semibold text-white opacity-50 pointer-events-none transition">
+                      Bevestigen
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div>
-              <div class="headline flex justify-between text-lg font-bold">
-                <div class="text-lg font-bold">Totaalprijs</div>
-                <div id="totalPrice">€0,00</div>
-              </div>
-              <div class="text-blauw flex justify-between text-sm font-light">
-                <div class="">Uw voordeel</div>
-                <div id="voordeel" class="">€0,00</div>
-              </div>
-            </div>
-            <a href="/src/pages/orderPage.html" class="btnOrange bg-oranje hover:bg-blue block w-full rounded-md py-2 text-center font-bold text-white"> Nu bestellen </a>
           </aside>
 
           <!-- Information Section -->
           <section class="flex flex-col gap-8  py-8 col-span-2 lg:order-1">
 
             <!-- Bestelvoorwaarden -->
-            <div class="lg:flex flex-col hidden">
+            <div class="flex flex-col gap-4">
               <div class="text-xl font-bold">Bestelvoorwaarden</div>
               <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, nisl non bibendum tincidunt, sapien justo cursus libero, nec tincidunt nunc lorem non urna. Curabitur ac felis nec libero fermentum tincidunt. Integer sit amet arcu non nisi tincidunt vehicula. Fusce a urna at elit vehicula tincidunt. Praesent euismod, sapien non fermentum tincidunt, libero erat vehicula justo, nec tincidunt nunc lorem non urna. Nulla facilisi. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</div>
             </div>
@@ -251,7 +274,7 @@
               </div>
 
               <!-- Reviews Carousel -->
-              <div class="overflow-x-auto">
+              <div class="overflow-x-auto" id="reviews-carousel">
                 <div class="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 py-2">
                   <!-- Single Review -->
                   <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
@@ -280,9 +303,32 @@
             </div>
           </section>
 
-
         </div>
-    </main>
+      </main>
+      <footer class="bg-blauw text-white py-8">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <a href="./index.html" class="text-2xl font-bold text-wit">Landal</a>
+              <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 md:gap-8 text-center md:text-left">           
+              <div>
+                <h3 class="mb-2 hover:underline">Algemene voorwaarden</h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline">Privacy voorwaarden</h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./ticketSupport.html">Ticketsupport</a></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

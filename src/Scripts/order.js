@@ -5,6 +5,7 @@ $(document).ready(function () {
       const bestelling = JSON.parse(bestellingStr);
   
       // Datum & tijdslot invullen
+      $(".bestelling-titel").text(bestelling.activityTitle);
       $(".bestelling-datum").text("Bezoekdatum: " + bestelling.date);
       $(".bestelling-tijd").text("Tijdslot: " + bestelling.time);
   

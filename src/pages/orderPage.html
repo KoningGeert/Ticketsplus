@@ -15,7 +15,7 @@
 
 <body class="bg-achtergrond text-gray-800">
     <div class="container mx-auto px-4">
-        <div class="flex justify-center gap-4 py-8">
+        <div class="flex justify-center gap-8 py-8">
             <div>
                 <div class="flex flex-col gap-2 items-center justify-center">
                     <div class="w-12 h-12 rounded-full bg-blauw flex items-center justify-center">
@@ -39,11 +39,11 @@
                     <div class="w-12 h-12 rounded-full bg-grijs flex items-center justify-center">
                         <i class="fa-solid fa-ticket text-white text-2xl"></i>
                     </div>
-                    <div class="font-extralight text-sm">Bevestiging</div>
+                    <div class="font-extralight text-sm"><a href="./confirmationPage.html">Bevestiging</a></div>
                 </div>
             </div>
         </div>
-        <div class="flex flex-col-reverse md:justify-between md:flex-row gap-8">
+        <div class="flex flex-col lg:justify-between lg:flex-row gap-8 mb-12 lg:mb-6">
             <div class="w-full lg:w-1/2">
                 <div class="rounded w-full flex gap-8 flex-col">
                     <h2 class="text-2xl font-bold">Gegevens</h2>
@@ -70,22 +70,21 @@
 
                         <div class="flex flex-col gap-2">
                             <div class="">
-                                <label class="inline-flex items-center">
+                                <label class="inline-flex items-center gap-4">
                                     <input type="checkbox" class="form-checkbox" id="privacy" required />
-                                    <span class="ml-2">Ik verklaar hierbij dat ik ouder ben dan 18 jaar of toestemming heb van mijn ouders/voogd om een bestelling te mogen plaatsen.</span>
+                                    <span class="">Ik verklaar hierbij dat ik ouder ben dan 18 jaar of toestemming heb van mijn ouders/voogd om een bestelling te mogen plaatsen.</span>
                                 </label>
                             </div>
 
                             <div class="">
-                                <label class="inline-flex items-center">
+                                <label class="inline-flex items-center gap-4">
                                     <input type="checkbox" class="form-checkbox" id="age" required />
-                                    <span class="ml-2">Ik ga akkoord met de algemene voorwaarden<a href=""
+                                    <span class="">Ik ga akkoord met de algemene voorwaarden<a href=""
                                             class="hover:underline text-blauw"> Lees hier de algemene voorwaarden.</a> </span>
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" class="w-full bg-oranje hover:bg-blauw font-bold text-white rounded-md py-4"><a
-                                href="./confirmationPage.html">Betalen</a></button>
+                        <button type="submit" class="w-full bg-oranje hover:bg-blauw font-bold text-white rounded-md py-4">Betalen</button>
                     </form>
                     <div class="text-start mb-8 lg:mb-0">
                         <div class="flex gap-4 items-center text-gray-600">
@@ -116,7 +115,7 @@
                     </div>
                     <div class="p-4 flex flex-col gap-2">
                         <div>
-                            <h1 class="headline font-bold text-lg">Wildlands</h1>
+                            <h1 class="bestelling-titel font-bold text-lg">Wildlands</h1>
                             <p class="text-sm text-gray-600 bestelling-datum">Bezoekdatum:</p>
                             <p class="text-sm text-gray-600 bestelling-tijd">Tijdslot:</p>
                         </div>
@@ -146,8 +145,33 @@
             </div>
         </div>
     </div>
+    <footer class="bg-blauw text-white py-8">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <a href="./index.html" class="text-2xl font-bold text-wit">Landal</a>
+              <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 md:gap-8 text-center md:text-left">           
+              <div>
+                <h3 class="mb-2 hover:underline">Algemene voorwaarden</h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline">Privacy voorwaarden</h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./ticketSupport.html">Ticketsupport</a></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/src/Scripts/order.js"></script>
+    <script src="/src/Scripts/validateOrderForm.js"></script>
     <script src="/src/Scripts/ticketPricing.js"></script>
 </body>
 

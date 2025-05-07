@@ -1,6 +1,9 @@
 $(document).ready(function() {
+
+      
   // Initialiseer de kaart
   var map = L.map('map', {
+    scrollWheelZoom: false, // Voorkomt scrollen met muiswiel
       preferCanvas: true // Helpt met z-index controle
   }).setView([52.7784, 6.9068], 15);
 
@@ -26,4 +29,6 @@ $(document).ready(function() {
   map.on('zoomend move', function() {
       $('.leaflet-control-container').css('z-index', '0');
   });
+
+  
 });

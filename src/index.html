@@ -15,9 +15,24 @@
     <header class="bg-wit shadow-md">
       <div class="container mx-auto flex justify-between items-center p-4">
         <a href="./index.html" class="text-2xl font-bold text-blauw">Landal</a>
-        <nav class="flex gap-4">
-          <a href="./pages/ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
-        </nav>
+        <div class="flex items-center gap-6">
+          <div class="relative">
+            <select class="appearance-none bg-wit border border-blauw rounded px-3 py-1 text-blauw focus:outline-none focus:ring-2 focus:ring-oranje cursor-pointer">
+              <option value="nl">🇳🇱 NL</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="fr">🇫🇷 FR</option>
+            </select>
+            <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <!-- <i class="fas fa-chevron-down text-blauw"></i> -->
+            </div>
+          </div>
+          <nav class="flex gap-6">
+            <a href="./pages/ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
+                <i class="fas fa-headset mr-1"></i>Ticketsupport
+            </a>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -27,20 +42,34 @@
     <!-- Card template -->
     <div id="card-template" class="hidden relative">
       <div class="w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
-        <div class="w-md h-md relative">
-          <img class="aspect-square object-cover rounded-t-lg" src="" alt="Card Image">
-          
-          <!-- Beschrijving -->
+        
+        <!-- Afbeelding + badge -->
+        <div class="relative">
+          <img class="aspect-square object-cover rounded-t-lg w-full" src="" alt="Card Image">
+    
+          <!-- Kortingsbadge in rechterbovenhoek -->
+          <div class="absolute top-0 right-0 p-2 z-10">
+            <div class="w-14 h-14">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-24 h-24">
+                <defs>
+                  <linearGradient id="discountGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f7931d" />
+                    <stop offset="100%" stop-color="#e53935" />
+                  </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="48" fill="url(#discountGradient)" stroke="#fff" stroke-width="2"/>
+                <text x="50" y="58" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle" class="discount">%</text>
+              </svg>
+            </div>
+          </div>
+    
+          <!-- Beschrijving overlay -->
           <div class="info-overlay w-full absolute bg-groen opacity-80 text-white py-2 px-4 rounded-t-lg bottom-0 hidden">
             <p class="description text-sm leading-relaxed"></p>
           </div>
         </div>
-
-        <!-- Kortingsweergave -->
-        <div class="absolute text-white top-0 right-0 mr-4 mt-4">
-          <p class="discount text-lg font-bold leading-relaxed text-white bg-oranje px-4 py-2 rounded-full"></p>
-        </div>  
-        
+    
+        <!-- Inhoud van de kaart -->
         <div class="flex flex-col m-4 gap-4 text-gray-800">
           <div class="flex justify-between items-center">
             <div class="flex gap-1 items-center">
@@ -49,36 +78,40 @@
               <div>|</div>
               <div class="reviews"></div>
             </div>
-            <!-- Info icon triggers overlay -->
             <i class="fa fa-info-circle text-blauw cursor-pointer show-overlay" aria-hidden="true"></i>
           </div>
-          <div class="">
+    
+          <div>
             <div class="headline font-semibold text-xl text-gray-800"></div>
             <div class="location font-light text-sm text-gray-800"></div>
           </div>
-          <div>
-
-            <div class="pb-4">
-              <a href="./pages/ticketpage.html"><button class="button py-2 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-md">Bekijk</button></a>
-            </div>
+    
+          <div class="pb-4">
+            <a href="./pages/ticketpage.html">
+              <button class="button py-2 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-md">
+                Bekijk
+              </button>
+            </a>
           </div>
         </div>
       </div>
     </div>
+    
+    
 
 <!-- Container layout -->
-<div class="container mx-auto flex flex-col md:flex-row gap-4 py-8">
+<div class="container mx-auto flex flex-col lg:flex-row gap-8 lg:gap-4 py-8">
 
-  <!-- TOON FILTERS KNOP OP MOBIEL -->
-  <div class="md:hidden px-4">
+  <!-- TOON FILTERS KNOP OP MOBIEL (niet sticky) -->
+  <div class="lg:hidden px-4">
     <button id="toggle-filters" class="w-full bg-oranje hover:bg-blauw text-white font-bold rounded-md py-2">
       Toon filters
     </button>
   </div>
 
-  <!-- FILTERPANEEL -->
-  <div id="filter-panel" class="idden md:flex flex-col md:w-1/3 border border-gray-200 rounded-2xl px-6 py-6 h-fit bg-white shadow-md mx-4 md:mx-0 transition-all duration-300 md:sticky md:top-6">
-
+  <!-- FILTERPANEEL (alleen sticky op desktop) -->
+  <div id="filter-panel" class="hidden lg:flex flex-col lg:w-1/3 border border-gray-200 rounded-2xl px-6 py-6 h-fit bg-white shadow-md mx-4 lg:mx-0 lg:sticky top-6 self-start transition-all duration-300">    
+    <!-- Zoekveld -->
     <div class="space-y-2">
       <label for="search-input" class="font-semibold text-lg text-gray-800">Zoek</label>
       <input
@@ -89,6 +122,7 @@
       <ul id="suggestions" class="hidden bg-white border border-gray-300 rounded-lg mt-2 shadow-sm z-10"></ul>
     </div>
   
+    <!-- Categorie filters -->
     <div id="category-filter" class="flex flex-col gap-2 mt-6">
       <label class="font-semibold text-lg text-gray-800">Categorie</label>
       <div class="space-y-1 text-sm text-gray-700">
@@ -102,23 +136,7 @@
       </div>
     </div>
   
-    <!-- <div id="distance-buttons" class="flex gap-2 mb-4 mt-6">
-      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="25">&lt; 25 km</button>
-      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="50">&lt; 50 km</button>
-      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="75">&lt; 75 km</button>
-      <button class="distance-btn px-4 py-2 bg-gray-200 rounded" data-distance="100">&lt; 100 km</button>
-    </div>
-    
-  
-    <div class="space-y-2 mt-6 ">
-      <label for="location" class="font-semibold text-lg text-gray-800">Kies je locatie</label>
-      <input
-        id="location"
-        type="text"
-        placeholder="Bijv. Zoetermeer"
-        class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blauw focus:border-blauw transition" />
-    </div> -->
-  
+    <!-- Korting filters -->
     <div id="discount-filter" class="flex flex-col gap-2 mt-6">
       <label class="font-semibold text-lg text-gray-800">Korting</label>
       <div class="space-y-1 text-sm text-gray-700">
@@ -128,24 +146,23 @@
       </div>
     </div>
     
+    <!-- Zoekknop -->
     <button
       class="mt-6 py-3 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-lg transition duration-200 ease-in-out shadow-sm"
       id="searchBtn">
       Zoeken
     </button>
-  
   </div>
   
   <!-- RESULTATEN EN FILTERPILLEN -->
-  <div class="w-full md:w-2/3 px-4 flex flex-col gap-y-6">
+  <div class="w-full lg:w-2/3 px-4 flex flex-col gap-y-6">
 
-<!-- ACTIEVE FILTERS -->
-<div id="active-filters" class="hidden flex flex-wrap gap-2">
-  <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer flex-row-reverse">
-    Verwijder alles
-  </span>
-</div>
-
+    <!-- ACTIEVE FILTERS (alleen sticky op desktop) -->
+    <div id="active-filters" class="hidden lg:sticky lg:top-0 lg:bg-white lg:py-2 lg:z-10 flex flex-wrap gap-2">
+      <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer flex-row-reverse">
+        Verwijder alles
+      </span>
+    </div>
 
     <!-- RESULTATEN CARDS -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="cards-container">
@@ -180,6 +197,30 @@
       </div>
     </footer> -->
 
+    <footer class="bg-blauw text-white py-8">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row justify-between items-center">
+          <div class="mb-4 lg:mb-0">
+            <a href="./index.html" class="text-2xl font-bold text-wit">Landal</a>
+            <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+          </div>
+          
+          <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 text-center lg:text-left">           
+            <div>
+              <h3 class="mb-2 hover:underline">Algemene voorwaarden</h3>
+            </div>
+            
+            <div>
+              <h3 class="mb-2 hover:underline">Privacy voorwaarden</h3>
+            </div>
+
+            <div>
+              <h3 class="mb-2 hover:underline"><a href="/src/pages/ticketSupport.html">Ticketsupport</a></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
     <script src="main.js"></script>
     <script src="/src/Scripts/cardPopup.js"></script>
   </body>

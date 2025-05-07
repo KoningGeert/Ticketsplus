@@ -19,10 +19,10 @@ function toggleAccordion(index) {
             // Toggle the content's max-height for smooth opening and closing
             if (content.style.maxHeight && content.style.maxHeight !== '0px') {
                 content.style.maxHeight = '0';
-                icon.innerHTML = upSVG;
+                icon.innerHTML = downSVG;
             } else {
                 content.style.maxHeight = content.scrollHeight + 'px';
-                icon.innerHTML = downSVG;
+                icon.innerHTML = upSVG;
             }
         }
         
