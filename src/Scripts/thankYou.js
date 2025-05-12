@@ -37,7 +37,7 @@ if (bestelling.activityTitle) {
         if (bestelling.voordeel && bestelling.voordeel !== '€0,00') {
             $('.flex-1:first-child .space-y-4').append(`
                 <div class="flex justify-between border-b border-gray-100 pb-3">
-                    <span class="text-gray-600">Je voordeel:</span>
+                    <span class="text-gray-600">Uw voordeel:</span>
                     <span class="font-medium text-green-600">${bestelling.voordeel}</span>
                 </div>
             `);

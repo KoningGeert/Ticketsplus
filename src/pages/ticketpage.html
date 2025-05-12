@@ -25,11 +25,26 @@
   <body class="bg-achtergrond text-gray-800">
     <!-- Header -->
     <header class="bg-wit shadow-md">
-      <div class="container mx-auto flex items-center justify-between p-4">
-        <a href="/src/index.html" class="text-blauw text-2xl font-bold">Landal</a>
-        <nav class="flex gap-4">
-          <a href="/src/pages/ticketSupport.html" class="text-blauw hover:text-oranje hover:underline">Ticketsupport</a>
-        </nav>
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+        <div class="flex items-center gap-6">
+          <div class="relative">
+            <select class="appearance-none bg-wit border border-blauw rounded px-3 py-1 text-blauw focus:outline-none focus:ring-2 focus:ring-oranje cursor-pointer">
+              <option value="nl">🇳🇱 NL</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="fr">🇫🇷 FR</option>
+            </select>
+            <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <!-- <i class="fas fa-chevron-down text-blauw"></i> -->
+            </div>
+          </div>
+          <nav class="flex gap-6">
+            <a href="./ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
+              <i class="fas fa-headset mr-1"></i>Ticketsupport
+            </a>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -37,43 +52,49 @@
     <main class="container mx-auto px-4 py-8 relative">
         <!-- Carousel Section -->
         <section class="w-full flex flex-col gap-8">
-          <div class="carousel relative overflow-hidden h-64 sm:h-96 rounded-md">
-            <div class="carousel-inner flex transition-transform duration-700 ease-in-out">
-               <div class="carousel-item flex-none w-full">
-                  <img
-                     src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg"
-                     alt="Image 1"
-                     class="w-full h-full object-cover"
-                     />
-               </div>
-               <div class="carousel-item flex-none w-full">
-                  <img
-                     src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg"
-                     alt="Image 2"
-                     class="w-full h-full object-cover"
-                     />
-               </div>
+          <div class="carousel relative overflow-hidden h-64 sm:h-96 rounded-xl shadow-lg">
+            <div class="carousel-inner flex transition-transform duration-500 ease-out">
+              <div class="carousel-item flex-none w-full">
+                <img
+                  src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg"
+                  alt="Image 1"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="carousel-item flex-none w-full">
+                <img
+                  src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg"
+                  alt="Image 2"
+                  class="w-full h-full object-cover"
+                />
+              </div>
             </div>
+
             <!-- Navigatieknoppen -->
             <button
-               class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
-               >
-            ‹
+              class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black/50"
+              aria-label="Vorige slide"
+            >
+            <
             </button>
             <button
-               class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow transition"
-               >
-            ›
+              class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black/50"
+              aria-label="Volgende slide"
+            >
+       >
             </button>
+
             <!-- Indicatoren -->
             <div class="indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-               <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
-               <div class="indicator w-3 h-3 bg-white/60 hover:bg-white rounded-full transition"></div>
+              <button class="indicator w-3 h-3 bg-white/80 hover:bg-white rounded-full transition focus:outline-none focus:ring-2 focus:ring-black/50" aria-label="Ga naar slide 1"></button>
+              <button class="indicator w-3 h-3 bg-white/80 hover:bg-white rounded-full transition focus:outline-none focus:ring-2 focus:ring-black/50" aria-label="Ga naar slide 2"></button>
             </div>
+
             <!-- Teller -->
-            <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">
-               <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+            <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/80 text-white text-sm rounded-full backdrop-blur-md"></div>
+              <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
             </div>
+          </div>
         </section>
 
         <div class="flex flex-col gap-8 lg:grid lg:grid-cols-3 lg:gap-4 w-full lg:mt-6">
@@ -95,9 +116,9 @@
             </div>
           
             <!-- Ticket selectie -->
-            <div class="space-y-4">
+            <div class="space-y-4 flex gap-4 flex-col">
               <!-- Volwassene -->
-              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Volwassene">
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Volwassene">
                 <div class="flex-1">
                   <h3 class="font-bold text-gray-900">Volwassene</h3>
                   <div class="flex items-center gap-2 mt-1">
@@ -105,19 +126,19 @@
                     <span class="price text-blauw font-bold">€12,50</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-minus text-xs"></i>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
                   </button>
-                  <div class="quantity w-8 text-center font-medium">0</div>
-                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-plus text-xs"></i>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
                   </button>
                 </div>
               </div>
-          
+            
               <!-- Kinderen -->
-              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Kinderen">
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Kinderen">
                 <div class="flex-1">
                   <h3 class="font-bold text-gray-900">Kinderen</h3>
                   <div class="flex items-center gap-2 mt-1">
@@ -125,19 +146,19 @@
                     <span class="price text-blauw font-bold">€10,00</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-minus text-xs"></i>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
                   </button>
-                  <div class="quantity w-8 text-center font-medium">0</div>
-                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-plus text-xs"></i>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
                   </button>
                 </div>
               </div>
-          
+            
               <!-- Parkeerkaart -->
-              <div class="product flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition" data-ticket-type="Parkeerkaart">
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Parkeerkaart">
                 <div class="flex-1">
                   <h3 class="font-bold text-gray-900">Parkeerkaart</h3>
                   <div class="flex items-center gap-2 mt-1">
@@ -145,13 +166,13 @@
                     <span class="price text-blauw font-bold">€7,50</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <button class="bg-blauw minus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-minus text-xs"></i>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
                   </button>
-                  <div class="quantity w-8 text-center font-medium">0</div>
-                  <button class="bg-blauw plus aspect-square p-2 rounded-full text-white hover:bg-blauw/90 transition">
-                    <i class="fas fa-plus text-xs"></i>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg ">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
                   </button>
                 </div>
               </div>
@@ -250,7 +271,6 @@
                 <div>Telefoon: <a href="tel:0611122233" class="text-blauw hover:underline">0611122233</a></div>
                 <div>Website: <a href="#" class="text-blauw hover:underline">Bezoek website</a></div>
               </address>
-              <p>Openingstijden: Dagelijks van 10:00 tot 18:00 uur</p>
             </div>
 
             <!-- Reviews -->

@@ -1,6 +1,10 @@
 module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  }
+  content: [
+    "./src/**/*.{html,js}",
+    "./pages/**/*.{html,js}"
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
