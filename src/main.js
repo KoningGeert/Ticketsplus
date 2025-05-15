@@ -3,7 +3,7 @@ $(document).ready(function () {
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
     document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
   }
-  
+
   function getCookie(name) {
     return document.cookie.split('; ').reduce((r, v) => {
       const parts = v.split('=');
@@ -15,33 +15,33 @@ $(document).ready(function () {
     setCookie('userLat', lat, days);
     setCookie('userLng', lng, days);
     console.log(`Location saved to cookies: Latitude = ${lat}, Longitude = ${lng}`);
-}
+  }
 
-function getUserLocationFromCookie() {
+  function getUserLocationFromCookie() {
     const lat = getCookie('userLat');
     const lng = getCookie('userLng');
     return lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : null;
-}
+  }
 
-function getUserLocation() {
+  function getUserLocation() {
     const savedLocation = getUserLocationFromCookie();
     if (savedLocation) {
-        console.log('Using saved location:', savedLocation);
-        userLat = savedLocation.lat;
-        userLng = savedLocation.lng;
-        applyFilters(); // Pas filters toe met opgeslagen locatie
+      console.log('Using saved location:', savedLocation);
+      userLat = savedLocation.lat;
+      userLng = savedLocation.lng;
+      applyFilters();
     } else {
-        navigator.geolocation.getCurrentPosition(position => {
-            userLat = position.coords.latitude;
-            userLng = position.coords.longitude;
-            console.log('Fetched new location:', { lat: userLat, lng: userLng });
-            saveUserLocationToCookie(userLat, userLng); // Sla locatie op in cookies
-            applyFilters(); // Pas filters toe met nieuwe locatie
-        }, error => {
-            console.error('Error fetching location:', error);
-        });
+      navigator.geolocation.getCurrentPosition(position => {
+        userLat = position.coords.latitude;
+        userLng = position.coords.longitude;
+        console.log('Fetched new location:', { lat: userLat, lng: userLng });
+        saveUserLocationToCookie(userLat, userLng);
+        applyFilters();
+      }, error => {
+        console.error('Error fetching location:', error);
+      });
     }
-}
+  }
 
   let activities = [];
   let userLat = null;
@@ -52,42 +52,32 @@ function getUserLocation() {
   function init() {
     loadActivities();
     getUserLocation();
-    setupEventListeners(); // <- verplaatst naar hier
+    setupEventListeners();
   }
-
 
   function loadActivities() {
     $.getJSON('cards.json', function (data) {
-      console.log('Loaded data:', data); // Controleer de geladen data
+      console.log('Loaded data:', data);
       activities = data.map(item => ({
         headline: item.headline,
-        keywords: item.keywords || [] // leeg array als keywords niet bestaan
+        keywords: item.keywords || []
       }));
-            createCards(data);
+      createCards(data);
     }).fail(function () {
       console.error('Failed to load cards.json');
     });
   }
 
-  function getUserLocation() {
-    navigator.geolocation.getCurrentPosition(position => {
-      userLat = position.coords.latitude;
-      userLng = position.coords.longitude;
-      applyFilters(); // Zorg dat filters pas worden toegepast na het ophalen van locatie
-    });
-  }
-
   function setupEventListeners() {
-    $('#search-input').on('input', function() {
+    $('#search-input').on('input', function () {
       handleSearchInput();
-      applyFilters(); // Pas filters direct toe bij elke input change
-  });
+      applyFilters();
+    });
     $(document).on('click', '#suggestions li', handleSuggestionClick);
     $('#distance-slider').on('input', handleDistanceSlider);
     $(document).on('click', '#clear-all-filters', clearAllFilters);
     $(document).on('click', '.remove-filter', removeFilter);
     $('#searchBtn').on('click', applyFilters);
-    $('#price-slider').on('input', handlePriceSlider); // <- HIERHEEN
   }
 
   function handleSearchInput() {
@@ -164,8 +154,8 @@ function getUserLocation() {
     }
 
     if (type === 'price-category') {
-      $('input[name="price-category"][value=""]').prop('checked', true); // Reset naar 'Alles'
-    }
+      $(`input[name="price-category"][value="${value}"]`).prop('checked', false);
+    }    
     
     
 
@@ -214,42 +204,31 @@ function getUserLocation() {
     });
   
     applyFilters(); // Zorg dat filters worden toegepast
-  }
-
-  function handlePriceSlider() {
-    const value = $(this).val();
-    $('#price-value').text(value);
-    applyFilters(); // Herfilter de kaarten als de waarde verandert
-  }
-  
-  
+  }  
 
   function applyFilters() {
     const searchTerm = $('#search-input').val().toLowerCase();
     const selectedCategories = $('input[name="category"]:checked').map(function () {
       return $(this).val().toLowerCase();
     }).get();
-    const selectedDiscounts = $('input[name="discount"]:checked').map(function () {
+    const selectedPriceCategories = $('input[name="price-category"]:checked').map(function () {
       return $(this).val();
     }).get();
   
-    console.log('Filters:', { searchTerm, selectedCategories });
-  
     let hasVisibleCards = false;
+  
     $('.card').each(function () {
-      const selectedPriceCategory = $('input[name="price-category"]:checked').val(); // '$', '$$', '$$$' of ''
       const $card = $(this);
       const title = $card.find('.headline').text().toLowerCase();
       const keywords = ($card.attr('data-keywords') || '').toLowerCase();
       const category = $card.attr('data-category').toLowerCase();
       const location = $card.find('.location').text().toLowerCase();
+      const cardPriceCategory = $card.attr('data-price-category');
   
       const matchesSearch = !searchTerm || title.includes(searchTerm) || keywords.includes(searchTerm) || location.includes(searchTerm);
       const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
-      const cardPriceCategory = $card.attr('data-price-category'); // uit de JSON
-    const matchesPrice = selectedPriceCategory === '' || selectedPriceCategory === cardPriceCategory;
-
-      
+      const matchesPrice = selectedPriceCategories.length === 0 || selectedPriceCategories.includes(cardPriceCategory);
+  
       if (matchesSearch && matchesCategory && matchesPrice) {
         $card.show();
         hasVisibleCards = true;
@@ -260,21 +239,23 @@ function getUserLocation() {
   
     $('#no-results-message').toggleClass('hidden', hasVisibleCards);
   
-    // Update de filterpillen
+    // Update filter pills
     updateFilterPills(searchTerm, selectedCategories);
-  }
+  }  
 
   function updateFilterPills(searchTerm, selectedCategories) {
     const $activeFilters = $('#active-filters');
     const $dynamicFilters = $('#dynamic-filters');
     
     $dynamicFilters.empty(); // Leeg de dynamische filters
-    
-    const selectedPriceCategory = $('input[name="price-category"]:checked').val();
   
-    if (selectedPriceCategory) {
-      $dynamicFilters.append(createFilterPill('price-category', selectedPriceCategory));
-    }
+    const selectedPriceCategories = $('input[name="price-category"]:checked').map(function () {
+      return $(this).val();
+    }).get();
+  
+    selectedPriceCategories.forEach(price => {
+      $dynamicFilters.append(createFilterPill('price-category', price));
+    });
   
     if (searchTerm) {
       $dynamicFilters.append(createFilterPill('search', searchTerm));
@@ -284,13 +265,13 @@ function getUserLocation() {
       $dynamicFilters.append(createFilterPill('category', category));
     });
   
-    if (searchTerm || selectedCategories.length > 0 || maxPrice < 100 || selectedPriceCategory) {
+    if (searchTerm || selectedCategories.length > 0 || selectedPriceCategories.length > 0) {
       $activeFilters.removeClass('hidden');
   
       // Voeg "Alles wissen" knop toe als die nog niet bestaat
       if ($('#clear-all-filters').length === 0) {
         $dynamicFilters.before(`
-          <span id="clear-all-filters" class="filter-pill bg-oranje text-gray-800 px-3 py-1 rounded-full text-sm flex items-center gap-1 cursor-pointer mr-2 mb-2 hover:bg-gray-300 w-fit">
+          <span id="clear-all-filters" class="filter-pill bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center gap-1 cursor-pointer mr-2 mb-2 hover:bg-gray-300 w-fit">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
@@ -302,13 +283,23 @@ function getUserLocation() {
       $activeFilters.addClass('hidden');
     }
   }
+  
   function createFilterPill(type, value) {
-    const pill = $(`<span class="filter-pill bg-blauw text-white px-3 py-1 rounded-full text-sm flex items-center gap-1 mr-2 mb-2 w-fit h-fit leading-none cursor-pointer">
-      ${value}
-      <span class="remove-filter" data-type="${type}" data-value="${value}">&times;</span>
-    </span>`);
-    return pill;
-  }  
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+  
+    return `
+      <span class="filter-pill bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center gap-1 cursor-pointer mr-2 mb-2 hover:bg-gray-300 w-fit">
+        <span>${capitalizedValue}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 remove-filter" viewBox="0 0 20 20" fill="currentColor"
+          data-type="${type}" data-value="${value}">
+          <path fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd" />
+        </svg>
+      </span>
+    `;
+  }
+  
 
     
 });
