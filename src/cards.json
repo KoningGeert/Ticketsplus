@@ -6,13 +6,16 @@
     "headline": "Artis Royal Zoo",
     "location": "Amsterdam, Nederland",
     "category": "Dierentuin",
+    "price_category": "$$",
     "lat": 52.3667,
     "lng": 4.8945,
     "description": "Voorbeeldtekst",
-    "discount": "2 Euro",
+    "discount": "",
+    "price": 24.50,
+    "original_price": 24.50,
     "priority": true,
-    "keywords": ["dieren", "zoo", "binnenstad", "giraffen"]
-
+    "keywords": ["dieren", "zoo", "binnenstad", "giraffen"],
+    "countryCode": "NL"
   },
   {
     "image": "https://d33b12c77av9bg.cloudfront.net/originals/safari_resort_beekse_bergen_savanne_leeuw_blauwe_lucht.jpg",
@@ -21,27 +24,35 @@
     "headline": "Beekse Bergen",
     "location": "Hilvarenbeek, Nederland",
     "category": "Dierentuin",
+    "price_category": "$$",
     "lat": 52.3667,
     "lng": 4.8945,
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-    "discount": "4 Euro",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
+    "discount": "€2,-",
+    "price": 28.00,
+    "original_price": 28.00,
     "priority": false,
-    "keywords": ["dieren", "olifanten", "safari", "leeuwen"]
+    "keywords": ["dieren", "olifanten", "safari", "leeuwen"],
+    "countryCode": "NL"
   },
   {
-    "image": "https://assets.plaece.nl/thumb/SGElpgcfYfdRML7lVp8fFCOZ0Otvr1yNobLd1bcICr8/resizing_type:fit/width:1280/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12aXNpdGJyYWJhbnQvaW1hZ2UvYmFyb24tMTg5OC1hZmRhbGluZy0xXzMzODU1MjE2MjAuanBn.jpg",
+    "image": "https://assets.plaece.nl/thumb/SGElpgcfYfdRML7lVp8fFCOZ0Otvr1yNobLd1bcICr8/resizing_type:fit/width:1280/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12aXNpdGlicmFiYW50L2ltYWdlL2Jhcm9uLTE4OTgtYWZkYWxpbmctMV8zMzg1NTIxNjIwLmpwZw.jpg",
     "rating": "4.7",
     "reviews": "14,157",
     "headline": "Efteling",
     "location": "Kaatsheuvel, Nederland",
     "category": "Attractiepark",
+    "price_category": "$$$",
     "lat": 52.3667,
     "lng": 4.8945,
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-    "discount": "3 Euro",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
+    "discount": "1,-",
+    "price": 42.00,
+    "original_price": 45.00,
     "priority": true,
-    "keywords": ["attracties", "pretpark", "kinderattracties", "achtbaan"]
-},
+    "keywords": ["attracties", "pretpark", "kinderattracties", "achtbaan"],
+    "countryCode": "NL"
+  },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
     "rating": "4.8",
@@ -49,12 +60,16 @@
     "headline": "Rijksmuseum",
     "location": "Amsterdam, Nederland",
     "category": "Museum",
+    "price_category": "$",
     "lat": 52.3599,
     "lng": 4.8852,
     "description": "Het Rijksmuseum is een Nederlands nationaal museum gewijd aan kunst en geschiedenis in Amsterdam.",
-    "discount": "5 Euro",
+    "discount": "€5,25",
+    "price": 17.50,
+    "original_price": 17.50,
     "priority": true,
-    "keywords": ["kunst", "geschiedenis", "museum", "cultuur"]
+    "keywords": ["kunst", "geschiedenis", "museum", "cultuur"],
+    "countryCode": "NL"
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -63,12 +78,16 @@
     "headline": "Indoor Skydive Roosendaal",
     "location": "Roosendaal, Nederland",
     "category": "Indoor",
+    "price_category": "$$$",
     "lat": 51.5300,
     "lng": 4.4653,
     "description": "Ervaar de sensatie van skydiven zonder uit een vliegtuig te springen.",
-    "discount": "10 Euro",
+    "discount": "€3,-",
+    "price": 59.00,
+    "original_price": 69.00,
     "priority": false,
-    "keywords": ["indoor", "skydiven", "sensatie", "avontuur"]
+    "keywords": ["indoor", "skydiven", "sensatie", "avontuur"],
+    "countryCode": "NL"
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -77,12 +96,16 @@
     "headline": "Nationaal Park De Hoge Veluwe natuuurpark en museum",
     "location": "Otterlo, Nederland",
     "category": "Outdoor",
+    "price_category": "$",
     "lat": 52.1000,
     "lng": 5.8333,
     "description": "Een prachtig nationaal park met diverse landschappen en wilde dieren.",
-    "discount": "3 Euro",
+    "discount": "€0,50",
+    "price": 12.00,
+    "original_price": 15.00,
     "priority": true,
-    "keywords": ["natuur", "wandelen", "fietsen", "wildlife"]
+    "keywords": ["natuur", "wandelen", "fietsen", "wildlife"],
+    "countryCode": "NL"
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -91,12 +114,16 @@
     "headline": "Thermen Bussloo",
     "location": "Voorst, Nederland",
     "category": "Wellness",
+    "price_category": "$$",
     "lat": 52.2000,
     "lng": 6.1000,
     "description": "Een luxe wellnessresort met diverse sauna's en baden.",
-    "discount": "15 Euro",
+    "discount": "€4,-",
+    "price": 35.00,
+    "original_price": 50.00,
     "priority": false,
-    "keywords": ["wellness", "sauna", "ontspanning", "relaxen"]
+    "keywords": ["wellness", "sauna", "ontspanning", "relaxen"],
+    "countryCode": "NL"
   },
   {
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png",
@@ -105,11 +132,15 @@
     "headline": "Heineken Experience",
     "location": "Amsterdam, Nederland",
     "category": "Experience",
+    "price_category": "$",
     "lat": 52.3570,
     "lng": 4.8910,
     "description": "Een interactieve rondleiding door de oude Heineken-brouwerij.",
-    "discount": "5 Euro",
+    "discount": "€2,50",
+    "price": 18.00,
+    "original_price": 23.00,
     "priority": true,
-    "keywords": ["bier", "ervaring", "rondleiding", "cultuur"]
+    "keywords": ["bier", "ervaring", "rondleiding", "cultuur"],
+    "countryCode": "NL"
   }
 ]

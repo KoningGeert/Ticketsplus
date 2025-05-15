@@ -9,9 +9,23 @@
     <script src="./scripts/main.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 
   </head>
   <body class="bg-achtergrond text-gray-800">
+    <div id="cookie-banner" class="bg-blauw text-white z-50 shadow-lg ">
+      <div class="container mx-auto flex flex-col md:flex-row justify-between items-center p-4">
+        <p class="mb-2 md:mb-0 text-xs">
+          Deze website maakt gebruik van cookies. Door op akkoord te klikken of door gebruik te blijven maken van deze website, geef je toestemming voor het plaatsen van deze cookies.
+        </p>
+        <div class="flex space-x-6 text-sm">
+          <button id="accept-cookies" class="hover:underline">Accepteren</button>
+          <button id="decline-cookies" class="hover:underline">Weigeren</button>
+          <!-- <button class="hover:underline"><a href="./pages/privacy.html">Privacy verklaring</a></button> -->
+        </div>
+      </div>
+    </div>
     <header class="bg-wit shadow-md">
       <div class="container mx-auto flex justify-between items-center p-4">
         <a href="./index.html" class="text-2xl font-bold text-blauw">Landal</a>
@@ -29,7 +43,7 @@
           </div>
           <nav class="flex gap-6">
             <a href="./pages/ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
-                <i class="fas fa-headset mr-1"></i>Ticketsupport
+              <i class="fas fa-headset mr-1"></i>Hulp nodig?
             </a>
           </nav>
         </div>
@@ -37,37 +51,28 @@
     </header>
 
     <div class="h-60 w-full relative ">
-      <img class="w-full h-full object-cover" src="./images/thumbnail_landal ticketshop banner geert teal overlay + white blobs.png" alt="">
+      <img class="w-full h-full object-cover" id="cardImage" src="./images/WhatsApp Image 2025-05-13 at 14.05.34.jpeg" alt="">
     </div>
     <!-- Card template -->
       <div id="card-template" class="hidden relative">
         <div class="w-full border border-grijs border-1 rounded-lg shadow-md hover:shadow-lg bg-white overflow-hidden">
-          
-          <!-- Afbeelding + badge -->
           <div class="relative">
-            <img class="aspect-square object-cover rounded-t-lg w-full" src="" alt="Card Image">
-      
-            <!-- Kortingsbadge in rechterbovenhoek -->
-            <div class="absolute top-0 right-0 p-2 z-10">
-              <div class="w-14 h-14">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-24 h-24">
-                  <defs>
-                    <linearGradient id="discountGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#f7931d" />
-                      <stop offset="100%" stop-color="#e53935" />
-                    </linearGradient>
-                  </defs>
-                  <circle cx="50" cy="50" r="48" fill="url(#discountGradient)" stroke="#fff" stroke-width="2"/>
-                  <text x="50" y="58" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle" class="discount">%</text>
-                </svg>
+            <img class="card-image aspect-square object-cover rounded-t-lg w-full" src="" alt="Card Image">
+            
+            <!-- Ribbon badge met krullen -->
+            <div class="absolute right-4 top-4">
+              <div class="relative w-24 h-24 transform rotate-12">
+                <img src="./svg/Frame 302.svg" class="absolute inset-0 w-full h-full" alt="kortingsbadge">
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-white font-bold text-sm pointer-events-none"">
+                  <div class="discount">-20%</div>
+                  <div>korting</div>
+                </div>
               </div>
-            </div>
-      
-            <!-- Beschrijving overlay -->
-            <div class="info-overlay w-full absolute bg-groen opacity-80 text-white py-2 px-4 rounded-t-lg bottom-0 hidden">
-              <p class="description text-sm leading-relaxed"></p>
-            </div>
-          </div>
+           </div>
+        </div>
+        
+       
+          
       
           <!-- Inhoud van de kaart -->
           <div class="flex flex-col m-4 gap-4 text-gray-800">
@@ -83,8 +88,10 @@
       
             <div>
               <div class="headline font-semibold text-xl text-gray-800"></div>
-              <div class="location font-light text-sm text-gray-800"></div>
-            </div>
+              <div class="flex items-center gap-2">
+                <img class="flag-icon w-5 h-3 shadow-sm" />
+                <div class="location font-light text-sm text-gray-800"></div>
+              </div>            </div>
       
             <div class="pb-4">
               <a href="./pages/ticketpage.html">
@@ -136,7 +143,7 @@
       </div>
     </div>
   
-    <!-- Korting filters -->
+    <!-- Korting filters
     <div id="discount-filter" class="flex flex-col gap-2 mt-6">
       <label class="font-semibold text-lg text-gray-800">Korting</label>
       <div class="space-y-1 text-sm text-gray-700">
@@ -144,8 +151,79 @@
         <label class="flex items-center gap-2"><input type="checkbox" name="discount" value="€€"> €€ (2.5 - 5 euro)</label>
         <label class="flex items-center gap-2"><input type="checkbox" name="discount" value="€€€"> €€€ (5+ euro)</label>
       </div>
+    </div> -->
+
+    <div class="flex flex-col gap-2 mt-6">
+      <span class="font-semibold text-lg text-gray-800">Prijs categorie:</span>
+      <div class="flex gap-2">
+        <label class="flex items-center gap-1">
+          <input type="radio" name="price-category" value="$" class="form-radio">
+          €
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="radio" name="price-category" value="$$" class="form-radio">
+          €€
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="radio" name="price-category" value="$$$" class="form-radio">
+          €€€
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="radio" name="price-category" value="" class="form-radio" checked>
+          Alles
+        </label>
+      </div>
     </div>
     
+    <div>
+      <label for="distance-slider">Afstand (km):</label>
+      <input type="range" id="distance-slider" min="1" max="100" value="25">
+      <span id="distance-value">25</span> km
+  </div>
+    
+    <!-- Locatie filter -->
+<div id="location-filter" class="flex flex-col gap-2 mt-6">
+  <label class="font-semibold text-lg text-gray-800">Locatie</label>
+  
+  <!-- Input voor plaatsnaam -->
+  <input
+    type="text"
+    id="location-input"
+    class="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blauw focus:border-blauw transition"
+    placeholder="Vul je locatie in" />
+
+  <!-- Straal selectie -->
+  <div class="mt-2">
+    <label class="font-semibold text-lg text-gray-800 mb-2 block">Maximale afstand</label>
+    <div class="flex flex-wrap gap-2">
+      <!-- Optionele "Kies afstand" optie -->
+      <button type="button" 
+              data-distance="10"
+              class="distance-pill px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blauw transition">
+        < 10 km
+      </button>
+      
+      <button type="button" 
+              data-distance="25"
+              class="distance-pill px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blauw transition">
+        < 25 km
+      </button>
+      
+      <button type="button" 
+              data-distance="50"
+              class="distance-pill px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blauw transition">
+        < 50 km
+      </button>
+      
+      <button type="button" 
+              data-distance="100"
+              class="distance-pill px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blauw transition">
+        < 100 km
+      </button>
+    </div>
+  </div>
+</div>
+
     <!-- Zoekknop -->
     <button
       class="mt-6 py-3 w-full font-semibold text-white bg-oranje hover:bg-blauw rounded-lg transition duration-200 ease-in-out shadow-sm"
@@ -157,12 +235,25 @@
   <!-- RESULTATEN EN FILTERPILLEN -->
   <div class="w-full lg:w-2/3 px-4 flex flex-col gap-y-6">
 
-    <!-- ACTIEVE FILTERS (alleen sticky op desktop) -->
-    <div id="active-filters" class="hidden lg:sticky lg:top-0 lg:bg-white lg:py-2 lg:z-10 flex flex-wrap gap-2">
-      <span id="clear-all-filters" class="filter-pill bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm flex items-center gap-2 cursor-pointer flex-row-reverse">
-        Verwijder alles
-      </span>
+    <div id="active-filters" class="hidden lg:top-0 lg:py-3 lg:z-10 lg:shadow-sm w-full mb-4 ">
+      <div class="container mx-auto px-4 flex items-center">
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- "Verwijder alles" knop -->
+          <button id="clear-all-filters" class="filter-pill text-gray-700 px-3 py-1 rounded-full text-sm flex items-center gap-1 hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Verwijder alles
+          </button>
+    
+          <!-- Dynamische filters container -->
+          <div id="dynamic-filters" class="flex flex-wrap items-center gap-2">
+            <!-- Hier komen de filter pillen -->
+          </div>
+        </div>
+      </div>
     </div>
+    
 
     <!-- RESULTATEN CARDS -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="cards-container">
@@ -207,11 +298,11 @@
           
           <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 text-center lg:text-left">           
             <div>
-              <h3 class="mb-2 hover:underline">Algemene voorwaarden</h3>
+              <h3 class="mb-2 hover:underline"><a href="./pages/algemeneVoorwaarden.html">Algemene voorwaarden</a></h3>
             </div>
             
             <div>
-              <h3 class="mb-2 hover:underline">Privacy voorwaarden</h3>
+              <h3 class="mb-2 hover:underline"><a href="./pages/privacy.html">Privacy verklaring</a></h3>
             </div>
 
             <div>
@@ -221,6 +312,7 @@
         </div>
       </div>
     </footer>
+    <script src="/src/Scripts/cookies.js"></script>        
     <script src="main.js"></script>
     <script src="/src/Scripts/cardPopup.js"></script>
   </body>

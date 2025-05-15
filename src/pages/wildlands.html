@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticketpage - Landal Wildlands</title>
+
+    <!-- Stylesheets -->
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/main.js" defer></script>
+    <script src="/src/Scripts/carousel.js"></script>
+    <script src="/src/Scripts/ticketPricing.js"></script>
+    <script src="/src/Scripts/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/nl.js"></script>
+
+  </head>
+
+  <body class="bg-achtergrond text-gray-800">
+    <!-- Header -->
+    <header class="bg-wit shadow-md">
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+        <div class="flex items-center gap-6">
+          <div class="relative">
+            <select class="appearance-none bg-wit border border-blauw rounded px-3 py-1 text-blauw focus:outline-none focus:ring-2 focus:ring-oranje cursor-pointer">
+              <option value="nl">🇳🇱 NL</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="fr">🇫🇷 FR</option>
+            </select>
+            <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <!-- <i class="fas fa-chevron-down text-blauw"></i> -->
+            </div>
+          </div>
+          <nav class="flex gap-6">
+            <a href="./ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
+              <i class="fas fa-headset mr-1"></i>Hulp nodig?
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 relative">
+        <!-- Carousel Section -->
+        <section class="w-full flex flex-col gap-8">
+          <div class="carousel relative overflow-hidden h-64 sm:h-96 rounded-xl shadow-lg">
+            <div class="carousel-inner flex transition-transform duration-500 ease-out">
+              <div class="carousel-item flex-none w-full">
+                <img
+                  src="https://images.nrc.nl/G6Y2LAiFb4-c-2ZraHDOIhYafEI=/1280x/filters:no_upscale()/s3/static.nrc.nl/bvhw/files/2023/06/data101741288-bd61f5.jpg"
+                  alt="Image 1"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="carousel-item flex-none w-full">
+                <img
+                  src="https://nl.letsgodigital.org/uploads/2017/10/dierenpark-emmen.jpg"
+                  alt="Image 2"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <!-- Navigatieknoppen -->
+            <button
+              class="prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black/50"
+              aria-label="Vorige slide"
+            >
+            <
+            </button>
+            <button
+              class="next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-black/50"
+              aria-label="Volgende slide"
+            >
+       >
+            </button>
+
+            <!-- Indicatoren -->
+            <div class="indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              <button class="indicator w-3 h-3 bg-white/80 hover:bg-white rounded-full transition focus:outline-none focus:ring-2 focus:ring-black/50" aria-label="Ga naar slide 1"></button>
+              <button class="indicator w-3 h-3 bg-white/80 hover:bg-white rounded-full transition focus:outline-none focus:ring-2 focus:ring-black/50" aria-label="Ga naar slide 2"></button>
+            </div>
+
+            <!-- Teller -->
+            <div class="absolute bottom-4 right-4 px-3 py-1 bg-black/80 text-white text-sm rounded-full backdrop-blur-md"></div>
+              <span id="currentSlide">1</span>/<span id="totalSlides">2</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex flex-col gap-8 lg:grid lg:grid-cols-3 lg:gap-4 w-full lg:mt-6">
+
+          <!-- Ticket Section -->
+          <aside id="ticket-selection" class="lg:sticky relative top-8 right-0 my-8 flex h-fit flex-col gap-6 rounded-xl bg-white p-6 shadow-xl col-span-1 lg:order-2 border border-gray-100 mt-6">
+            <!-- Header met rating -->
+            <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+              <h2 class="text-2xl font-bold text-gray-900" id="activity-title">Wildlands</h2>
+              <div class="flex items-center gap-2 bg-groen/10 px-3 py-1 rounded-full">
+                <a href="#reviews-carousel">
+
+                <i class="fas fa-star text-groen text-sm"></i>
+                <span class="rating font-bold text-gray-700">4,7</span>
+                <span class="text-gray-400">|</span>
+                <span class="reviews text-gray-600 text-sm">12.547 reviews</span>
+              </a>
+              </div>
+            </div>
+          
+            <!-- Ticket selectie -->
+            <div class="space-y-4 flex gap-4 flex-col">
+              <!-- Volwassene -->
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Volwassene">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Volwassene</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€13,50</span>
+                    <span class="price text-blauw font-bold">€12,50</span>
+                  </div>
+                  <div class="text-sm text-gray-400 italic">Geldig t/m 31 januari 2026	</div>
+                </div>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
+                  </button>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
+                  </button>
+                </div>
+              </div>
+            
+              <!-- Kinderen -->
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Kinderen">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Kinderen</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€12,50</span>
+                    <span class="price text-blauw font-bold">€10,00</span>
+                  </div>
+                  <div class="text-sm text-gray-400 italic">Geldig t/m 31 januari 2026	</div>
+                </div>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
+                  </button>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
+                  </button>
+                </div>
+              </div>
+            
+              <!-- Parkeerkaart -->
+              <div class="product flex items-center justify-between hover:bg-gray-50 rounded-lg transition" data-ticket-type="Parkeerkaart">
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900">Parkeerkaart</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="oldPrice text-gray-400 line-through text-sm">€7,95</span>
+                    <span class="price text-blauw font-bold">€7,50</span>
+                  </div>
+                  <div class="text-sm text-gray-400 italic">Geldig t/m 31 januari 2026	</div>
+                </div>
+                <div class="flex items-center gap-1">
+                  <button class="quantity-btn bg-white border-2 border-blauw text-blauw minus w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blauw/10 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blauw/50 transition-all duration-200">
+                    <i class="fas fa-minus text-lg"></i>
+                  </button>
+                  <div class="quantity w-12 text-center font-medium text-gray-900 text-lg ">0</div>
+                  <button class="quantity-btn text-blauw plus w-12 h-12 flex items-center justify-center">
+                    <i class="fas fa-plus text-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Totaalprijs -->
+            <div class="pt-4 border-t border-gray-100">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-medium text-gray-700">Totaalprijs</span>
+                <span id="totalPrice" class="font-bold text-gray-900">€0,00</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-blauw">Uw voordeel</span>
+                <span id="voordeel" class="text-sm text-blauw">€0,00</span>
+              </div>
+            </div>
+          
+            <!-- Bestelknop -->
+            <a href="/src/pages/ConfirmationWildlands.html" class="btnOrange mt-4 w-full bg-oranje hover:bg-oranje/90 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2">
+              Nu bestellen
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          
+         
+          </aside>
+
+          <!-- Information Section -->
+          <section class="flex flex-col gap-8  py-8 col-span-2 lg:order-1">
+
+            <!-- Bestelvoorwaarden -->
+            <div class="flex flex-col gap-4">
+              <div class="text-xl font-bold">Bestelvoorwaarden</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula, nisl non bibendum tincidunt, sapien justo cursus libero, nec tincidunt nunc lorem non urna. Curabitur ac felis nec libero fermentum tincidunt. Integer sit amet arcu non nisi tincidunt vehicula. Fusce a urna at elit vehicula tincidunt. Praesent euismod, sapien non fermentum tincidunt, libero erat vehicula justo, nec tincidunt nunc lorem non urna. Nulla facilisi. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</div>
+            </div>
+
+            <!-- General Info -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Informatie</h2>
+              <p>Ga op ontdekkingstocht in de wereld van de dieren. Spot kleurrijke vogels en bijzondere reptielen in het grootste overdekte regenwoud van de wereld. Klauter via touwbruggen en sta oog in oog met withandgibbons.</p>
+            </div>
+
+            <!-- Location & Opening Times -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Locatie & Openingstijden</h2>
+              <div class="relative isolate"> <!-- 'isolate' creëert een nieuwe stacking context -->
+                <div id="map" class="relative z-0 h-[400px] w-full"></div>
+              </div>
+
+              <address class="not-italic">
+                <div>Stationsstraat</div>
+                <div>5341 AB, Emmen</div>
+                <div>Telefoon: <a href="tel:0611122233" class="text-blauw hover:underline">0611122233</a></div>
+                <div>Website: <a href="#" class="text-blauw hover:underline">Bezoek website</a></div>
+              </address>
+            </div>
+
+            <!-- Reviews -->
+            <div class="flex flex-col gap-4">
+              <h2 class="text-xl font-bold">Reviews</h2>
+              <div class="flex flex-col gap-1">
+                <div>24 reviews</div>
+                <div class="flex items-center justify-between">
+                  <div>Gemiddelde score op Tripadvisor</div>
+                  <div class="flex items-center gap-2">
+                    <span class="rating font-bold">4,7</span>
+                    <div class="flex gap-1">
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-groen"></i>
+                      <i class="fas fa-star text-grijs"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reviews Carousel -->
+              <div class="overflow-x-auto" id="reviews-carousel">
+                <div class="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 py-2">
+                  <!-- Single Review -->
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Geweldige dag</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Het was super leuk met mijn vrienden. De surfers waren heel aardig en hielpen je met alles zoals foto's. Heel creatief!</p>
+                    <time datetime="2025-01-16" class="mt-4 text-sm text-blue-500 italic">16 januari 2025</time>
+                  </div>
+
+                  <!-- Repeat for other reviews -->
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Hele fijne sfeer</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Alles was goed geregeld en het voelde echt ontspannen. Heel chill en gezellig.</p>
+                    <time datetime="2025-01-20" class="mt-4 text-sm text-blue-500 italic">20 januari 2025</time>
+                  </div>
+
+                  <div class="w-72 shrink-0 snap-start rounded-xl border border-gray-200 bg-white p-4 shadow">
+                    <div class="mb-1 text-orange-400">★★★★★</div>
+                    <h3 class="mb-2 text-lg font-bold">Super tof</h3>
+                    <p class="line-clamp-6 text-sm text-gray-700">Echt een topervaring! Lekker creatief bezig en de begeleiding was geweldig. Ik kom zeker nog eens terug.</p>
+                    <time datetime="2025-01-25" class="mt-4 text-sm text-blue-500 italic">25 januari 2025</time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+      <footer class="bg-blauw text-white py-8">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <a href="/src/index.html" class="text-2xl font-bold text-wit">Landal</a>
+              <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 md:gap-8 text-center md:text-left">           
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./algemeneVoorwaarden.html">Algemene voorwaarden</a></h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"> <a href="./privacy.html">Privacy verklaring</a></h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./ticketSupport.html">Ticketsupport</a></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/src/Scripts/map.js"></script>
+  </body>
+</html>

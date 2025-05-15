@@ -27,14 +27,12 @@
             </div>
             <nav class="flex gap-6">
               <a href="./ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
-                  <i class="fas fa-headset mr-1"></i>Ticketsupport
-              </a>
+                <i class="fas fa-headset mr-1"></i>Hulp nodig?
+            </a>
             </nav>
           </div>
         </div>
       </header>
-
-    <!-- Voeg dit toe direct na de header -->
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 mt-8 mb-8">
@@ -53,13 +51,14 @@
 </div>
 
 <div class="relative h-64 overflow-hidden">
-    <img src=" https://www.walibi.nl/adobe/dynamicmedia/deliver/dm-aid--a23df6c2-411d-467b-a069-6c53a8190b1a/attractie-lagranderoue-19.jpg?preferwebp=true&quality=85" 
+    <img src="/src/images/WhatsApp Image 2025-05-13 at 14.05.34.jpeg" 
          alt="Landal vakantiepark" 
          class="w-full h-full object-cover">
 </div>
             <!-- Order Summary -->
             <div class="p-8">
                 <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Besteloverzicht -->
                     <div class="flex-1">
                         <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                             <i class="fas fa-ticket-alt text-blauw mr-3"></i>Besteloverzicht
@@ -76,15 +75,21 @@
                             </div>
                             <div class="flex justify-between border-b border-gray-100 pb-3">
                                 <span class="text-gray-600">Bedrag:</span>
-                                <span class="font-medium text-blauw" id="orderAmount">€87,50</span>
+                                <span class="font-medium" id="orderAmount">€87,50</span>
                             </div>
+                            <div class="flex justify-between border-b border-gray-100 pb-3">
+                                <span class="text-gray-600">Voordeel:</span>
+                                <span class="font-medium text-blauw" id="discountAmount">€87,50</span>
+                            </div>
+
                             <div class="flex justify-between border-b border-gray-100 pb-3">
                                 <span class="text-gray-600">Betaalmethode:</span>
                                 <span class="font-medium" id="paymentMethod">iDEAL</span>
                             </div>
                         </div>
                     </div>
-
+            
+                    <!-- Bezoekdetails -->
                     <div class="flex-1">
                         <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                             <i class="fas fa-calendar-alt text-blauw mr-3"></i>Bezoekdetails
@@ -92,7 +97,7 @@
                         
                         <div class="space-y-4">
                             <div class="flex justify-between border-b border-gray-100 pb-3">
-                                <span class="text-gray-600">Locatie:</span>
+                                <span class="text-gray-600">Gekozen activiteit:</span>
                                 <span class="font-medium" id="activityTitle">Landal GreenParks</span>
                             </div>
                             <div class="flex justify-between border-b border-gray-100 pb-3">
@@ -103,37 +108,46 @@
                                 <span class="text-gray-600">Tijdslot:</span>
                                 <span class="font-medium" id="visitTime">10:00 - 12:00</span>
                             </div>
-                            <div class="flex justify-between border-b border-gray-100 pb-3">
+                            <div class="flex justify-between border-b border-gray-100 ">
                                 <span class="text-gray-600">Aantal tickets:</span>
                                 <span class="font-medium" id="guestCount">4</span>
                             </div>
+                            <div class="flex flex-col border-b border-gray-100 pb-3">
+                                <div class="font-medium" id="orderSummary"></div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
-
-                <!-- Download & Next Steps -->
-                <div class=" bg-blue-50 rounded-lg p-6 mt-8">
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
-                        <i class="fas fa-download text-blauw mr-2"></i>Volgende stappen
-                    </h3>
-                    <p class="text-gray-700 mb-4">U ontvangt de tickets per e-mail. Je kunt ze ook direct downloaden:</p>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="bg-blauw hover:bg-blauw/90 text-white font-medium py-3 px-6 rounded-lg flex items-center transition-colors">
-                            <i class="fas fa-file-pdf mr-2"></i>Download tickets (PDF)
-                        </a>
-                        <a href="#" class="border border-blauw text-blauw hover:bg-blauw/10 font-medium py-3 px-6 rounded-lg flex items-center transition-colors">
-                            <i class="fas fa-envelope mr-2"></i>Tickets opnieuw versturen
-                        </a>
-                        
-                    </div>
-                    
-                    <p class="text-sm text-gray-500 mt-4">
-                        <i class="fas fa-info-circle text-oranje mr-1"></i>Bewaar Uw tickets goed, U heeft ze nodig voor toegang.
-                    </p>
-                </div>
+  
             </div>
+            
         </div>
+
+<!-- Ticket container -->
+<div class="bg-blue-50 rounded-lg p-6 mt-8">
+    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+        <i class="fas fa-download text-blauw mr-2"></i>Volgende stappen
+    </h3>
+    <p class="text-gray-700 mb-4">Je ontvangt de tickets per e-mail. Je kunt ze ook direct downloaden:</p>
+
+    <!-- Laadbalk -->
+    <div id="loadingBarContainer" class="w-full bg-gray-200 rounded-full h-3 overflow-hidden mb-6 relative">
+        <div id="loadingBar" class="bg-blauw h-3 w-0 rounded-full transition-all duration-300 ease-linear"></div>
+    </div>
+
+    <!-- Download knop (verborgen) -->
+    <div id="downloadSection" class="hidden">
+        <a href="#" class="bg-blauw hover:bg-blauw/90 text-white w-fit font-medium py-3 px-6 rounded-lg flex items-center transition-colors">
+            <i class="fas fa-file-pdf mr-2"></i>Download tickets (PDF)
+        </a>
+    </div>
+
+    <p class="text-sm text-gray-500 mt-4">
+        <i class="fas fa-info-circle text-oranje mr-1"></i>Bewaar je tickets goed, je hebt ze nodig voor toegang.
+    </p>
+</div>
+
 
         <!-- Additional Info -->
         <div class="my-8 grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 mt-8">
@@ -143,7 +157,7 @@
                     <i class="fas fa-question-circle"></i>
                 </div>
                 <h3 class="font-bold text-lg mb-2">Vragen?</h3>
-                <p class="text-gray-600 mb-4">Ons team staat voor je klaar bij vragen over je bezoek.</p>
+                <p class="text-gray-600 mb-4">Ons team staat voor je klaar bij vragen over jouw bezoek.</p>
                 <a href="./ticketSupport.html" class="text-blauw hover:text-oranje hover:underline flex items-center">
                     Contact <i class="fas fa-arrow-right ml-2 text-sm"></i>
                 </a>
@@ -156,17 +170,17 @@
         <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0">
-              <a href="./index.html" class="text-2xl font-bold text-wit">Landal</a>
-              <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+                <a href="/src/index.html" class="text-2xl font-bold text-wit">Landal</a>
+                <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
             </div>
             
             <div class="flex flex-col md:flex-row gap-6 md:gap-8 text-center md:text-left">           
               <div>
-                <h3 class="mb-2 hover:underline">Algemene voorwaarden</h3>
+                <h3 class="mb-2 hover:underline"><a href="./algemeneVoorwaarden.html">Algemene voorwaarden</a></h3>
               </div>
               
               <div>
-                <h3 class="mb-2 hover:underline">Privacy voorwaarden</h3>
+                <h3 class="mb-2 hover:underline"> <a href="./privacy.html">Privacy verklaring</a></h3>
               </div>
               
               <div>
@@ -178,6 +192,7 @@
       </footer>
     <script src="/src/Scripts/thankYou.js" defer></script>  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/Scripts/progressBar.js"></script>
 
 </body>
 </html>

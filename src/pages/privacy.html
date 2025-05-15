@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy verklaring</title>
+
+    <!-- Stylesheets -->
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/main.js" defer></script>
+    <script src="/src/Scripts/carousel.js"></script>
+    <script src="/src/Scripts/ticketPricing.js"></script>
+    <script src="/src/Scripts/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/nl.js"></script>
+
+  </head>
+
+  <body class="bg-achtergrond text-gray-800">
+    <!-- Header -->
+    <header class="bg-wit shadow-md">
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <a href="/src/index.html" class="text-2xl font-bold text-blauw">Landal</a>
+        <div class="flex items-center gap-6">
+          <div class="relative">
+            <select class="appearance-none bg-wit border border-blauw rounded px-3 py-1 text-blauw focus:outline-none focus:ring-2 focus:ring-oranje cursor-pointer">
+              <option value="nl">🇳🇱 NL</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="fr">🇫🇷 FR</option>
+            </select>
+            <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              <!-- <i class="fas fa-chevron-down text-blauw"></i> -->
+            </div>
+          </div>
+          <nav class="flex gap-6">
+            <a href="./ticketSupport.html" class="text-blauw hover:text-oranje font-medium hover:underline transition-colors">
+              <i class="fas fa-headset mr-1"></i>Hulp nodig?
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-6 py-8 max-w-4xl">
+      <!-- Hero sectie -->
+      <div class="bg-blauw/10 rounded-xl p-6 md:p-8 mb-8 border-l-4 border-blauw">
+        <h1 class="text-3xl md:text-4xl font-bold text-blauw mb-4">Ticketsplus en jouw privacy</h1>
+        <p class="text-lg text-gray-700">Lees hier hoe wij omgaan met je persoonsgegevens en privacy.</p>
+      </div>
+
+      <!-- Intro sectie -->
+      <div class="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8 hover:shadow-md transition-shadow">
+        <p class="mb-4">
+          In het kader van onze dienstverlening verwerken wij je persoonsgegevens. Wij willen je hierover graag duidelijk en transparant informeren. In dit privacy statement geven wij je antwoord op de belangrijkste vragen over de verwerking van persoonsgegevens door Ticketsplus. Wij vinden het belangrijk dat voor jou duidelijk is hoe wij met jouw persoonsgegevens omgaan, zodat je erop kunt vertrouwen dat jouw gegevens bij ons in goede handen zijn.
+        </p>
+      </div>
+
+      <!-- Secties -->
+      <div class="flex flex-col gap-8">
+        <!-- Begrippen -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Begrippen</h2>
+              <div class="space-y-3 text-gray-700">
+                <ul class="list-disc list-inside space-y-2">
+                  <li><strong>Persoonsgegevens:</strong> gegevens die direct of indirect iets over jou zeggen. Bijvoorbeeld jouw naam en adres, maar ook jouw e-mail.</li>
+                  <li><strong>Verwerken:</strong> alles wat er met persoonsgegevens kan worden gedaan. Bijvoorbeeld het verzamelen, maar ook het opslaan, gebruiken en verwijderen van jouw gegevens uit onze administratie.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contactgegevens -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-oranje text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Contactgegevens</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  De persoonsgegevens worden verwerkt door:<br>
+                  <strong>Ticketsplus B.V.</strong><br>
+                  Monseigneur Hopmansstraat 2<br>
+                  4817 JS, Breda<br>
+                  T: +31 (0)76 5141242<br>
+                  E: info@ticketsplus.nl<br>
+                  I: www.ticketsplus.nl<br>
+                  KvK: 20122443
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Welke persoonsgegevens -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Welke persoonsgegevens verwerken wij?</h2>
+              <div class="space-y-3 text-gray-700">
+                <ul class="list-disc list-inside space-y-2">
+                  <li>NAW-gegevens</li>
+                  <li>E-mail</li>
+                  <li>Telefoonnummer</li>
+                  <li>Adres</li>
+                  <li>Geboortedatum</li>
+                  <li>Nationaliteit</li>
+                  <li>Geslacht</li>
+                  <li>IBAN</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Waarvoor verwerken wij -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-oranje text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Waarvoor verwerken wij jouw persoonsgegevens?</h2>
+              <div class="space-y-3 text-gray-700">
+                <ul class="list-disc list-inside space-y-2">
+                  <li>Het onderhouden van contact</li>
+                  <li>Een goede en efficiënte dienstverlening</li>
+                  <li>Het verrichten van administratieve handelingen</li>
+                  <li>Verbetering van de dienstverlening</li>
+                  <li>Facturering en betaling</li>
+                  <li>Nakoming van wettelijke verplichtingen</li>
+                </ul>
+                <br>
+
+                <p>
+                  Wij verwerken jouw persoonsgegevens op basis van de met jou gesloten of te sluiten overeenkomst van opdracht en zullen jouw gegevens niet voor andere doelen gebruiken.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Met wie delen wij -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Met wie delen wij jouw gegevens?</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  Jouw persoonsgegevens kunnen worden gedeeld met derde partijen. Dit doen wij uiteraard niet zonder goede reden. Voor sommige werkzaamheden schakelen wij namelijk derde partijen in. Denk hierbij aan de levering van het door jou bestelde product.
+                </p>
+                <br>
+
+                <p>
+                  Wij maken alleen gebruik van derde partijen die passende beveiligingsmaatregelen treffen ter bescherming van jouw persoonsgegevens. Zij mogen jouw persoonsgegevens niet gebruiken voor hun eigen marketingactiviteiten. Om dat te borgen, sluiten wij verwerkersovereenkomsten met deze partijen.
+                </p>
+                <br>
+
+                <p>
+                  Ticketsplus verkoopt jouw gegevens niet aan derden en verstrekt deze uitsluitend indien dit nodig is voor de uitvoering van onze overeenkomst met je of om te voldoen aan een wettelijke verplichting. Ticketsplus blijft verantwoordelijk voor deze verwerkingen.
+                </p>
+                <br>
+
+                <p>
+                  Deze derden partijen verwerken persoonsgegevens in opdracht van Ticketsplus voor de voornoemde doeleinden:
+                </p>
+                <br>
+
+                <ul class="list-disc list-inside space-y-2">
+                  <li>Host provider Amazon: Voor een goede online dienstverlening.</li>
+                  <li>Adyen: Voor het verwerken van jouw betalingen.</li>
+                  <li>Google Analytics: Ten behoeve van marketing &amp; management informatie.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Inzien, aanpassen en verwijderen -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-oranje text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Inzien, aanpassen en verwijderen</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  Je hebt het recht om jouw persoonsgegevens in te zien, te corrigeren of te verwijderen. Daarnaast heb je het recht om jouw eventuele toestemming voor de gegevensverwerking in te trekken of bezwaar te maken tegen de verwerking van jouw persoonsgegevens door Ticketsplus en heb je het recht op gegevensoverdraagbaarheid.
+                </p>
+                <br>
+
+                <p>
+                  Dat betekent dat je bij ons een verzoek kunt indienen om de persoonsgegevens die wij van jou hebben in een computerbestand naar je of een andere, door jou genoemde organisatie, te sturen.
+                </p>
+                <br>
+
+                <p>
+                  Je kunt een verzoek sturen naar <a href="mailto:support@ticketsplus.nl" class="text-blauw underline">support@ticketsplus.nl</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hoe lang bewaren wij -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Hoe lang bewaren wij persoonsgegevens?</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  We bewaren jouw gegevens niet langer dan we deze nodig hebben voor de doelen waarvoor we ze hebben verzameld of de doelen waarvoor we deze hergebruiken. We hanteren een bewaarbeleid. Daarin is vastgesteld hoe lang we gegevens bewaren.
+                </p>
+                <br>
+
+                <p>
+                  We kunnen gegevens ook in specifieke situaties langer bewaren dan de door ons vastgestelde bewaartermijn voorschrijft. Bijvoorbeeld als je een klacht hebt ingediend waardoor het nodig is om de onderliggende gegevens langer te bewaren.
+                </p>
+                <br>
+
+                <p>
+                  Als we de gegevens niet langer nodig hebben voor de doelen zoals eerder omschreven, kunnen we de gegevens wel nog bewaren voor archivering, bij juridische procedures of voor historische of wetenschappelijke onderzoek of statistische doeleinden.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hoe beveiligen wij -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-oranje text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Hoe beveiligen wij jouw persoonsgegevens?</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  Ticketsplus heeft privacy hoog in het vaandel staan en neemt het beschermen van jouw gegevens serieus. Ticketsplus heeft passende maatregelen genomen om misbruik, verlies, onbevoegde toegang, ongewenste openbaarmaking en ongeoorloofde wijziging tegen te gaan. Al onze medewerkers hebben getekend voor geheimhouding. En wij zorgen er voor dat alleen die medewerkers jouw persoonsgegevens verwerken die dit vanwege hun functie moeten doen.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Geautomatiseerde besluitvorming -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Geautomatiseerde besluitvorming</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  Ticketsplus neemt niet op basis van geautomatiseerde verwerkingen besluiten over zaken die (aanzienlijke) gevolgen kunnen hebben voor personen. Het gaat hier om besluiten die worden genomen door computerprogramma's of -systemen, zonder dat daar een mens tussen zit.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Wijziging privacy statement -->
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4">
+            <div class="bg-oranje text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-4 text-blauw">Wijziging privacy statement</h2>
+              <div class="space-y-3 text-gray-700">
+                <p>
+                  We kunnen dit Privacy &amp; Cookiereglement aanpassen. Dat doen we bijvoorbeeld als de wet of ons beleid wijzigt. Wij raden je daarom aan de Privacy Statement regelmatig opnieuw te bekijken bij een bezoek aan onze website. Je treft een link naar de meest actuele versie van ons Privacy Statement onderaan onze website aan. De laatste wijziging was op 01-01-2023.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-sm p-6 md:p-8 hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="bg-blauw text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+              </div>
+              <div>
+                <h2 class="text-2xl font-semibold mb-4 text-blauw">Cookies</h2>
+                <div class="space-y-3 text-gray-700">
+                  <p>
+                    Op de website worden cookies gebruikt om de online dienstverlening te verbeteren. Via cookies worden jouw IP-adres en de systeeminformatie van jouw apparaat verwerkt. Een cookie is een klein tekstbestand die met de pagina’s van een website wordt meegestuurd en door de browser op jouw computer, tablet of mobiele telefoon wordt opgeslagen.
+                </p>
+                <br>
+                  <p>
+                    We gebruiken cookies om je meer service te bieden bij het bezoeken van onze website, die daardoor makkelijker worden in gebruik. Cookies zorgen er bijvoorbeeld voor dat je ingelogd kan blijven op een website of dat jouw voorkeuren, zoals locatie- en taalinstellingen, worden onthouden. We kunnen dankzij cookies zien hoe vaak onze websites - en welke pagina’s - door bezoekers worden bekeken.
+                </p>
+                <br>
+                  <p>
+                    Voor het plaatsen van bepaalde cookies moet je eerst toestemming geven, voordat deze cookies mogen worden gebruikt. Deze toestemming is niet nodig indien en voor zover het technisch noodzakelijke (functionele) cookies en analytische cookies betreft, in de zin van de toepasselijke wetgeving, zoals artikel 11.7a lid 3 Telecommunicatiewet en de ePrivacy Verordening.                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+      </div>
+    </main>
+      
+    <footer class="bg-blauw text-white py-8">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <a href="/src/index.html" class="text-2xl font-bold text-wit">Landal</a>
+              <p class="mt-2 text-sm">© 2025 Landal. Alle rechten voorbehouden.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 md:gap-8 text-center md:text-left">           
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./algemeneVoorwaarden.html">Algemene voorwaarden</a></h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"> <a href="./privacy.html">Privacy verklaring</a></h3>
+              </div>
+              
+              <div>
+                <h3 class="mb-2 hover:underline"><a href="./ticketSupport.html">Ticketsupport</a></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+  </body>
+</html>

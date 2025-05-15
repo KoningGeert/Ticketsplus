@@ -12,6 +12,7 @@ $(function() {
     const $dateInput = $("#date-input");
     const $todayBtn = $('.today-btn');
     const $tomorrowBtn = $('.tomorrow-btn');
+    const $nextButton = $('#next-button'); // Knop om door te gaan
   
     // Initialisatie
     init();
@@ -22,32 +23,53 @@ $(function() {
         initFlatpickr();
         generateTimeSlots();
         updateTotals();
+        checkFormCompletion(); // Controleer direct bij init
     }
   
     function setupEventHandlers() {
-      // Plus/min buttons
-      $('.plus').on('click', handlePlusClick);
-      $('.minus').on('click', handleMinusClick);
-      
-      // Modal handlers
-      $('#open-date-modal, #open-time-modal').on('click', handleModalOpen);
-      $(document).on('click', handleModalClose);
-      $modalContent.on('click', stopPropagation);
-      
-      // Timeslot selection
-      $timeslotList.on('click', 'li', handleTimeslotSelect);
-      
-      // Vandaag/Morgen buttons
-      $todayBtn.on('click', handleTodayClick);
-      $tomorrowBtn.on('click', handleTomorrowClick);
-      
-      // Doorgaan knop
-      $confirmBtn.on('click', handleConfirmClick);
+        // Plus/min buttons
+        $('.plus').on('click', handlePlusClick);
+        $('.minus').on('click', handleMinusClick);
+        
+        // Modal handlers
+        $('#open-date-modal, #open-time-modal').on('click', handleModalOpen);
+        $(document).on('click', handleModalClose);
+        $modalContent.on('click', stopPropagation);
+        
+        // Timeslot selection
+        $timeslotList.on('click', 'li', handleTimeslotSelect);
+        
+        // Vandaag/Morgen buttons
+        $todayBtn.on('click', handleTodayClick);
+        $tomorrowBtn.on('click', handleTomorrowClick);
+        
+        // Doorgaan knop
+        $confirmBtn.on('click', handleConfirmClick);
+        
+        // Wijzigingen in datum/tijd
+        $dateInput.on('change', checkFormCompletion);
+        $timeslotList.on('click', 'li', checkFormCompletion);
+      }
+
+      function checkFormCompletion() {
+        // Controleer of zowel datum als tijdslot geselecteerd zijn
+        const isDateSelected = $dateDisplay.text().trim() !== 'Kies een datum';
+        const isTimeSelected = $timeDisplay.text().trim() !== 'Kies een tijd';
+        
+        if (isDateSelected && isTimeSelected) {
+            $nextButton.prop('disabled', false)
+                      .removeClass('bg-gray-400 cursor-not-allowed')
+                      .addClass('bg-oranje hover:bg-blauw cursor-pointer');
+        } else {
+            $nextButton.prop('disabled', true)
+                      .removeClass('bg-oranje hover:bg-blauw')
+                      .addClass('bg-gray-400 cursor-not-allowed');
+        }
     }
     
     function saveOrderToStorage() {
         const bestelling = {
-            activityTitle: $('#activity-title').text().trim(), // Opslaan huidige h1 tekst
+            activityTitle: $('#activity-title').text().trim(),
             date: $dateDisplay.text(),
             time: $timeDisplay.text(),
             items: [],
@@ -69,6 +91,7 @@ $(function() {
         });
     
         localStorage.setItem('bestelling', JSON.stringify(bestelling));
+        checkFormCompletion(); // Controleer bij elke opslag
     }
 
     function loadSavedOrder() {
