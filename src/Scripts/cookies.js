@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const cookieBanner = document.getElementById('cookie-banner');
-  const acceptCookies = document.getElementById('accept-cookies');
-  const declineCookies = document.getElementById('decline-cookies');
-  const body = document.body;
+$(document).ready(function () {
+  const $cookieBanner = $('#cookie-banner');
+  const $acceptCookies = $('#accept-cookies');
+  const $declineCookies = $('#decline-cookies');
+  const $body = $('body');
 
   function setCookie(name, value, days) {
     const date = new Date();
@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function hideCookieBanner() {
-    body.classList.remove('cookie-banner-active');
+    $body.removeClass('cookie-banner-active');
     setTimeout(() => {
-      cookieBanner.style.display = 'none';
+      $cookieBanner.hide();
       console.log('Cookiebanner verborgen');
     }, 300);
   }
@@ -71,19 +71,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const consent = getCookie('cookieConsent');
   if (!consent) {
     console.log('Geen cookieConsent gevonden, banner tonen.');
-    body.classList.add('cookie-banner-active');
-    cookieBanner.style.display = 'block'; // zeker weten dat hij zichtbaar is
+    $body.addClass('cookie-banner-active');
+    $cookieBanner.show();
   }
 
   // Gebruiker accepteert cookies
-  acceptCookies.addEventListener('click', function () {
+  $acceptCookies.on('click', function () {
     setCookie('cookieConsent', 'true', 365);
     hideCookieBanner();
     requestUserLocation();
   });
 
   // Gebruiker weigert cookies
-  declineCookies.addEventListener('click', function () {
+  $declineCookies.on('click', function () {
     setCookie('cookieConsent', 'false', 365);
     hideCookieBanner();
     console.log('Gebruiker heeft cookies geweigerd.');

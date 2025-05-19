@@ -56,7 +56,7 @@ $(document).ready(function () {
   }
 
   function loadActivities() {
-    $.getJSON('cards.json', function (data) {
+    $.getJSON('/src/data/cards.json', function (data) {
       console.log('Loaded data:', data);
       activities = data.map(item => ({
         headline: item.headline,
@@ -164,47 +164,48 @@ $(document).ready(function () {
 
   function createCards(data) {
     const allCards = data.map(item => {
-      const $card = $('#card-template').clone().removeAttr('id').removeClass('hidden');
-      console.log('Creating card for:', item); // Controleer de kaartgegevens
-  
-      $card.find('.card-image').attr('src', item.image);
-      $card.find('.rating').text(item.rating);
-      $card.find('.reviews').text(`${item.reviews} reviews`);
-      $card.find('.headline').text(item.headline);
-      $card.find('.location').text(item.location);
-      $card.find('.description').text(item.description);
-      $card.attr('data-category', item.category.toLowerCase());
-      $card.attr('data-lat', item.lat);
-      $card.attr('data-lng', item.lng);
-      $card.attr('data-keywords', item.keywords ? item.keywords.join(',') : '');
-      $card.attr('data-priority', item.priority);
-      $card.attr('data-price', item.price);
-      $card.attr('data-price-category', item.price_category);
+        const $card = $('#card-template').clone().removeAttr('id').removeClass('hidden');
+        
+        // Sla de volledige item data op in de card
+        $card.data('card-data', item);
+        
+        // Vul de standaard velden in
+        $card.find('.card-image').attr('src', item.image);
+        $card.find('.rating').text(item.rating);
+        $card.find('.reviews').text(`${item.reviews} reviews`);
+        $card.find('.headline').text(item.headline);
+        $card.find('.location').text(item.location);
+        $card.find('.description-text').text(item.description);        $card.attr('data-category', item.category.toLowerCase());
+        $card.attr('data-lat', item.lat);
+        $card.attr('data-lng', item.lng);
+        $card.attr('data-keywords', item.keywords ? item.keywords.join(',') : '');
+        $card.attr('data-priority', item.priority);
+        $card.attr('data-price', item.price);
+        $card.attr('data-price-category', item.price_category);
 
-      if (item.discount && item.discount.trim() !== '') {
-        $card.find('.discount').text(item.discount);
-      } else {
-        $card.find('.discount').closest('.relative').hide(); // Verberg de hele badge-container
-      }
-      
-  
-      if (item.countryCode) {
-        const flagUrl = `https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png`;
-        $card.find('.flag-icon').attr('src', flagUrl).attr('alt', item.countryCode);
-      }
+        if (item.discount && item.discount.trim() !== '') {
+            $card.find('.discount').text(item.discount);
+        } else {
+            $card.find('.discount').closest('.relative').hide();
+        }
+        
+        if (item.countryCode) {
+            const flagUrl = `https://flagcdn.com/w40/${item.countryCode.toLowerCase()}.png`;
+            $card.find('.flag-icon').attr('src', flagUrl).attr('alt', item.countryCode);
+        }
 
-      $card.addClass('card');
-      $('#cards-container').append($card);
-  
-      return {
-        element: $card,
-        rating: item.rating,
-        priority: item.priority
-      };
+        $card.addClass('card');
+        $('#cards-container').append($card);
+
+        return {
+            element: $card,
+            rating: item.rating,
+            priority: item.priority
+        };
     });
-  
-    applyFilters(); // Zorg dat filters worden toegepast
-  }  
+
+    applyFilters();
+}
 
   function applyFilters() {
     const searchTerm = $('#search-input').val().toLowerCase();

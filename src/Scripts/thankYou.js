@@ -16,10 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Vul de totaalprijs in
         document.getElementById('orderAmount').textContent = bestelling.totaalprijs;
-
         document.getElementById('discountAmount').textContent = bestelling.voordeel;
         
-        // Genereer een ordernummer (voorbeeld)
+        // Genereer een ordernummer
         const orderNumber = 'LD' + new Date().getTime().toString().substr(-6);
         document.getElementById('orderNumber').textContent = orderNumber;
         
@@ -28,31 +27,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const options = { day: 'numeric', month: 'long', year: 'numeric' };
         document.getElementById('orderDate').textContent = today.toLocaleDateString('nl-NL', options);
         
-        const orderSummarySection = document.getElementById('orderSummary');
-        orderSummarySection.innerHTML = ''; // voorkom dubbele weergave
+        const orderSummaryContainer = document.getElementById('orderSummaryContainer');
+        if (!orderSummaryContainer) {
+            console.error('Element met ID "orderSummaryContainer" niet gevonden!');
+            return;
+        }
         
-        const orderItemsContainer = document.createElement('div');
-        orderItemsContainer.className = 'mt-6 border-t border-gray-200 pt-4';
-        orderItemsContainer.innerHTML = '<h3 class="font-medium text-gray-600 mb-3">Samenstelling van je bestelling</h3>';
-        
-        const itemsList = document.createElement('ul');
-        itemsList.className = 'space-y-2';
+        orderSummaryContainer.innerHTML = '<h3 class="text-gray-600 mb-3">Samenstelling van je bestelling</h3>';
         
         bestelling.items.forEach(item => {
             if (item.quantity > 0) {
-                const listItem = document.createElement('li');
-                listItem.className = 'flex justify-between';
-                listItem.innerHTML = `
-                    <span class="text-gray-600">${item.quantity} × ${item.type}</span>
-                    <span class="text-gray-600">${item.price}</span>
+                orderSummaryContainer.innerHTML += `
+                    <div class="flex justify-between py-1">
+                        <span class="text-gray-600">${item.quantity} × ${item.type}</span>
+                        <span class="text-gray-600">${item.price}</span>
+                    </div>
                 `;
-                itemsList.appendChild(listItem);
             }
         });
-        
-        orderItemsContainer.appendChild(itemsList);
-        orderSummarySection.appendChild(orderItemsContainer);
-        
-        
     }
 });

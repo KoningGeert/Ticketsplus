@@ -9,15 +9,27 @@ $(document).ready(function () {
     $(".bestelling-datum").text("Bezoekdatum: " + bestelling.date);
     $(".bestelling-tijd").text("Tijdslot: " + bestelling.time);
 
-    // Lijst met tickets genereren (met prijs per ticket)
+    // Lijst met tickets genereren (met totaalprijs per type)
     let listItems = "";
     bestelling.items.forEach(item => {
-      // Toon de prijs direct zoals die in de localStorage staat (met € teken)
-      listItems += `<div class="flex justify-between w-full"><li>${item.quantity} × ${item.type} </li><span class="float-right">${item.price}</span></div>`;
+      if (item.quantity > 0) {
+        // Bereken totaalprijs voor dit tickettype
+        const priceValue = parseFloat(item.price.replace('€', '').replace(',', '.'));
+        const totalPrice = (item.quantity * priceValue).toFixed(2);
+        // Formatteer naar €X,XX
+        const formattedPrice = '€' + totalPrice.replace('.', ',');
+        
+        listItems += `
+          <div class="flex justify-between w-full py-1 border-b border-gray-100">
+            <span>${item.quantity} × ${item.type}</span>
+            <span class="font-medium">${formattedPrice}</span>
+          </div>
+        `;
+      }
     });
     $(".bestelling-lijst").html(listItems);
 
-    // Prijs en voordeel tonen (direct zoals in localStorage)
+    // Totaalprijs en voordeel tonen
     $(".bestelling-prijs").text(bestelling.totaalprijs);
     $(".bestelling-voordeel").text(bestelling.voordeel);
   } else {
@@ -25,15 +37,13 @@ $(document).ready(function () {
   }
 
   console.log("Bestelling in localStorage:", bestellingStr);
+  
   $(".bewerk-knop").on("click", function() {
-    // Sla de huidige scrollpositie op voor een betere UX
     localStorage.setItem("scrollPosition", window.pageYOffset);
-    
-    // Navigeer terug naar de ticketpagina
     window.location.href = "/src/pages/ticketpage.html";
   });
 
-  // Optioneel: Scroll naar vorige positie bij terugkeren
+  // Scroll naar vorige positie bij terugkeren
   const savedPosition = localStorage.getItem("scrollPosition");
   if (savedPosition) {
       window.scrollTo(0, parseInt(savedPosition));

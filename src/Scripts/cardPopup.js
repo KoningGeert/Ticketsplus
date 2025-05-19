@@ -1,27 +1,24 @@
-// Pas dit aan in je cardPopup.js of main.js
+// Toggle info balk wanneer op info-knop wordt geklikt
 $(document).on('click', '.show-overlay', function(e) {
-    e.stopPropagation(); // Voorkom event bubbling
+    e.stopPropagation();
+    const $card = $(this).closest('.w-full.border');
+    const $infoBalk = $card.find('.info-balk');
     
-    // Zoek de dichtstbijzijnde parent card (gebruik de juiste class)
-    const $card = $(this).closest('.w-full.border'); // Pas dit aan naar je card container class
+    // Toggle de balk voor deze specifieke card
+    $infoBalk.toggleClass('hidden');
     
-    if ($card.length) {
-        const $overlay = $card.find('.info-overlay');
-        
-        // Sluit alle andere overlays eerst
-        $('.info-overlay').not($overlay).addClass('hidden');
-        
-        // Toggle de huidige overlay
-        $overlay.toggleClass('hidden');
-        console.log('Overlay toggled for:', $card.find('.headline').text());
-    } else {
-        console.error('Card container niet gevonden');
-    }
+    // Bereken hoogte op basis van tekstlengte
+    const textHeight = $infoBalk.find('.description-text').outerHeight();
+    const maxHeight = Math.min(textHeight + 20, 150); // Max 150px hoog
+    $infoBalk.css('max-height', maxHeight + 'px');
+    
+    // Verberg alle andere balken
+    $('.info-balk').not($infoBalk).addClass('hidden');
 });
 
-// Sluit overlay wanneer er buiten wordt geklikt
+// Sluit info balk wanneer er buiten wordt geklikt
 $(document).on('click', function(e) {
-    if (!$(e.target).closest('.info-overlay, .show-overlay').length) {
-        $('.info-overlay').addClass('hidden');
+    if (!$(e.target).closest('.info-balk, .show-overlay').length) {
+        $('.info-balk').addClass('hidden');
     }
 });
