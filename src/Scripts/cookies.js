@@ -89,3 +89,4 @@ $(document).ready(function () {
     console.log('Gebruiker heeft cookies geweigerd.');
   });
 });
+

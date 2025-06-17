@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+  $('#toggle-filters').on('click', function () {
+    $('#filter-panel').toggleClass('hidden');
+  });
+  
   function setCookie(name, value, days) {
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
     document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';

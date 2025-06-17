@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betaalmethoden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-achtergrond min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-2xl">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Kies uw betaalmethode</h1>
+            
+            <form class="space-y-4">
+                <!-- PayPal -->
+                <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blauw transition cursor-pointer">
+                    <input id="paypal" name="payment" type="radio" class="h-5 w-5 text-blue-600 focus:ring-blue-500">
+                    <label for="paypal" class="ml-3 flex items-center">
+                        <div class="border border-gray-200 rounded-md p-2 bg-gray-50 w-12 h-12 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 object-contain">
+                        </div>
+                        <span class="ml-3 text-gray-700">PayPal</span>
+                    </label>
+                </div>
+                
+                <!-- iDEAL -->
+                <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blauw transition cursor-pointer">
+                    <input id="ideal" name="payment" type="radio" class="h-5 w-5 text-blue-600 focus:ring-blue-500">
+                    <label for="ideal" class="ml-3 flex items-center">
+                        <div class="border border-gray-200 rounded-md p-2 bg-gray-50 w-12 h-12 flex items-center justify-center">
+                            <img src="https://www.cardgate.com/wp-content/uploads/iDEAL-302x266.png" alt="iDEAL" class="h-6 object-contain">
+                        </div>
+                        <span class="ml-3 text-gray-700">iDEAL</span>
+                    </label>
+                </div>
+                
+                <!-- Credit Card -->
+                <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blauw transition cursor-pointer">
+                    <input id="creditcard" name="payment" type="radio" class="h-5 w-5 text-blue-600 focus:ring-blue-500">
+                    <label for="creditcard" class="ml-3 flex items-center">
+                        <div class="border border-gray-200 rounded-md p-2 bg-gray-50 w-12 h-12 flex items-center justify-center">
+                            <div class="flex space-x-1">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-4 object-contain">
+                            </div>
+                        </div>
+                        <span class="ml-3 text-gray-700">Credit Card</span>
+                    </label>
+                </div>
+                
+                <!-- Apple Pay -->
+                <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blauw transition cursor-pointer">
+                    <input id="applepay" name="payment" type="radio" class="h-5 w-5 text-blue-600 focus:ring-blue-500">
+                    <label for="applepay" class="ml-3 flex items-center">
+                        <div class="border border-gray-200 rounded-md p-2 bg-gray-50 w-12 h-12 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png" alt="Apple Pay" class="h-6 object-contain">
+                        </div>
+                        <span class="ml-3 text-gray-700">Apple Pay</span>
+                    </label>
+                </div>
+                
+                <!-- Betaal knop -->
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200">
+                        Doorgaan naar betaling
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <p class="text-sm text-gray-500">
+                    <i class="fas fa-lock mr-1"></i> Je gegevens worden versleuteld verwerkt.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
